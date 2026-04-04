@@ -33,12 +33,12 @@ The visitor experiences the space through **deliberate camera choreography** tha
 ### 1. Loading Scene
 **When**: First load, before anything else
 **Duration**: As brief as technically necessary
-**Transition Out**: Fade to opening desk scene
+**Transition Out**: Transition to opening desk scene (exact choreography deferred to storyboard phase)
 
 ### 2. Opening Desk Scene
 **When**: Initial view after loading completes
 **Duration**: Until user scrolls
-**Transition Out**: Camera moves toward selected monitor on scroll
+**Transition Out**: Camera moves toward the center monitor on scroll
 
 ### 3. Identity Hero Scene (Inside Monitor)
 **When**: After camera enters the monitor
@@ -57,7 +57,7 @@ The visitor experiences the space through **deliberate camera choreography** tha
 
 ### 6. Recommendations Scene (Message System)
 **When**: After leaving Projects area
-**Duration**: User-controlled interaction with recommendations
+**Duration**: User-controlled scroll-led review of recommendations
 **Transition Out**: Camera moves toward CTA area on scroll
 
 ### 7. Call-to-Action Scene (Workspace Integration)
@@ -111,20 +111,21 @@ The **logo** itself is the anchor - representing the designer's identity before 
 #### Purpose
 - Introduce the designer's workspace world
 - Establish spatial understanding of the room
-- Show 3-4 monitors as focal points
+- Show **3 monitors** with the **center monitor as the focal portal point**
 - Create calm, premium first impression
 - Invite exploration through visual interest
 
 #### What Is Visible
 - Wide view of designer's desk from natural viewing angle
-- 3-4 monitors arranged in believable workspace configuration
+- **3 monitors** arranged in believable workspace configuration
+- **Center monitor** is the portal that will lead into the Identity Hero scene
 - Desk surface (minimal, professional)
 - Workspace context: lighting, surfaces, depth
 - Calm, intentional composition
-- Possible subtle environmental details (keyboard, mouse, lamp, tools)
+- Restrained environmental details (keyboard, mouse) - no extra desk clutter yet
 
 #### Narrative Anchor
-The **desk with multiple monitors** establishes "this is a designer's command center" - a professional creative workspace.
+The **desk with 3 monitors** establishes "this is a designer's command center" - a professional creative workspace. The **center monitor** serves as the portal into the designer's identity and message.
 
 #### What Remains Minimal
 - No text or messaging yet (pure visual introduction)
@@ -144,8 +145,9 @@ The **desk with multiple monitors** establishes "this is a designer's command ce
 #### Notes
 - This is the **world establishment shot** - first impression of the space
 - Should feel like walking into a real designer's office
-- Calm music (if approved and user-initiated) may begin here
+- Calm music (if approved and user-initiated via visible control) may begin here after explicit user interaction
 - User controls when to proceed via scroll
+- Camera will move toward the **center monitor** on scroll
 
 ---
 
@@ -158,13 +160,15 @@ The **desk with multiple monitors** establishes "this is a designer's command ce
 - Continue workspace narrative (we're "inside" the monitor content)
 
 #### What Is Visible
-- Transition: camera has moved toward and "entered" one of the monitors
-- Primary message: "Understanding your users, designing your success."
-- Supporting message: "Powered by AI-driven insight, product thinking, and user-centered design."
-- Designer role: UX/UI & Product Designer
+- Transition: camera has moved toward and "entered" the **center monitor**
+- **Personal logo** (designer's mark)
+- **Personal name**
+- **Role**: UX/UI & Product Designer
+- **Primary headline**: "Understanding your users, designing your success."
+- **Supporting line**: "Powered by AI-driven insight, product thinking, and user-centered design."
 - Premium typography, editorial composition
 - Monochrome/grayscale treatment
-- Possible subtle workspace context at edges (we're still in the room, viewing monitor content)
+- Subtle workspace context at edges (we're still in the room, viewing monitor content)
 
 #### Narrative Anchor
 The **monitor content** becomes the narrative anchor - we've zoomed into the designer's primary display to read their message.
@@ -186,8 +190,9 @@ The **monitor content** becomes the narrative anchor - we've zoomed into the des
 #### Notes
 - This is the **message delivery moment**
 - Replaces the previous single-monitor split hero concept
-- Context: we are viewing the content of one selected monitor from the desk scene
+- Context: we are viewing the content of the **center monitor** from the desk scene
 - User scroll controls when we exit back to the room
+- All five identity elements must be present: logo, name, role, primary headline, supporting line
 
 ---
 
@@ -200,8 +205,8 @@ The **monitor content** becomes the narrative anchor - we've zoomed into the des
 - Build trust and connection
 
 #### What Is Visible
-- Camera has moved to focus on a framed portrait on the wall
-- The portrait: professional, premium, monochrome
+- Camera has moved to focus on a **monochrome framed portrait photo** on the wall
+- The portrait: professional, premium, monochrome photograph
 - "About Me" content presented in relation to the portrait
 - Workspace context remains (we're still in the same room)
 - Wall texture, frame details, lighting on portrait
@@ -226,7 +231,7 @@ The **framed portrait on the wall** grounds the About Me section in the physical
 #### Notes
 - This is the **personal connection moment**
 - Camera movement from monitor to wall portrait reinforces we're in one coherent room
-- Portrait could be illustration, photo, or stylized treatment (monochrome)
+- Portrait is a **monochrome photograph** (not illustration or stylized treatment)
 - Content should be authentic, warm, professional
 
 ---
@@ -240,14 +245,14 @@ The **framed portrait on the wall** grounds the About Me section in the physical
 - Provide depth of portfolio without overwhelming
 
 #### What Is Visible
-- Camera has moved toward a cabinet, shelf, or archive area in the room
-- Physical storage metaphor: drawers, folders, shelves, boxes
+- Camera has moved toward an **archive cabinet** in the room
+- Physical storage metaphor: **archive cabinet with drawers/folders**
 - Projects presented as "archived work" in this storage system
 - Each project: title, brief description, preview
 - Workspace context: this is the designer's project archive area
 
 #### Narrative Anchor
-The **cabinet/archive** serves as the physical metaphor for "this is where the work lives" - a designer's organized project storage.
+The **archive cabinet** serves as the physical metaphor for "this is where the work lives" - a designer's organized project storage.
 
 #### What Remains Minimal
 - Selective projects (quality over quantity)
@@ -266,7 +271,7 @@ The **cabinet/archive** serves as the physical metaphor for "this is where the w
 #### Notes
 - This is the **work showcase moment**
 - Must feel integrated into the workspace, not a separate "portfolio section"
-- Consider: drawers that open, folders that reveal, shelves that present
+- Archive cabinet with drawers/folders as the interaction model
 - Projects displayed in monochrome/grayscale
 - May include case study links or modals (future phases)
 
@@ -281,14 +286,13 @@ The **cabinet/archive** serves as the physical metaphor for "this is where the w
 - Build credibility
 
 #### What Is Visible
-- Camera has moved toward a creative message display system
-- Options: sticky notes on wall, pinned notes on board, messages in mailbox, notes on desk
-- Testimonials/recommendations presented as "messages from colleagues/clients"
-- Handwritten feel possible (within monochrome aesthetic)
-- Workspace context: this is where the designer keeps encouraging messages
+- Camera has moved toward a **pinned message board** on the wall
+- Testimonials/recommendations presented as **pinned notes on a message board**
+- Monochrome presentation with handwritten-style notes
+- Workspace context: this is where the designer keeps encouraging messages from colleagues/clients
 
 #### Narrative Anchor
-The **message system** (sticky notes, mailbox, board, etc.) grounds recommendations in a physical, believable workspace element.
+The **pinned message board** grounds recommendations in a physical, believable workspace element - a place where encouraging notes are visibly displayed.
 
 #### What Remains Minimal
 - Curated testimonials (quality over quantity)
@@ -298,7 +302,7 @@ The **message system** (sticky notes, mailbox, board, etc.) grounds recommendati
 - Not overly promotional
 
 #### What Must NOT Be Implemented Yet
-- Message system object design (sticky notes vs mailbox vs board)
+- Message board object design and note presentation
 - Recommendation content curation
 - Interaction pattern (if interactive)
 - Layout and presentation details
@@ -306,9 +310,8 @@ The **message system** (sticky notes, mailbox, board, etc.) grounds recommendati
 
 #### Notes
 - This is the **social proof moment**
-- Choose ONE message system metaphor (don't mix sticky notes AND mailbox)
+- **Pinned message board** is the chosen metaphor for this scene
 - Should feel personal and authentic, not corporate
-- Consider: sticky notes on wall, pinboard with notes, open mailbox with letters, desk drawer with cards
 - Monochrome treatment maintains visual coherence
 
 ---
@@ -323,13 +326,12 @@ The **message system** (sticky notes, mailbox, board, etc.) grounds recommendati
 
 #### What Is Visible
 - Camera has reached final area of the workspace
-- CTA integrated into a workspace object
-- Options: business cards on desk, contact info on screen, note with email, phone on desk
+- CTA presented as a **premium contact card or note object** on the desk
 - Clear, simple call-to-action
 - Workspace context: the final invitation happens in the designer's space
 
 #### Narrative Anchor
-The **workspace object** containing contact information (business card, note, screen, phone) grounds the CTA in physical reality.
+The **premium contact card or note object** containing contact information grounds the CTA in physical reality - a tangible invitation to connect.
 
 #### What Remains Minimal
 - One clear CTA (don't offer 10 ways to connect)
@@ -348,7 +350,7 @@ The **workspace object** containing contact information (business card, note, sc
 #### Notes
 - This is the **conversion moment**
 - Must feel natural, not forced
-- Consider: business card with email/LinkedIn, monitor showing contact form, note saying "let's talk"
+- **Premium contact card or note** is the chosen object for this scene
 - Should conclude the spatial journey - we've toured the whole workspace
 - User should feel they've experienced a complete, cohesive story
 
@@ -472,15 +474,16 @@ The room must make **physical sense**:
 ---
 
 #### Step 3: Transition Storyboard Specification
-- Define camera movements between scenes
-- Specify timing, easing, and choreography concepts
-- Document scroll-to-camera-movement mapping
+- Define camera movement concepts between scenes
+- Specify general timing and choreography principles
+- Document scroll-to-camera-movement mapping approach
 - Define transition principles (smooth, motivated, calm)
 - Plan user control and accessibility considerations
+- Keep implementation details flexible for storyboard phase
 
-**Deliverable**: TRANSITIONS_STORYBOARD.md (document describing transitions)
+**Deliverable**: TRANSITIONS_STORYBOARD.md (document describing transition concepts)
 
-**Constraints**: Still Phase 0 (planning), not implementation
+**Constraints**: Still Phase 0 (planning), not implementation; detailed choreography deferred to storyboard phase
 
 ---
 
@@ -539,25 +542,21 @@ The vision includes **calm music as part of the atmosphere** - reinforcing the p
 - Music CANNOT start on scroll without user gesture
 - Music requires a user-initiated action: click, tap, keyboard input
 
-### Design Implications
+### Design Implementation
 
-#### Option 1: Explicit Music Control (Recommended)
-- Provide a visible, accessible music toggle control
-- "Play Music" button or icon in a fixed position
-- User chooses to enable music
+**Music Control (Locked Decision)**:
+- Provide a **visible, accessible music toggle control** (button or icon)
+- Fixed position, always accessible
+- User **must explicitly click/tap the control** to enable music
+- **Default state: music off** (no audio on page load)
 - Visible mute/unmute control always available
-- Default state: music off
+- Music may begin after user clicks the control in the Opening Desk Scene
 
-#### Option 2: Interaction-Triggered Music
-- Music begins after first user interaction (scroll, click, etc.)
-- Show permission request or subtle prompt
-- Provide immediate mute/pause control
-- Respect user's choice to decline
-
-#### What Is NOT Possible
+### What Is NOT Possible
 - ❌ Music auto-plays on page load (browser will block)
-- ❌ Music fades in as user enters (without prior interaction)
+- ❌ Music fades in as user scrolls (without prior click/tap interaction)
 - ❌ Music is "just there" without user control
+- ❌ Scroll alone unlocks music
 
 ### Audio Requirements
 
