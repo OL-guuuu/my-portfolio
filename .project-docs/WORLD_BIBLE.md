@@ -144,6 +144,35 @@ The designer is a **UX/UI & Product Designer** who blends AI-driven insight, pro
 
 ---
 
+## Creative Reference
+
+### Lusion (https://lusion.co/)
+
+**Lusion is a reference for:**
+- Quality bar and premium execution
+- Atmospheric depth and mood
+- Restraint and intentionality
+- Cinematic pacing and storytelling
+- Premium editorial digital experience
+
+**Lusion is NOT a reference for:**
+- Direct cloning or copying
+- Layout duplication
+- Interaction patterns to copy
+- Specific sections or components
+- 3D/WebGL behavior to replicate
+- Visual effects to mimic
+- Changing our project world
+
+**Critical Understanding:**
+- Lusion demonstrates the **quality level** we aspire to
+- Our project world remains: **a singular designer's office/workspace**
+- We study Lusion for **mood, restraint, and premium feel**
+- We do NOT copy Lusion's specific implementations
+- Our work must be **original and rooted in our workspace concept**
+
+---
+
 ## Governance
 
 This document is the **source of truth** for world coherence.

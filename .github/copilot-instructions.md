@@ -216,6 +216,34 @@ If you're unsure whether a suggestion aligns with project rules:
 
 ---
 
+## Creative Reference
+
+### Lusion (https://lusion.co/)
+
+**Use Lusion as a reference for:**
+- Quality standards and premium execution
+- Atmospheric depth and mood
+- Restraint and intentionality
+- Cinematic pacing
+- Premium editorial digital experience
+
+**NEVER use Lusion for:**
+- Direct copying or cloning
+- Layout duplication
+- Interaction patterns to replicate
+- Components to copy
+- A reason to change our designer workspace world
+
+**When suggesting improvements:**
+- ✅ "This could match Lusion's quality level by refining typography hierarchy"
+- ✅ "Add atmospheric depth like Lusion, but within our workspace world"
+- ❌ "Copy this layout from Lusion"
+- ❌ "Use Lusion's hero section structure"
+
+**Remember:** Study Lusion's principles, create original work for our workspace.
+
+---
+
 ## Governance
 
 These instructions are **mandatory** for all Copilot suggestions.

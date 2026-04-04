@@ -128,6 +128,11 @@ This is **not a traditional portfolio website**. It is a designed experience tha
 - **Editorial**: Magazine-quality composition
 - **Cinematic**: Considered framing and storytelling
 
+### Creative Reference
+- **Lusion (https://lusion.co/)**: Reference for quality bar, atmosphere, restraint, cinematic pacing, and premium digital experience
+- **NOT for copying**: Lusion is inspiration for quality and mood, not a template to clone
+- **Our world remains**: Singular designer's office/workspace concept (original and unique)
+
 ### Workflow
 - **Plan first**: No code before approval
 - **One scope at a time**: Complete before expanding

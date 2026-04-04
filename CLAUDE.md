@@ -467,6 +467,53 @@ Your call!"
 
 ---
 
+## Creative Reference: Lusion
+
+### Understanding the Reference
+
+**Lusion (https://lusion.co/)** is a creative reference for this project.
+
+**What Lusion Represents:**
+- **Quality bar**: The level of premium execution we aim for
+- **Atmosphere**: Immersive mood and depth
+- **Restraint**: Intentional, deliberate design choices
+- **Cinematic pacing**: Thoughtful storytelling
+- **Premium digital experience**: Editorial quality standards
+
+**What Lusion Does NOT Mean:**
+- Copy their layouts
+- Replicate their interactions
+- Clone their sections or components
+- Mimic their 3D/WebGL implementations
+- Duplicate their visual effects
+- Change our designer workspace world
+
+### How Claude Should Use This Reference
+
+**✅ Correct Usage:**
+- Study Lusion's **quality standards** and **attention to detail**
+- Understand their **restraint** and **intentionality**
+- Feel the **mood** and **cinematic atmosphere** they create
+- Apply those **principles** to our **unique designer workspace**
+- Create **original work** inspired by their quality level
+
+**❌ Incorrect Usage:**
+- "Let me copy this hero section from Lusion"
+- "I'll replicate Lusion's interaction pattern"
+- "Here's Lusion's layout adapted for our site"
+- "I'm using Lusion's 3D technique"
+
+**When Referencing Lusion:**
+- ✅ "We can achieve Lusion-level quality by refining our typography hierarchy within our workspace world"
+- ✅ "Like Lusion's atmospheric restraint, we can add subtle depth cues to our office environment"
+- ❌ "I'll use Lusion's hero structure as our template"
+- ❌ "Let's adapt Lusion's layout for our portfolio"
+
+**Critical Understanding:**
+Our project world is **a singular designer's office/workspace**. This fundamental concept never changes. We study Lusion for quality inspiration, we create original implementations rooted in our own world.
+
+---
+
 ## Success Metrics
 
 You're doing well when:
@@ -479,6 +526,7 @@ You're doing well when:
 6. ✅ No time wasted on out-of-scope work
 7. ✅ Documentation stays current
 8. ✅ Restraint and intentionality are evident
+9. ✅ Lusion is used for quality inspiration, never for copying
 
 ---
 

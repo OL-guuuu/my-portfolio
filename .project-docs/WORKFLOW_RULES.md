@@ -161,8 +161,8 @@ This project prioritizes **intentionality over speed** and **coherence over feat
 #### Before Starting Any Task
 
 1. **Read these documents**:
-   - WORLD_BIBLE.md (coherence rules)
-   - PRODUCT_VISION.md (project goals)
+   - WORLD_BIBLE.md (coherence rules + Lusion reference)
+   - PRODUCT_VISION.md (project goals + creative reference)
    - WORKFLOW_RULES.md (this file)
    - CURRENT_PHASE.md (current state)
 
@@ -171,7 +171,13 @@ This project prioritizes **intentionality over speed** and **coherence over feat
    - What's allowed in this phase?
    - What requires approval?
 
-3. **Clarify the scope**:
+3. **Understand creative references**:
+   - Lusion is a quality/mood/pacing reference ONLY
+   - Never clone or directly copy Lusion
+   - Our world is a designer's workspace (not Lusion's world)
+   - Study their restraint and quality, create our own work
+
+4. **Clarify the scope**:
    - What exactly is requested?
    - Is this within current phase boundaries?
    - Is approval already granted?
@@ -262,6 +268,9 @@ Refactoring needs its own scope and approval.
 
 ### ❌ "I added some animation to..."
 Animations need approval and phase-appropriate timing.
+
+### ❌ "I copied this from Lusion because..."
+No. Lusion is a quality/mood reference, not a source to copy from. Create original work.
 
 ---
 
