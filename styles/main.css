@@ -1,11 +1,240 @@
-/*
- * Placeholder stylesheet
- * Do not implement yet
- * Awaiting design approval
- */
+/* ============================================
+   HERO SECTION - Static Foundation
+   Monochrome/Grayscale Only | Premium Editorial
+   ============================================ */
 
+/* CSS Reset & Base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* CSS Custom Properties - Monochrome Palette */
+:root {
+    --color-bg-deep: #0a0a0a;
+    --color-bg-surface: #1a1a1a;
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #a0a0a0;
+    --color-accent: #808080;
+    --color-monitor-bezel: #2a2a2a;
+    --color-monitor-screen: #151515;
+    --color-desk: #1f1f1f;
+
+    --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --spacing-unit: 1rem;
+}
+
+/* Body & Base */
+body {
+    font-family: var(--font-system);
+    background-color: var(--color-bg-deep);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.hero__container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* ============================================
+   LEFT TEXT ZONE
+   ============================================ */
+
+.hero__text-zone {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+}
+
+.hero__role {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.hero__headline {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+}
+
+.hero__supporting {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    font-weight: 400;
+}
+
+/* ============================================
+   RIGHT MONITOR ZONE
+   ============================================ */
+
+.hero__monitor-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Monitor Structure */
+.monitor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.monitor__bezel {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background-color: var(--color-monitor-bezel);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        0 1px 2px rgba(255, 255, 255, 0.05) inset;
+}
+
+.monitor__screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-monitor-screen);
+    border-radius: 4px;
+}
+
+.monitor__body {
+    width: 40%;
+    height: 20px;
+    background: linear-gradient(to bottom, var(--color-monitor-bezel), #1a1a1a);
+    margin-top: -1px;
+}
+
+.monitor__stand {
+    width: 60%;
+    height: 8px;
+    background-color: var(--color-monitor-bezel);
+    border-radius: 4px;
+    margin-top: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Desk - Partial Width Under Monitor */
+.desk {
+    position: absolute;
+    bottom: -2rem;
+    width: 120%;
+    max-width: 600px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-desk), #0a0a0a);
+    box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.03),
+        0 10px 20px rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* ============================================
+   RESPONSIVE BEHAVIOR
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .hero__container {
+        gap: 3rem;
+    }
+
+    .hero__headline {
+        font-size: 2.5rem;
+    }
+
+    .monitor {
+        max-width: 400px;
+    }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding: 3rem 1.5rem;
+    }
+
+    .hero__container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .hero__text-zone {
+        max-width: 100%;
+        order: 1;
+    }
+
+    .hero__role {
+        font-size: 0.75rem;
+    }
+
+    .hero__headline {
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+
+    .hero__supporting {
+        font-size: 1rem;
+    }
+
+    .hero__monitor-zone {
+        order: 2;
+    }
+
+    .monitor {
+        max-width: 100%;
+    }
+
+    .desk {
+        bottom: -1.5rem;
+        width: 100%;
+        height: 30px;
+    }
+}
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 1rem;
+    }
+
+    .hero__headline {
+        font-size: 1.75rem;
+    }
+
+    .monitor__bezel {
+        padding: 0.75rem;
+    }
 }
