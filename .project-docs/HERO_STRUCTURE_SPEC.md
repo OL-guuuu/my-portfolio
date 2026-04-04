@@ -309,6 +309,20 @@ When evaluating hero implementation quality, ask:
 
 If any answer is "no," refinement is needed.
 
+### Quality Reference: Lusion
+
+Study **Lusion (https://lusion.co/)** for:
+- Quality bar and premium execution
+- Atmospheric mood and restraint
+- Cinematic pacing
+- Editorial digital experience
+
+**DO NOT copy Lusion:**
+- Our hero must be original
+- Our world is a designer's workspace (different from Lusion)
+- Study their quality principles, create our own implementation
+- Never duplicate their layouts or interactions
+
 ---
 
 ## Governance

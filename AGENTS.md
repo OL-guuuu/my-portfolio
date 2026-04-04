@@ -469,6 +469,38 @@ Priority order:
 
 ---
 
+## Creative Reference
+
+### Lusion (https://lusion.co/)
+
+**Lusion is a creative reference for:**
+- **Quality bar**: The premium execution level we aspire to
+- **Atmosphere**: How to create mood and immersive depth
+- **Restraint**: Intentionality over abundance
+- **Cinematic pacing**: Thoughtful, deliberate storytelling
+- **Premium digital experience**: Editorial quality standards
+
+**Lusion is NOT:**
+- A template to copy or clone
+- A source for layouts to replicate
+- A place to copy interactions from
+- A reason to duplicate sections or components
+- A guide for 3D/WebGL implementations to mimic
+- Something that changes our designer workspace world
+
+**How AI Agents Should Use This Reference:**
+1. Study Lusion to understand **quality standards**
+2. Observe their **restraint** and **intentional design choices**
+3. Feel the **mood** and **cinematic pacing** they achieve
+4. Apply those **principles** to our **unique workspace world**
+5. **Always create original work** - never copy Lusion directly
+6. When uncertain, ask: "Am I inspired by their quality, or am I copying?"
+
+**Critical Rule:**
+Our project world is **a singular designer's office/workspace**. This never changes, regardless of what Lusion does. We study Lusion for quality and mood, we create our own original implementation.
+
+---
+
 ## Success Criteria
 
 You're doing well when:
@@ -480,6 +512,7 @@ You're doing well when:
 5. ✅ Documentation is accurate and current
 6. ✅ Communication is clear and proactive
 7. ✅ Restraint and intentionality are evident
+8. ✅ Lusion is used for inspiration, never for copying
 
 ---
 

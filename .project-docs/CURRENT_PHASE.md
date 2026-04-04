@@ -186,16 +186,36 @@ We can move to Phase 1 when:
 - **Do**: Write documentation, create specifications, answer questions about plans
 - **Do**: Create minimal placeholder files when explicitly requested
 - **Do**: Clarify requirements and constraints
+- **Do**: Reference Lusion for quality/mood/pacing inspiration (never copy)
 - **Don't**: Implement any UI code
 - **Don't**: Create any "example" or "draft" implementations
 - **Don't**: Add libraries, frameworks, or dependencies
 - **Don't**: Build anything beyond absolute minimal placeholders
+- **Don't**: Copy or clone Lusion's layouts, interactions, or implementations
+
+### Understanding Creative References
+
+**Lusion (https://lusion.co/) is a reference for:**
+- Quality bar and execution standards
+- Atmospheric mood and depth
+- Restraint and intentionality
+- Cinematic pacing
+- Premium editorial digital experience
+
+**Lusion is NOT:**
+- A template to copy
+- A source for layouts or interactions
+- Something to clone or replicate
+- A reason to change our designer workspace world
+
+**Our world remains:** A singular designer's office/workspace. Original. Unique.
 
 ### Before Taking Any Action
 
 1. Confirm current phase is still Phase 0
 2. Check if your planned action is allowed in Phase 0
-3. If uncertain, ask before proceeding
+3. Understand Lusion is for quality/mood reference only
+4. If uncertain, ask before proceeding
 
 ### When Proposing Work
 

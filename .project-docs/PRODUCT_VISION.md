@@ -223,6 +223,38 @@ Never trick, trap, or annoy the visitor.
 
 ---
 
+## Creative Reference & Inspiration
+
+### Lusion (https://lusion.co/)
+
+**Reference For:**
+- **Quality bar**: The level of premium execution we aspire to
+- **Atmosphere**: How mood and depth create immersive experiences
+- **Restraint**: Less is more, intentionality over abundance
+- **Cinematic pacing**: Thoughtful, deliberate storytelling
+- **Premium digital experience**: High-end editorial quality
+
+**NOT a Reference For:**
+- Direct copying or cloning
+- Layout structures to replicate
+- Specific interactions to mimic
+- Components or sections to duplicate
+- 3D/WebGL techniques to copy
+- Visual effects to reproduce
+- Changing our designer workspace world
+
+**How to Use This Reference:**
+1. Study Lusion's **quality standards** and **attention to detail**
+2. Understand their **restraint** and **intentional choices**
+3. Feel the **mood** and **cinematic pacing** they create
+4. Apply those **principles** to our **unique designer workspace world**
+5. Never copy directly - always create **original work** rooted in our concept
+
+**Our World Remains:**
+A singular designer's office / creative workspace. Monochrome. Premium. Restrained. Editorial.
+
+---
+
 ## Governance
 
 This vision guides all project decisions.
