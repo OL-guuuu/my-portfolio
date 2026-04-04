@@ -33,12 +33,12 @@ The visitor experiences the space through **deliberate camera choreography** tha
 ### 1. Loading Scene
 **When**: First load, before anything else
 **Duration**: As brief as technically necessary
-**Transition Out**: Fade to opening desk scene
+**Transition Out**: Transition to opening desk scene (exact choreography deferred to storyboard phase)
 
 ### 2. Opening Desk Scene
 **When**: Initial view after loading completes
 **Duration**: Until user scrolls
-**Transition Out**: Camera moves toward selected monitor on scroll
+**Transition Out**: Camera moves toward the center monitor on scroll
 
 ### 3. Identity Hero Scene (Inside Monitor)
 **When**: After camera enters the monitor
@@ -57,7 +57,7 @@ The visitor experiences the space through **deliberate camera choreography** tha
 
 ### 6. Recommendations Scene (Message System)
 **When**: After leaving Projects area
-**Duration**: User-controlled interaction with recommendations
+**Duration**: User-controlled scroll-led review of recommendations
 **Transition Out**: Camera moves toward CTA area on scroll
 
 ### 7. Call-to-Action Scene (Workspace Integration)
