@@ -1,5 +1,6 @@
 /* ============================================
-   HERO SECTION - Static Foundation
+   OPENING DESK SCENE - Phase 1 Static Foundation
+   Scene 2: Designer's Workspace with 3 Monitors
    Monochrome/Grayscale Only | Premium Editorial
    ============================================ */
 
@@ -12,16 +13,38 @@
 
 /* CSS Custom Properties - Monochrome Palette */
 :root {
-    --color-bg-deep: #0a0a0a;
-    --color-bg-surface: #1a1a1a;
+    /* Background Tones */
+    --color-bg-deep: #0a0a0a;          /* Deep black background */
+    --color-bg-surface: #1a1a1a;       /* Surface elements */
+    --color-wall: #2a2a2a;             /* Wall context */
+
+    /* Monitor Colors */
+    --color-monitor-bezel: #2a2a2a;    /* Monitor frame */
+    --color-monitor-screen: #151515;   /* Screen (off state, subtle) */
+    --color-monitor-screen-glow: #1f1f1f; /* Subtle screen glow */
+    --color-monitor-body: #1a1a1a;     /* Monitor body/neck */
+    --color-monitor-stand: #252525;    /* Stand base */
+
+    /* Desk Colors */
+    --color-desk-surface: #1f1f1f;     /* Dark wood/matte desk */
+    --color-desk-edge: #151515;        /* Desk edge shadow */
+
+    /* Peripheral Colors */
+    --color-keyboard: #2a2a2a;         /* Keyboard */
+    --color-mouse: #252525;            /* Mouse */
+
+    /* Accent Grays */
+    --color-accent-light: #808080;     /* Light gray accents */
+    --color-accent-mid: #505050;       /* Mid gray accents */
+
+    /* Typography (not visible in this scene yet) */
     --color-text-primary: #f5f5f5;
     --color-text-secondary: #a0a0a0;
-    --color-accent: #808080;
-    --color-monitor-bezel: #2a2a2a;
-    --color-monitor-screen: #151515;
-    --color-desk: #1f1f1f;
 
+    /* Typography System */
     --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* Spacing */
     --spacing-unit: 1rem;
 }
 
@@ -33,131 +56,315 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 /* ============================================
-   HERO SECTION
+   OPENING DESK SCENE - MAIN CONTAINER
    ============================================ */
 
-.hero {
+.opening-desk-scene {
     min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
-    padding: 2rem;
+    justify-content: center;
     position: relative;
+    background: linear-gradient(to bottom, var(--color-bg-deep), #050505);
 }
 
-.hero__container {
+.workspace {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-/* ============================================
-   LEFT TEXT ZONE
-   ============================================ */
-
-.hero__text-zone {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 600px;
-}
-
-.hero__role {
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-text-secondary);
-    font-weight: 500;
-}
-
-.hero__headline {
-    font-size: 3rem;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--color-text-primary);
-    letter-spacing: -0.02em;
-}
-
-.hero__supporting {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    font-weight: 400;
-}
-
-/* ============================================
-   RIGHT MONITOR ZONE
-   ============================================ */
-
-.hero__monitor-zone {
+    padding: 3rem 2rem;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+/* ============================================
+   DESK - Front/Central Room Zone
+   ============================================ */
+
+.desk {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Desk Surface Visual (Subtle Edge) */
+.desk::before {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 60px;
+    background: linear-gradient(to bottom,
+        var(--color-desk-surface) 0%,
+        var(--color-desk-edge) 70%,
+        transparent 100%
+    );
+    box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.02),
+        0 15px 40px rgba(0, 0, 0, 0.6);
+    z-index: -1;
+    border-radius: 4px 4px 0 0;
+}
+
+/* ============================================
+   3 MONITORS - Desk Layout
+   ============================================ */
+
+.monitors {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
     position: relative;
 }
 
-/* Monitor Structure */
+/* Monitor Base Styles */
 .monitor {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 500px;
+    position: relative;
 }
 
+/* Monitor Bezel (Frame) */
 .monitor__bezel {
-    width: 100%;
-    aspect-ratio: 16 / 10;
     background-color: var(--color-monitor-bezel);
-    border-radius: 8px;
-    padding: 1rem;
+    border-radius: 6px;
+    padding: 0.75rem;
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.5),
-        0 1px 2px rgba(255, 255, 255, 0.05) inset;
+        0 15px 40px rgba(0, 0, 0, 0.7),
+        0 1px 2px rgba(255, 255, 255, 0.03) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.5) inset;
+    position: relative;
 }
 
+/* Monitor Screen (Subtle Glow) */
 .monitor__screen {
     width: 100%;
     height: 100%;
-    background-color: var(--color-monitor-screen);
-    border-radius: 4px;
+    background: linear-gradient(135deg,
+        var(--color-monitor-screen) 0%,
+        var(--color-monitor-screen-glow) 50%,
+        var(--color-monitor-screen) 100%
+    );
+    border-radius: 3px;
+    position: relative;
 }
 
-.monitor__body {
-    width: 40%;
-    height: 20px;
-    background: linear-gradient(to bottom, var(--color-monitor-bezel), #1a1a1a);
-    margin-top: -1px;
-}
-
-.monitor__stand {
-    width: 60%;
-    height: 8px;
-    background-color: var(--color-monitor-bezel);
-    border-radius: 4px;
-    margin-top: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Desk - Partial Width Under Monitor */
-.desk {
+/* Subtle screen reflection/glow */
+.monitor__screen::after {
+    content: '';
     position: absolute;
-    bottom: -2rem;
-    width: 120%;
-    max-width: 600px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--color-desk), #0a0a0a);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.02) 0%,
+        transparent 100%
+    );
+    border-radius: 3px 3px 0 0;
+    pointer-events: none;
+}
+
+/* Monitor Body/Neck */
+.monitor__body {
+    height: 24px;
+    background: linear-gradient(to bottom,
+        var(--color-monitor-bezel),
+        var(--color-monitor-body)
+    );
+    margin-top: -2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Monitor Stand */
+.monitor__stand {
+    height: 10px;
+    background-color: var(--color-monitor-stand);
+    border-radius: 4px;
+    margin-top: 6px;
     box-shadow:
-        0 -1px 0 rgba(255, 255, 255, 0.03),
-        0 10px 20px rgba(0, 0, 0, 0.5);
-    z-index: -1;
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+}
+
+/* ============================================
+   LEFT MONITOR (Secondary)
+   ============================================ */
+
+.monitor--left .monitor__bezel {
+    width: 280px;
+    aspect-ratio: 16 / 10;
+}
+
+.monitor--left .monitor__body {
+    width: 50%;
+}
+
+.monitor--left .monitor__stand {
+    width: 70%;
+}
+
+/* Slight inward angle (visual suggestion) */
+.monitor--left {
+    transform: perspective(1000px) rotateY(8deg);
+}
+
+/* ============================================
+   CENTER MONITOR (Portal - Primary)
+   ============================================ */
+
+.monitor--center .monitor__bezel {
+    width: 380px;
+    aspect-ratio: 21 / 10; /* Ultrawide suggestion */
+}
+
+.monitor--center .monitor__body {
+    width: 45%;
+}
+
+.monitor--center .monitor__stand {
+    width: 65%;
+}
+
+/* Enhanced visual weight for portal monitor */
+.monitor--center .monitor__bezel {
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.8),
+        0 1px 3px rgba(255, 255, 255, 0.04) inset,
+        0 -1px 2px rgba(0, 0, 0, 0.6) inset;
+}
+
+/* Subtle screen glow emphasis on portal monitor */
+.monitor--center .monitor__screen {
+    background: linear-gradient(135deg,
+        var(--color-monitor-screen) 0%,
+        #1a1a1a 50%,
+        var(--color-monitor-screen) 100%
+    );
+}
+
+/* ============================================
+   RIGHT MONITOR (Secondary)
+   ============================================ */
+
+.monitor--right .monitor__bezel {
+    width: 280px;
+    aspect-ratio: 16 / 10;
+}
+
+.monitor--right .monitor__body {
+    width: 50%;
+}
+
+.monitor--right .monitor__stand {
+    width: 70%;
+}
+
+/* Slight inward angle (visual suggestion) */
+.monitor--right {
+    transform: perspective(1000px) rotateY(-8deg);
+}
+
+/* ============================================
+   DESK ITEMS (Minimal - Keyboard & Mouse)
+   ============================================ */
+
+.desk-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    opacity: 0.8;
+}
+
+/* Keyboard */
+.keyboard {
+    width: 320px;
+    height: 100px;
+    background: linear-gradient(to bottom,
+        var(--color-keyboard) 0%,
+        #1f1f1f 100%
+    );
+    border-radius: 6px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+    position: relative;
+}
+
+/* Subtle keyboard key suggestion */
+.keyboard::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.2) 0%,
+        transparent 100%
+    );
+    border-radius: 3px;
+}
+
+/* Mouse */
+.mouse {
+    width: 50px;
+    height: 80px;
+    background: linear-gradient(to bottom,
+        var(--color-mouse) 0%,
+        #1a1a1a 100%
+    );
+    border-radius: 12px;
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.5),
+        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+}
+
+/* ============================================
+   ROOM CONTEXT (Subtle Background)
+   ============================================ */
+
+.room-context {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Wall suggestion (subtle gradient) */
+.wall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom,
+        var(--color-wall) 0%,
+        transparent 100%
+    );
+    opacity: 0.3;
 }
 
 /* ============================================
@@ -166,75 +373,117 @@ body {
 
 /* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
-    .hero__container {
-        gap: 3rem;
+    .monitors {
+        gap: 1.5rem;
     }
 
-    .hero__headline {
-        font-size: 2.5rem;
+    .monitor--left .monitor__bezel,
+    .monitor--right .monitor__bezel {
+        width: 220px;
     }
 
-    .monitor {
-        max-width: 400px;
+    .monitor--center .monitor__bezel {
+        width: 300px;
+    }
+
+    .keyboard {
+        width: 260px;
+        height: 80px;
     }
 }
 
 /* Mobile (< 768px) */
 @media (max-width: 768px) {
-    .hero {
-        min-height: auto;
-        padding: 3rem 1.5rem;
+    .workspace {
+        padding: 2rem 1rem;
     }
 
-    .hero__container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
+    .monitors {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
     }
 
-    .hero__text-zone {
-        max-width: 100%;
-        order: 1;
+    /* Reset monitor perspectives on mobile */
+    .monitor--left,
+    .monitor--right {
+        transform: none;
     }
 
-    .hero__role {
-        font-size: 0.75rem;
-    }
-
-    .hero__headline {
-        font-size: 2rem;
-        line-height: 1.3;
-    }
-
-    .hero__supporting {
-        font-size: 1rem;
-    }
-
-    .hero__monitor-zone {
-        order: 2;
-    }
-
-    .monitor {
-        max-width: 100%;
-    }
-
-    .desk {
-        bottom: -1.5rem;
+    .monitor--left .monitor__bezel,
+    .monitor--right .monitor__bezel,
+    .monitor--center .monitor__bezel {
         width: 100%;
-        height: 30px;
+        max-width: 320px;
+    }
+
+    .desk-items {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .keyboard {
+        width: 100%;
+        max-width: 280px;
+        height: 70px;
+    }
+
+    .mouse {
+        width: 45px;
+        height: 70px;
+    }
+
+    .desk::before {
+        width: 100%;
+        bottom: -30px;
+        height: 50px;
     }
 }
 
 /* Small Mobile (< 480px) */
 @media (max-width: 480px) {
-    .hero {
-        padding: 2rem 1rem;
+    .workspace {
+        padding: 1.5rem 0.75rem;
     }
 
-    .hero__headline {
-        font-size: 1.75rem;
+    .monitors {
+        gap: 1.5rem;
     }
 
+    .monitor--center .monitor__bezel {
+        aspect-ratio: 16 / 10; /* Adjust ultrawide on very small screens */
+    }
+
+    .keyboard {
+        height: 60px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .monitor--left,
+    .monitor--right {
+        transform: none;
+    }
+
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
     .monitor__bezel {
-        padding: 0.75rem;
+        border: 1px solid var(--color-accent-light);
+    }
+
+    .desk::before {
+        border-top: 1px solid var(--color-accent-mid);
     }
 }
