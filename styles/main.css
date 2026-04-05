@@ -915,7 +915,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #2a2a2a 0%, #2d2d2d 25%, #2a2a2a 50%, #282828 75%, #2a2a2a 100%);
+    background: linear-gradient(135deg, #272727 0%, #2d2d2d 20%, #2b2b2b 40%, #292929 60%, #2c2c2c 80%, #282828 100%);
     z-index: 0;
     pointer-events: none;
 }
@@ -943,7 +943,7 @@ body {
     max-width: 1100px;
     display: grid;
     grid-template-columns: 400px 1fr;
-    gap: 5rem;
+    gap: 4.5rem;
     align-items: center;
     position: relative;
     z-index: 1;
@@ -1007,11 +1007,11 @@ body {
 .about-label {
     font-size: 0.6875rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #707070;
+    color: #787878;
     margin: 0;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 /* About Paragraphs Container */
@@ -1025,9 +1025,9 @@ body {
 .about-paragraphs p {
     font-size: 1rem;
     font-weight: 400;
-    line-height: 1.7;
-    letter-spacing: 0.005em;
-    color: #d0d0d0;
+    line-height: 1.75;
+    letter-spacing: 0.008em;
+    color: #d4d4d4;
     margin: 0;
     max-width: 100%;
 }
