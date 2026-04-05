@@ -728,7 +728,8 @@ body {
     opacity: 0.9;
 }
 
-.personal-logo svg {
+.personal-logo svg,
+.personal-logo img {
     width: 100%;
     height: 100%;
     display: block;
