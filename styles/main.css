@@ -2022,8 +2022,8 @@ body {
 }
 /* ============================================
    CTA SCENE (Scene 7) - Static Foundation
-   Premium Contact Card on Desk-Adjacent Surface
-   VISUAL BUG-FIX: Removed dark overlay, clarified stacking
+   Open Notebook on Desk - Full-Circle Return
+   Notebook Direction - Locked Specification
    ============================================ */
 
 .cta-scene {
@@ -2033,20 +2033,25 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Clean, neutral background - no competing gradients */
-    background: #0e0e0e;
+    /* Desk-world atmospheric background */
+    background: linear-gradient(to bottom, #0c0c0c 0%, #0f0f0f 40%, #0a0a0a 100%);
     padding: 5rem 2rem;
 }
 
-/* Very Subtle Desk-World Continuity Context - Minimal visual presence */
-.cta-desk-context {
+/* Desk Surface Context - Subtle Desk Grounding */
+.desk-surface-context {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 10%;
-    /* Extremely subtle desk hint - barely visible context */
-    background: linear-gradient(to bottom, transparent 0%, rgba(18, 18, 18, 0.15) 100%);
+    height: 35%;
+    /* Desk surface tone and texture imply desk world */
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(34, 34, 34, 0.15) 25%,
+        rgba(34, 34, 34, 0.35) 60%,
+        #222222 100%
+    );
     z-index: 0;
     pointer-events: none;
 }
@@ -2055,195 +2060,288 @@ body {
 .cta-content {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Close-up leaning toward medium close-up framing */
     padding: 2rem;
-    z-index: 10;
+    z-index: 1;
 }
 
-/* Desk-Adjacent Surface - Supporting Grounding Element (Not Primary Focus) */
-.desk-adjacent-surface {
+/* ============================================
+   NOTEBOOK - Sole Primary Visual Anchor
+   Open Notebook with Two Facing Pages
+   ============================================ */
+
+.notebook {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    aspect-ratio: 2.2 / 1;
+    display: flex;
+    align-items: stretch;
+    /* Natural angle on desk (not perfectly square to camera) */
+    transform: perspective(1200px) rotateY(-3deg) rotateX(2deg);
+    transform-style: preserve-3d;
+}
+
+/* Notebook Shadow - Grounding on Desk Surface */
+.notebook__shadow {
     position: absolute;
-    bottom: 10%;
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 680px;
-    height: 90px;
-    /* Subtle recessive surface - supports without competing */
-    background: linear-gradient(to bottom, #1d1d1d 0%, #1a1a1a 50%, #181818 100%);
-    border-radius: 2px;
-    /* Minimal shadow - grounding only, no dark-band effect */
-    box-shadow:
-        0 1px 4px rgba(0, 0, 0, 0.25),
-        0 -1px 0 rgba(255, 255, 255, 0.01) inset;
-    pointer-events: none;
-    z-index: 5;
+    width: 98%;
+    height: 40px;
+    background: radial-gradient(ellipse at center,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        rgba(0, 0, 0, 0.1) 70%,
+        transparent 100%
+    );
+    z-index: -1;
 }
 
-/* Premium Contact Card - PRIMARY FOCAL OBJECT */
-.contact-card {
+/* ============================================
+   NOTEBOOK COVERS - Dark Gray to Black
+   ============================================ */
+
+.notebook__cover {
+    position: absolute;
+    background: linear-gradient(135deg,
+        #1a1a1a 0%,
+        #0f0f0f 50%,
+        #121212 100%
+    );
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.5),
+        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+    z-index: 0;
+}
+
+/* Left Cover - Visible at Left Edge */
+.notebook__cover--left {
+    top: 0;
+    left: 0;
+    width: 6%;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Right Cover - Visible at Right Edge */
+.notebook__cover--right {
+    top: 0;
+    right: 0;
+    width: 6%;
+    height: 100%;
+    border-radius: 0 4px 4px 0;
+}
+
+/* ============================================
+   NOTEBOOK PAGES - Two Facing Pages
+   ============================================ */
+
+.notebook__pages {
     position: relative;
-    z-index: 15;
-    /* Landscape orientation */
     width: 100%;
-    max-width: 540px;
-    /* Clean bright premium paper - no gradients competing with text */
-    background: #fafafa;
-    border-radius: 4px;
-    /* Generous padding for minimal clean layout */
-    padding: 3.25rem 3.75rem;
-    /* Intentional asymmetrical composition - editorial offset */
-    margin-right: 4.5rem;
-    margin-top: -1rem;
-    /* Clear, strong shadow - card floats cleanly above surface */
-    box-shadow:
-        0 16px 48px rgba(0, 0, 0, 0.8),
-        0 8px 24px rgba(0, 0, 0, 0.6),
-        0 4px 12px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(0, 0, 0, 0.12);
-    /* Very subtle paper texture - no visual interference */
+    height: 100%;
+    display: flex;
+    z-index: 1;
+}
+
+/* Individual Page Styling */
+.notebook__page {
+    flex: 1;
+    position: relative;
+    /* Premium paper color - light cream/white */
+    background: linear-gradient(135deg,
+        #f8f8f8 0%,
+        #fafafa 50%,
+        #f7f7f7 100%
+    );
+    /* Clean paper texture - not busy */
     background-image:
-        linear-gradient(135deg, transparent 48%, rgba(0, 0, 0, 0.01) 50%, transparent 52%);
-    background-size: 3px 3px;
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.008) 2px,
+            rgba(0, 0, 0, 0.008) 4px
+        );
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.6),
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-/* Card Text Styling - Maximum Clarity and Readability */
-.card-cta,
-.card-email {
-    font-family: var(--font-system);
+/* Left Page - Blank (Clean Paper Texture Only) */
+.notebook__page--left {
+    border-radius: 3px 0 0 3px;
+    /* Subtle page separation line */
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Right Page - Contains Handwritten Text */
+.notebook__page--right {
+    border-radius: 0 3px 3px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.25rem;
+    padding: 3rem 2.5rem;
+}
+
+/* Subtle Page Depth - Slight Elevation from Surface */
+.notebook__page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.4) 0%,
+        transparent 100%
+    );
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* ============================================
+   HANDWRITTEN TEXT - Two Lines Only
+   Designer's Handwriting Style
+   ============================================ */
+
+.handwritten-line {
+    font-family: 'Brush Script MT', 'Comic Sans MS', cursive, var(--font-system);
     margin: 0;
-    text-align: left;
+    text-align: center;
+    color: #1a1a1a;
+    /* Handwritten character - slightly irregular */
+    letter-spacing: 0.02em;
+    transform: rotate(-0.5deg);
 }
 
-/* CTA Line - Immediately Readable */
-.card-cta {
-    font-size: 1.625rem;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    line-height: 1.25;
-    margin-bottom: 1.5rem;
-    /* Maximum contrast on bright card - immediate readability */
-    color: #000000;
-}
-
-/* Email Line - Clearly Readable */
-.card-email {
-    font-size: 1.1875rem;
+/* Line 1 - Invitation: "If this feels right, write to me." */
+.handwritten-line--invitation {
+    font-size: clamp(1.5rem, 3.2vw, 2.125rem);
     font-weight: 400;
-    letter-spacing: 0.003em;
+    line-height: 1.4;
+    /* Casual professional tone */
+    font-style: italic;
+}
+
+/* Line 2 - Email: "hello@oussamalassoued.com" */
+.handwritten-line--email {
+    font-size: clamp(1.25rem, 2.8vw, 1.875rem);
+    font-weight: 400;
     line-height: 1.5;
-    /* Strong contrast for clear readability */
-    color: #0a0a0a;
+    /* Slightly less italic for readability */
+    font-style: normal;
     word-break: break-all;
 }
 
 /* ============================================
-   RESPONSIVE - CTA Scene
+   RESPONSIVE BEHAVIOR - CTA Scene
    ============================================ */
 
-/* Tablet (< 1024px) */
+/* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
     .cta-scene {
-        padding: 4rem 2rem;
+        padding: 4.5rem 2rem;
     }
 
     .cta-content {
-        max-width: 700px;
-        padding: 1.5rem;
+        max-width: 800px;
     }
 
-    .contact-card {
-        max-width: 500px;
-        padding: 3rem 3.25rem;
-        margin-right: 3.5rem;
-        margin-top: -0.75rem;
-    }
-
-    .card-cta {
-        font-size: 1.5rem;
-        margin-bottom: 1.375rem;
-    }
-
-    .card-email {
-        font-size: 1.125rem;
-    }
-
-    .desk-adjacent-surface {
+    .notebook {
         max-width: 600px;
-        height: 100px;
+    }
+
+    .notebook__page--right {
+        gap: 2rem;
+        padding: 2.5rem 2rem;
+    }
+
+    .handwritten-line--invitation {
+        font-size: clamp(1.375rem, 3vw, 1.875rem);
+    }
+
+    .handwritten-line--email {
+        font-size: clamp(1.125rem, 2.5vw, 1.625rem);
     }
 }
 
 /* Mobile (< 768px) */
 @media (max-width: 768px) {
     .cta-scene {
-        padding: 3.5rem 1.5rem;
+        padding: 4rem 1.5rem;
     }
 
     .cta-content {
         max-width: 100%;
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
-    .contact-card {
-        max-width: 440px;
-        padding: 2.75rem 2.75rem;
-        /* Reduced asymmetry on mobile for better balance */
-        margin-right: 1.5rem;
-        margin-top: -0.5rem;
+    .notebook {
+        max-width: 520px;
+        /* Reduce perspective angle on mobile */
+        transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
     }
 
-    .card-cta {
-        font-size: 1.375rem;
-        margin-bottom: 1.25rem;
+    .notebook__page--right {
+        gap: 1.75rem;
+        padding: 2.25rem 1.75rem;
     }
 
-    .card-email {
-        font-size: 1.0625rem;
+    .handwritten-line--invitation {
+        font-size: clamp(1.25rem, 3.5vw, 1.625rem);
     }
 
-    .desk-adjacent-surface {
-        max-width: 480px;
-        height: 90px;
+    .handwritten-line--email {
+        font-size: clamp(1rem, 2.8vw, 1.375rem);
     }
 
-    .cta-desk-context {
-        height: 12%;
+    .desk-surface-context {
+        height: 30%;
     }
 }
 
 /* Small Mobile (< 480px) */
 @media (max-width: 480px) {
     .cta-scene {
-        padding: 3rem 1rem;
+        padding: 3.5rem 1rem;
     }
 
-    .contact-card {
-        max-width: 360px;
-        padding: 2.5rem 2.25rem;
-        /* Center on small mobile for optimal readability */
-        margin-right: 0;
-        margin-top: 0;
+    .notebook {
+        max-width: 440px;
+        /* Minimal perspective on small mobile */
+        transform: perspective(800px) rotateY(-1deg) rotateX(0.5deg);
     }
 
-    .card-cta {
-        font-size: 1.25rem;
-        margin-bottom: 1.125rem;
+    .notebook__page--right {
+        gap: 1.5rem;
+        padding: 2rem 1.5rem;
     }
 
-    .card-email {
-        font-size: 1rem;
+    .handwritten-line--invitation {
+        font-size: clamp(1.125rem, 4vw, 1.5rem);
     }
 
-    .desk-adjacent-surface {
-        max-width: 400px;
-        height: 80px;
-        bottom: 10%;
+    .handwritten-line--email {
+        font-size: clamp(0.9375rem, 3.2vw, 1.25rem);
+    }
+
+    .notebook__shadow {
+        bottom: -20px;
+        height: 35px;
+    }
+
+    .desk-surface-context {
+        height: 25%;
     }
 }
 
@@ -2253,29 +2351,32 @@ body {
 
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-    .contact-card {
-        box-shadow: 
-            0 2px 8px rgba(0, 0, 0, 0.4),
-            0 1px 4px rgba(0, 0, 0, 0.3);
+    .notebook {
+        transform: none;
+    }
+
+    .handwritten-line {
+        transform: none;
     }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .contact-card {
+    .notebook__page {
         background: #ffffff;
         border: 2px solid #000000;
     }
 
-    .card-cta {
-        color: #000000;
-    }
-
-    .card-email {
-        color: #000000;
-    }
-
-    .desk-adjacent-surface {
+    .notebook__cover {
+        background: #000000;
         border: 1px solid #404040;
+    }
+
+    .handwritten-line {
+        color: #000000;
+    }
+
+    .desk-surface-context {
+        border-top: 1px solid #404040;
     }
 }
