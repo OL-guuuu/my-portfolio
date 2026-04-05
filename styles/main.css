@@ -891,3 +891,243 @@ body {
         color: #ffffff;
     }
 }
+
+/* ============================================
+   ABOUT ME SCENE (Scene 4) - Static Foundation
+   Wall Portrait with Text Block
+   ============================================ */
+
+.about-me-scene {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to bottom, #1a1a1a 0%, #2a2a2a 50%, #1f1f1f 100%);
+    padding: 4rem 2rem;
+}
+
+/* Wall Context - Medium to Dark Gray Surface */
+.wall-context {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2a2a2a 0%, #2d2d2d 25%, #2a2a2a 50%, #282828 75%, #2a2a2a 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Very Faint Desk/Monitor Continuity at Lower/Right Periphery */
+.desk-continuity-hint {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 20%;
+    background: linear-gradient(to top left,
+        rgba(34, 34, 34, 0.15) 0%,
+        rgba(29, 29, 29, 0.08) 50%,
+        transparent 100%
+    );
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* Content Container - Portrait + Text Block */
+.about-me-content {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 5rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
+   PORTRAIT FRAME (Left Side - Primary Visual Anchor)
+   ============================================ */
+
+.portrait-frame {
+    width: 100%;
+    max-width: 400px;
+    background: linear-gradient(135deg, #1d1d1d 0%, #222222 50%, #1a1a1a 100%);
+    padding: 1.25rem;
+    border-radius: 4px;
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.8),
+        0 2px 4px rgba(255, 255, 255, 0.04) inset,
+        0 -2px 3px rgba(0, 0, 0, 0.6) inset;
+    position: relative;
+}
+
+/* Frame Inner Border - Premium Detail */
+.portrait-frame::before {
+    content: '';
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+/* Portrait Photo - Monochrome */
+.portrait-photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    display: block;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: grayscale(100%);
+    opacity: 0.95;
+}
+
+/* ============================================
+   TEXT BLOCK (Right Side - Left-Aligned)
+   ============================================ */
+
+.about-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 520px;
+    text-align: left;
+}
+
+/* Small Understated Label - Exactly "About Me" */
+.about-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #707070;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* About Paragraphs Container */
+.about-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Paragraph Styling - Narrow Editorial Column */
+.about-paragraphs p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.005em;
+    color: #d0d0d0;
+    margin: 0;
+    max-width: 100%;
+}
+
+/* ============================================
+   RESPONSIVE BEHAVIOR - About Me Scene
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .about-me-content {
+        grid-template-columns: 320px 1fr;
+        gap: 3.5rem;
+        max-width: 900px;
+    }
+
+    .portrait-frame {
+        max-width: 320px;
+    }
+
+    .about-text-block {
+        max-width: 480px;
+    }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+    .about-me-scene {
+        padding: 3rem 1.5rem;
+    }
+
+    .about-me-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        max-width: 100%;
+        justify-items: center;
+    }
+
+    .portrait-frame {
+        max-width: 280px;
+    }
+
+    .about-text-block {
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .desk-continuity-hint {
+        width: 40%;
+        height: 15%;
+    }
+}
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+    .about-me-scene {
+        padding: 2.5rem 1rem;
+    }
+
+    .about-me-content {
+        gap: 2rem;
+    }
+
+    .portrait-frame {
+        max-width: 240px;
+        padding: 1rem;
+    }
+
+    .portrait-frame::before {
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+    }
+
+    .about-paragraphs p {
+        font-size: 0.9375rem;
+        line-height: 1.65;
+    }
+
+    .about-label {
+        font-size: 0.625rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY - About Me Scene
+   ============================================ */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .portrait-frame {
+        border: 1px solid var(--color-accent-light);
+    }
+
+    .about-label {
+        color: #909090;
+    }
+
+    .about-paragraphs p {
+        color: #e0e0e0;
+    }
+}
