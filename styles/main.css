@@ -13,25 +13,29 @@
 
 /* CSS Custom Properties - Monochrome Palette */
 :root {
-    /* Background Tones */
+    /* Background Tones - Enhanced Separation */
     --color-bg-deep: #0a0a0a;          /* Deep black background */
     --color-bg-surface: #1a1a1a;       /* Surface elements */
-    --color-wall: #2a2a2a;             /* Wall context */
+    --color-wall: #252525;             /* Wall context (lighter for separation) */
+    --color-floor: #0d0d0d;            /* Floor hint (slightly lighter than bg) */
 
-    /* Monitor Colors */
-    --color-monitor-bezel: #2a2a2a;    /* Monitor frame */
-    --color-monitor-screen: #151515;   /* Screen (off state, subtle) */
-    --color-monitor-screen-glow: #1f1f1f; /* Subtle screen glow */
-    --color-monitor-body: #1a1a1a;     /* Monitor body/neck */
-    --color-monitor-stand: #252525;    /* Stand base */
+    /* Monitor Colors - Enhanced Realism */
+    --color-monitor-bezel: #323232;    /* Monitor frame (lighter, more visible) */
+    --color-monitor-bezel-edge: #3a3a3a; /* Bezel highlight edge */
+    --color-monitor-screen: #1a1a1a;   /* Screen (off state, subtle) */
+    --color-monitor-screen-glow: #252525; /* Subtle screen glow */
+    --color-monitor-body: #282828;     /* Monitor body/neck (more visible) */
+    --color-monitor-stand: #2f2f2f;    /* Stand base (stronger presence) */
 
-    /* Desk Colors */
-    --color-desk-surface: #1f1f1f;     /* Dark wood/matte desk */
-    --color-desk-edge: #151515;        /* Desk edge shadow */
+    /* Desk Colors - Stronger Grounding */
+    --color-desk-surface: #262626;     /* Matte desk surface (more visible) */
+    --color-desk-edge: #1a1a1a;        /* Desk edge shadow */
+    --color-desk-highlight: #303030;   /* Desk subtle highlight */
 
     /* Peripheral Colors */
-    --color-keyboard: #2a2a2a;         /* Keyboard */
-    --color-mouse: #252525;            /* Mouse */
+    --color-keyboard: #2d2d2d;         /* Keyboard */
+    --color-keyboard-keys: #252525;    /* Keyboard key shadows */
+    --color-mouse: #2a2a2a;            /* Mouse */
 
     /* Accent Grays */
     --color-accent-light: #808080;     /* Light gray accents */
@@ -70,7 +74,11 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(to bottom, var(--color-bg-deep), #050505);
+    background: linear-gradient(to bottom,
+        var(--color-wall) 0%,
+        var(--color-bg-deep) 35%,
+        var(--color-floor) 100%
+    );
 }
 
 .workspace {
@@ -99,25 +107,28 @@ body {
     gap: 2rem;
 }
 
-/* Desk Surface Visual (Subtle Edge) */
+/* Desk Surface Visual (Strong Grounding Plane) */
 .desk::before {
     content: '';
     position: absolute;
-    bottom: -40px;
+    bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
-    width: 110%;
-    height: 60px;
+    width: 115%;
+    height: 100px;
     background: linear-gradient(to bottom,
-        var(--color-desk-surface) 0%,
-        var(--color-desk-edge) 70%,
+        var(--color-desk-highlight) 0%,
+        var(--color-desk-surface) 15%,
+        var(--color-desk-surface) 70%,
+        var(--color-desk-edge) 90%,
         transparent 100%
     );
     box-shadow:
-        0 -1px 0 rgba(255, 255, 255, 0.02),
-        0 15px 40px rgba(0, 0, 0, 0.6);
+        0 -2px 0 rgba(255, 255, 255, 0.03),
+        0 1px 0 rgba(0, 0, 0, 0.4) inset,
+        0 20px 60px rgba(0, 0, 0, 0.7);
     z-index: -1;
-    border-radius: 4px 4px 0 0;
+    border-radius: 6px 6px 0 0;
 }
 
 /* ============================================
@@ -141,16 +152,21 @@ body {
     position: relative;
 }
 
-/* Monitor Bezel (Frame) */
+/* Monitor Bezel (Frame) - Enhanced Realism */
 .monitor__bezel {
-    background-color: var(--color-monitor-bezel);
-    border-radius: 6px;
-    padding: 0.75rem;
+    background: linear-gradient(135deg,
+        var(--color-monitor-bezel-edge) 0%,
+        var(--color-monitor-bezel) 50%,
+        var(--color-monitor-bezel) 100%
+    );
+    border-radius: 8px;
+    padding: 0.9rem;
     box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.7),
-        0 1px 2px rgba(255, 255, 255, 0.03) inset,
-        0 -1px 1px rgba(0, 0, 0, 0.5) inset;
+        0 20px 50px rgba(0, 0, 0, 0.8),
+        0 2px 4px rgba(255, 255, 255, 0.05) inset,
+        0 -2px 3px rgba(0, 0, 0, 0.6) inset;
     position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 /* Monitor Screen (Subtle Glow) */
@@ -182,26 +198,34 @@ body {
     pointer-events: none;
 }
 
-/* Monitor Body/Neck */
+/* Monitor Body/Neck - Enhanced Definition */
 .monitor__body {
-    height: 24px;
+    height: 32px;
     background: linear-gradient(to bottom,
-        var(--color-monitor-bezel),
-        var(--color-monitor-body)
+        var(--color-monitor-bezel) 0%,
+        var(--color-monitor-body) 50%,
+        var(--color-monitor-body) 100%
     );
     margin-top: -2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.5),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    border-radius: 2px;
 }
 
-/* Monitor Stand */
+/* Monitor Stand - Enhanced Grounding */
 .monitor__stand {
-    height: 10px;
-    background-color: var(--color-monitor-stand);
-    border-radius: 4px;
-    margin-top: 6px;
+    height: 14px;
+    background: linear-gradient(to bottom,
+        var(--color-monitor-stand) 0%,
+        var(--color-monitor-body) 100%
+    );
+    border-radius: 6px;
+    margin-top: 8px;
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.5),
-        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+        0 6px 16px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(255, 255, 255, 0.04) inset,
+        0 -1px 2px rgba(0, 0, 0, 0.3) inset;
 }
 
 /* ============================================
@@ -231,33 +255,40 @@ body {
    ============================================ */
 
 .monitor--center .monitor__bezel {
-    width: 380px;
+    width: 420px; /* Increased from 380px for stronger presence */
     aspect-ratio: 21 / 10; /* Ultrawide suggestion */
 }
 
 .monitor--center .monitor__body {
-    width: 45%;
+    width: 48%;
+    height: 36px; /* Slightly taller for better proportion */
 }
 
 .monitor--center .monitor__stand {
-    width: 65%;
+    width: 68%;
+    height: 16px; /* Stronger base */
 }
 
-/* Enhanced visual weight for portal monitor */
+/* Enhanced visual authority for portal monitor */
 .monitor--center .monitor__bezel {
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.8),
-        0 1px 3px rgba(255, 255, 255, 0.04) inset,
-        0 -1px 2px rgba(0, 0, 0, 0.6) inset;
+        0 25px 70px rgba(0, 0, 0, 0.9),
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        0 2px 5px rgba(255, 255, 255, 0.06) inset,
+        0 -2px 4px rgba(0, 0, 0, 0.7) inset;
+    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-/* Subtle screen glow emphasis on portal monitor */
+/* Stronger screen presence on portal monitor */
 .monitor--center .monitor__screen {
     background: linear-gradient(135deg,
         var(--color-monitor-screen) 0%,
-        #1a1a1a 50%,
+        #1f1f1f 50%,
         var(--color-monitor-screen) 100%
     );
+    box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.8) inset,
+        0 0 10px rgba(255, 255, 255, 0.02);
 }
 
 /* ============================================
@@ -292,51 +323,65 @@ body {
     justify-content: center;
     gap: 1.5rem;
     margin-top: 1rem;
-    opacity: 0.8;
+    opacity: 0.75; /* Slightly more subdued */
 }
 
-/* Keyboard */
+/* Keyboard - Refined Realism */
 .keyboard {
     width: 320px;
     height: 100px;
     background: linear-gradient(to bottom,
         var(--color-keyboard) 0%,
-        #1f1f1f 100%
+        #232323 100%
     );
     border-radius: 6px;
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.6),
-        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+        0 10px 25px rgba(0, 0, 0, 0.7),
+        0 1px 2px rgba(255, 255, 255, 0.03) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.4) inset;
     position: relative;
 }
 
-/* Subtle keyboard key suggestion */
+/* Refined keyboard key suggestion */
 .keyboard::before {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    background: linear-gradient(to bottom,
-        rgba(0, 0, 0, 0.2) 0%,
-        transparent 100%
-    );
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 14px,
+            var(--color-keyboard-keys) 14px,
+            var(--color-keyboard-keys) 15px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 14px,
+            var(--color-keyboard-keys) 14px,
+            var(--color-keyboard-keys) 15px
+        );
+    opacity: 0.3;
     border-radius: 3px;
 }
 
-/* Mouse */
+/* Mouse - Refined Shape */
 .mouse {
     width: 50px;
     height: 80px;
     background: linear-gradient(to bottom,
         var(--color-mouse) 0%,
-        #1a1a1a 100%
+        #1f1f1f 100%
     );
     border-radius: 12px;
     box-shadow:
-        0 6px 16px rgba(0, 0, 0, 0.5),
-        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(255, 255, 255, 0.03) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.3) inset;
 }
 
 /* ============================================
@@ -353,18 +398,34 @@ body {
     pointer-events: none;
 }
 
-/* Wall suggestion (subtle gradient) */
+/* Wall suggestion (enhanced separation) */
 .wall {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 60%;
+    height: 45%;
     background: linear-gradient(to bottom,
         var(--color-wall) 0%,
+        rgba(37, 37, 37, 0.5) 60%,
         transparent 100%
     );
-    opacity: 0.3;
+    opacity: 0.5;
+}
+
+/* Floor/desk plane suggestion */
+.wall::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(13, 13, 13, 0.3) 50%,
+        rgba(10, 10, 10, 0.5) 100%
+    );
 }
 
 /* ============================================
@@ -383,7 +444,7 @@ body {
     }
 
     .monitor--center .monitor__bezel {
-        width: 300px;
+        width: 340px; /* Adjusted for larger center monitor */
     }
 
     .keyboard {
