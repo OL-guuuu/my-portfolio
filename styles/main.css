@@ -13,29 +13,32 @@
 
 /* CSS Custom Properties - Monochrome Palette */
 :root {
-    /* Background Tones */
+    /* Background Tones - Expanded Range */
     --color-bg-deep: #0a0a0a;          /* Deep black background */
     --color-bg-surface: #1a1a1a;       /* Surface elements */
     --color-wall: #2a2a2a;             /* Wall context */
+    --color-floor: #0f0f0f;            /* Floor plane */
 
-    /* Monitor Colors */
-    --color-monitor-bezel: #2a2a2a;    /* Monitor frame */
-    --color-monitor-screen: #151515;   /* Screen (off state, subtle) */
-    --color-monitor-screen-glow: #1f1f1f; /* Subtle screen glow */
-    --color-monitor-body: #1a1a1a;     /* Monitor body/neck */
-    --color-monitor-stand: #252525;    /* Stand base */
+    /* Monitor Colors - Enhanced Hierarchy */
+    --color-monitor-bezel: #2d2d2d;    /* Monitor frame (lighter for definition) */
+    --color-monitor-screen: #0f0f0f;   /* Screen (off state, very dark) */
+    --color-monitor-screen-subtle: #151515; /* Screen subtle variation */
+    --color-monitor-body: #1d1d1d;     /* Monitor body/neck */
+    --color-monitor-stand: #222222;    /* Stand base */
 
-    /* Desk Colors */
-    --color-desk-surface: #1f1f1f;     /* Dark wood/matte desk */
-    --color-desk-edge: #151515;        /* Desk edge shadow */
+    /* Desk Colors - Enhanced Presence */
+    --color-desk-surface: #222222;     /* Desk top surface (mid-dark gray) */
+    --color-desk-edge: #181818;        /* Desk edge (darker for depth) */
+    --color-desk-highlight: #2a2a2a;   /* Subtle desk edge highlight */
 
     /* Peripheral Colors */
     --color-keyboard: #2a2a2a;         /* Keyboard */
     --color-mouse: #252525;            /* Mouse */
 
-    /* Accent Grays */
+    /* Accent Grays - Expanded Range */
     --color-accent-light: #808080;     /* Light gray accents */
     --color-accent-mid: #505050;       /* Mid gray accents */
+    --color-accent-subtle: #404040;    /* Subtle edge highlights */
 
     /* Typography (not visible in this scene yet) */
     --color-text-primary: #f5f5f5;
@@ -70,7 +73,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(to bottom, var(--color-bg-deep), #050505);
+    background: linear-gradient(to bottom, #0c0c0c 0%, var(--color-bg-deep) 50%, #050505 100%);
 }
 
 .workspace {
@@ -97,27 +100,50 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    padding-bottom: 3rem;
 }
 
-/* Desk Surface Visual (Subtle Edge) */
+/* Desk Surface Visual - Enhanced Horizontal Plane */
 .desk::before {
     content: '';
     position: absolute;
-    bottom: -40px;
+    bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
-    width: 110%;
-    height: 60px;
+    width: 115%;
+    height: 140px;
     background: linear-gradient(to bottom,
         var(--color-desk-surface) 0%,
-        var(--color-desk-edge) 70%,
+        var(--color-desk-surface) 40%,
+        var(--color-desk-edge) 75%,
+        rgba(24, 24, 24, 0.6) 90%,
         transparent 100%
     );
     box-shadow:
-        0 -1px 0 rgba(255, 255, 255, 0.02),
-        0 15px 40px rgba(0, 0, 0, 0.6);
+        0 -1px 0 rgba(255, 255, 255, 0.03),
+        0 1px 0 var(--color-desk-highlight) inset,
+        0 25px 60px rgba(0, 0, 0, 0.8);
     z-index: -1;
     border-radius: 4px 4px 0 0;
+}
+
+/* Desk Front Edge Highlight - Premium Detail */
+.desk::after {
+    content: '';
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 115%;
+    height: 2px;
+    background: linear-gradient(to right,
+        transparent 0%,
+        var(--color-desk-highlight) 20%,
+        var(--color-desk-highlight) 80%,
+        transparent 100%
+    );
+    z-index: 1;
+    opacity: 0.4;
 }
 
 /* ============================================
@@ -141,29 +167,43 @@ body {
     position: relative;
 }
 
-/* Monitor Bezel (Frame) */
+/* Monitor Bezel (Frame) - Enhanced Depth */
 .monitor__bezel {
     background-color: var(--color-monitor-bezel);
     border-radius: 6px;
-    padding: 0.75rem;
+    padding: 0.875rem;
     box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.7),
-        0 1px 2px rgba(255, 255, 255, 0.03) inset,
-        0 -1px 1px rgba(0, 0, 0, 0.5) inset;
+        0 20px 50px rgba(0, 0, 0, 0.75),
+        0 2px 4px rgba(255, 255, 255, 0.04) inset,
+        0 -2px 3px rgba(0, 0, 0, 0.6) inset;
     position: relative;
 }
 
-/* Monitor Screen (Subtle Glow) */
+/* Bezel Inner Depth - Premium Detail */
+.monitor__bezel::before {
+    content: '';
+    position: absolute;
+    top: 0.875rem;
+    left: 0.875rem;
+    right: 0.875rem;
+    bottom: 0.875rem;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+/* Monitor Screen - Enhanced Realism */
 .monitor__screen {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg,
         var(--color-monitor-screen) 0%,
-        var(--color-monitor-screen-glow) 50%,
+        var(--color-monitor-screen-subtle) 50%,
         var(--color-monitor-screen) 100%
     );
     border-radius: 3px;
     position: relative;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3) inset;
 }
 
 /* Subtle screen reflection/glow */
@@ -182,26 +222,51 @@ body {
     pointer-events: none;
 }
 
-/* Monitor Body/Neck */
+/* Monitor Body/Neck - Enhanced Structure */
 .monitor__body {
-    height: 24px;
+    height: 48px;
     background: linear-gradient(to bottom,
         var(--color-monitor-bezel),
-        var(--color-monitor-body)
+        var(--color-monitor-body),
+        #1a1a1a
     );
-    margin-top: -2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-top: -4px;
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.02) inset;
+    position: relative;
 }
 
-/* Monitor Stand */
+/* Monitor Stand - Enhanced Base Structure */
 .monitor__stand {
-    height: 10px;
-    background-color: var(--color-monitor-stand);
-    border-radius: 4px;
-    margin-top: 6px;
+    height: 36px;
+    background: linear-gradient(to bottom,
+        var(--color-monitor-stand),
+        #1d1d1d
+    );
+    border-radius: 6px;
+    margin-top: 8px;
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.5),
-        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+        0 6px 16px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(255, 255, 255, 0.03) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.4) inset;
+    position: relative;
+}
+
+/* Stand Base Detail */
+.monitor__stand::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 8px;
+    background: radial-gradient(ellipse at center,
+        rgba(34, 34, 34, 0.8) 0%,
+        transparent 70%
+    );
+    border-radius: 50%;
 }
 
 /* ============================================
@@ -231,33 +296,49 @@ body {
    ============================================ */
 
 .monitor--center .monitor__bezel {
-    width: 380px;
-    aspect-ratio: 21 / 10; /* Ultrawide suggestion */
+    width: 440px;
+    aspect-ratio: 21 / 10; /* Ultrawide - Portal emphasis */
 }
 
 .monitor--center .monitor__body {
-    width: 45%;
+    width: 42%;
 }
 
 .monitor--center .monitor__stand {
-    width: 65%;
+    width: 62%;
 }
 
 /* Enhanced visual weight for portal monitor */
 .monitor--center .monitor__bezel {
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.8),
-        0 1px 3px rgba(255, 255, 255, 0.04) inset,
-        0 -1px 2px rgba(0, 0, 0, 0.6) inset;
+        0 28px 70px rgba(0, 0, 0, 0.85),
+        0 2px 5px rgba(255, 255, 255, 0.05) inset,
+        0 -2px 4px rgba(0, 0, 0, 0.7) inset;
 }
 
-/* Subtle screen glow emphasis on portal monitor */
+/* Portal monitor screen - subtle emphasis without activation */
 .monitor--center .monitor__screen {
     background: linear-gradient(135deg,
         var(--color-monitor-screen) 0%,
-        #1a1a1a 50%,
+        #151515 50%,
         var(--color-monitor-screen) 100%
     );
+}
+
+/* Subtle bezel top highlight for premium feel */
+.monitor--center .monitor__bezel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.06) 50%,
+        transparent 100%
+    );
+    border-radius: 6px 6px 0 0;
 }
 
 /* ============================================
@@ -292,51 +373,98 @@ body {
     justify-content: center;
     gap: 1.5rem;
     margin-top: 1rem;
-    opacity: 0.8;
+    opacity: 0.65;
 }
 
-/* Keyboard */
+/* Keyboard - Refined Premium Detail */
 .keyboard {
     width: 320px;
     height: 100px;
     background: linear-gradient(to bottom,
         var(--color-keyboard) 0%,
+        #252525 50%,
         #1f1f1f 100%
     );
     border-radius: 6px;
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.6),
-        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+        0 10px 24px rgba(0, 0, 0, 0.65),
+        0 1px 2px rgba(255, 255, 255, 0.03) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.4) inset;
     position: relative;
 }
 
-/* Subtle keyboard key suggestion */
+/* Subtle keyboard key grid suggestion */
 .keyboard::before {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    background: linear-gradient(to bottom,
-        rgba(0, 0, 0, 0.2) 0%,
-        transparent 100%
-    );
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 16px;
+    background:
+        repeating-linear-gradient(
+            to right,
+            transparent 0px,
+            transparent 14px,
+            rgba(0, 0, 0, 0.15) 14px,
+            rgba(0, 0, 0, 0.15) 15px
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 14px,
+            rgba(0, 0, 0, 0.15) 14px,
+            rgba(0, 0, 0, 0.15) 15px
+        );
     border-radius: 3px;
 }
 
-/* Mouse */
+/* Keyboard wrist rest separation */
+.keyboard::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.1) 100%
+    );
+    border-radius: 0 0 6px 6px;
+}
+
+/* Mouse - Refined Ergonomic Shape */
 .mouse {
     width: 50px;
     height: 80px;
-    background: linear-gradient(to bottom,
+    background: linear-gradient(135deg,
         var(--color-mouse) 0%,
+        #222222 50%,
         #1a1a1a 100%
     );
-    border-radius: 12px;
+    border-radius: 12px 12px 16px 16px;
     box-shadow:
-        0 6px 16px rgba(0, 0, 0, 0.5),
-        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+        0 8px 18px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(255, 255, 255, 0.03) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.3) inset;
+    position: relative;
+}
+
+/* Mouse scroll wheel detail */
+.mouse::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 24px;
+    background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.15) 100%
+    );
+    border-radius: 2px;
 }
 
 /* ============================================
@@ -353,18 +481,35 @@ body {
     pointer-events: none;
 }
 
-/* Wall suggestion (subtle gradient) */
+/* Wall presence - Enhanced visibility */
 .wall {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 60%;
+    height: 55%;
     background: linear-gradient(to bottom,
         var(--color-wall) 0%,
+        rgba(42, 42, 42, 0.6) 50%,
         transparent 100%
     );
-    opacity: 0.3;
+    opacity: 0.5;
+}
+
+/* Floor plane - Spatial grounding */
+.wall::after {
+    content: '';
+    position: absolute;
+    bottom: -45vh;
+    left: 0;
+    width: 100%;
+    height: 45vh;
+    background: linear-gradient(to bottom,
+        rgba(15, 15, 15, 0.3) 0%,
+        var(--color-floor) 40%,
+        #080808 100%
+    );
+    opacity: 0.6;
 }
 
 /* ============================================
@@ -383,12 +528,17 @@ body {
     }
 
     .monitor--center .monitor__bezel {
-        width: 300px;
+        width: 360px;
     }
 
     .keyboard {
         width: 260px;
         height: 80px;
+    }
+
+    .desk::before {
+        height: 120px;
+        bottom: -50px;
     }
 }
 
@@ -435,8 +585,13 @@ body {
 
     .desk::before {
         width: 100%;
-        bottom: -30px;
-        height: 50px;
+        bottom: -40px;
+        height: 100px;
+    }
+
+    .wall::after {
+        bottom: -40vh;
+        height: 40vh;
     }
 }
 
