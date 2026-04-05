@@ -1131,3 +1131,394 @@ body {
         color: #e0e0e0;
     }
 }
+
+/* ============================================
+   PROJECTS SCENE (Scene 5) - Static Foundation
+   Archive Cabinet on Right Side of Room
+   ============================================ */
+
+.projects-scene {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to bottom, #1f1f1f 0%, #2a2a2a 40%, #252525 100%);
+    padding: 5rem 2rem;
+}
+
+/* Wall Context - Right Side Wall Behind Cabinet */
+.projects-wall-context {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #252525 0%, #2d2d2d 30%, #2a2a2a 50%, #282828 70%, #2b2b2b 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Floor Grounding - Follows Established Room Material Logic */
+.projects-floor-context {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(15, 15, 15, 0.2) 20%,
+        rgba(15, 15, 15, 0.5) 50%,
+        #0f0f0f 80%,
+        #0a0a0a 100%
+    );
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Content Container - Cabinet Positioned Right of Center */
+.projects-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Visually Hidden Utility Class */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ============================================
+   ARCHIVE CABINET - Sole Primary Visual Anchor
+   4 Vertical Drawers, Dark Metal, Premium
+   ============================================ */
+
+.archive-cabinet {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    /* Slight angle (15-20 degrees off center) */
+    transform: perspective(1400px) rotateY(-12deg);
+    transform-style: preserve-3d;
+}
+
+/* Cabinet Shadow - Grounding on Floor */
+.archive-cabinet::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 40px;
+    background: radial-gradient(ellipse at center,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.3) 40%,
+        transparent 70%
+    );
+    z-index: -1;
+}
+
+/* ============================================
+   CABINET DRAWER - Closed State Only
+   ============================================ */
+
+.cabinet-drawer {
+    width: 100%;
+    height: 140px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Drawer Front - Dark Metal Surface */
+.drawer-front {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+        #1d1d1d 0%,
+        #222222 30%,
+        #1f1f1f 60%,
+        #1a1a1a 100%
+    );
+    border: 1px solid #151515;
+    border-bottom: 2px solid #0a0a0a;
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.7),
+        0 2px 4px rgba(255, 255, 255, 0.02) inset,
+        0 -1px 2px rgba(0, 0, 0, 0.5) inset;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+/* Drawer Separation Line - Between Drawers */
+.cabinet-drawer + .cabinet-drawer .drawer-front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.03) 50%,
+        transparent 100%
+    );
+}
+
+/* Drawer Handle - Horizontal Bar Pull */
+.drawer-handle {
+    position: absolute;
+    right: 3rem;
+    width: 80px;
+    height: 8px;
+    background: linear-gradient(to bottom,
+        #1a1a1a,
+        #252525,
+        #1d1d1d
+    );
+    border-radius: 2px;
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.6),
+        0 1px 1px rgba(255, 255, 255, 0.02) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.4) inset;
+}
+
+/* Handle Mounting Points */
+.drawer-handle::before,
+.drawer-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: #0f0f0f;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) inset;
+}
+
+.drawer-handle::before {
+    left: 8px;
+}
+
+.drawer-handle::after {
+    right: 8px;
+}
+
+/* ============================================
+   DRAWER LABELS - Left-Aligned Only
+   Strong Readability (12:1+ Contrast)
+   ============================================ */
+
+.drawer-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: left;
+    width: 100%;
+    max-width: 280px;
+}
+
+/* Project Title - White to Light Gray */
+.drawer-label__title {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    color: #efefef;
+    line-height: 1.3;
+    display: block;
+}
+
+/* Secondary Descriptor - Medium Gray */
+.drawer-label__descriptor {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: #909090;
+    line-height: 1.4;
+    display: block;
+}
+
+/* ============================================
+   EMPTY DRAWER (Top Drawer - Restraint)
+   ============================================ */
+
+.cabinet-drawer--empty .drawer-front {
+    background: linear-gradient(135deg,
+        #1a1a1a 0%,
+        #1f1f1f 30%,
+        #1c1c1c 60%,
+        #181818 100%
+    );
+}
+
+/* Empty drawer has no label content, handle only */
+
+/* ============================================
+   RESPONSIVE BEHAVIOR - Projects Scene
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .projects-scene {
+        padding: 4rem 2rem;
+    }
+
+    .projects-content {
+        justify-content: center;
+        padding-right: 0;
+    }
+
+    .archive-cabinet {
+        width: 380px;
+        transform: perspective(1200px) rotateY(-10deg);
+    }
+
+    .cabinet-drawer {
+        height: 130px;
+    }
+
+    .drawer-label {
+        max-width: 260px;
+    }
+
+    .drawer-label__title {
+        font-size: 1rem;
+    }
+
+    .drawer-label__descriptor {
+        font-size: 0.75rem;
+    }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+    .projects-scene {
+        padding: 3.5rem 1.5rem;
+    }
+
+    .archive-cabinet {
+        width: 100%;
+        max-width: 340px;
+        transform: perspective(1000px) rotateY(-8deg);
+    }
+
+    .cabinet-drawer {
+        height: 120px;
+    }
+
+    .drawer-front {
+        padding: 0 1.5rem;
+    }
+
+    .drawer-handle {
+        right: 2rem;
+        width: 70px;
+    }
+
+    .drawer-label {
+        max-width: 240px;
+    }
+
+    .drawer-label__title {
+        font-size: 0.9375rem;
+    }
+
+    .drawer-label__descriptor {
+        font-size: 0.75rem;
+    }
+
+    .projects-floor-context {
+        height: 30%;
+    }
+}
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+    .projects-scene {
+        padding: 3rem 1rem;
+    }
+
+    .archive-cabinet {
+        max-width: 300px;
+        transform: perspective(800px) rotateY(-6deg);
+    }
+
+    .cabinet-drawer {
+        height: 110px;
+    }
+
+    .drawer-front {
+        padding: 0 1.25rem;
+    }
+
+    .drawer-handle {
+        right: 1.5rem;
+        width: 60px;
+        height: 7px;
+    }
+
+    .drawer-label {
+        max-width: 200px;
+        gap: 0.25rem;
+    }
+
+    .drawer-label__title {
+        font-size: 0.875rem;
+    }
+
+    .drawer-label__descriptor {
+        font-size: 0.6875rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY - Projects Scene
+   ============================================ */
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .archive-cabinet {
+        transform: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .drawer-front {
+        border: 1px solid var(--color-accent-light);
+    }
+
+    .drawer-label__title {
+        color: #ffffff;
+    }
+
+    .drawer-label__descriptor {
+        color: #a0a0a0;
+    }
+
+    .drawer-handle {
+        border: 1px solid #505050;
+    }
+}
