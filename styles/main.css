@@ -2066,20 +2066,21 @@ body {
 /* Desk-Adjacent Surface - Grounding Element */
 .desk-adjacent-surface {
     position: absolute;
-    bottom: 10%;
+    bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 700px;
-    height: 120px;
+    max-width: 750px;
+    height: 140px;
     /* Dark wood/matte surface matching desk-world materials */
-    background: linear-gradient(to bottom, #1a1a1a 0%, #181818 50%, #161616 100%);
+    background: linear-gradient(to bottom, #1d1d1d 0%, #1a1a1a 40%, #181818 70%, #161616 100%);
     border-radius: 2px;
-    /* Subtle shadow for depth */
-    box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.4),
-        0 1px 2px rgba(0, 0, 0, 0.3);
-    opacity: 0.8;
+    /* Enhanced shadow for stronger physical grounding */
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.5),
+        0 1px 4px rgba(0, 0, 0, 0.4),
+        0 -1px 0 rgba(255, 255, 255, 0.02) inset;
+    opacity: 0.9;
     pointer-events: none;
 }
 
@@ -2089,22 +2090,24 @@ body {
     z-index: 10;
     /* Landscape orientation */
     width: 100%;
-    max-width: 520px;
-    /* Premium paper card rendering */
-    background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+    max-width: 540px;
+    /* Premium paper card rendering - enhanced contrast for final focal clarity */
+    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
     border-radius: 4px;
     /* Generous padding for minimal clean layout */
-    padding: 3rem 3.5rem;
-    /* Slightly asymmetrical composition - offset slightly left */
-    margin-right: 3rem;
-    /* Soft shadow creating physical card depth */
-    box-shadow: 
-        0 4px 16px rgba(0, 0, 0, 0.5),
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 3.25rem 3.75rem;
+    /* Intentional asymmetrical composition - editorial offset */
+    margin-right: 4.5rem;
+    margin-top: -1rem;
+    /* Enhanced shadow for stronger visual presence and physical grounding */
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.6),
+        0 3px 12px rgba(0, 0, 0, 0.4),
+        0 1px 3px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
     /* Subtle paper texture suggestion */
-    background-image: 
-        linear-gradient(135deg, transparent 48%, rgba(255, 255, 255, 0.03) 50%, transparent 52%);
+    background-image:
+        linear-gradient(135deg, transparent 48%, rgba(255, 255, 255, 0.04) 50%, transparent 52%);
     background-size: 3px 3px;
 }
 
@@ -2119,23 +2122,23 @@ body {
 
 /* CTA Line */
 .card-cta {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
     font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-    margin-bottom: 1.25rem;
-    /* Calm, confident tone */
-    color: #1a1a1a;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    /* Calm, confident, clear - enhanced contrast for readability */
+    color: #0a0a0a;
 }
 
 /* Email Line */
 .card-email {
-    font-size: 1.125rem;
+    font-size: 1.1875rem;
     font-weight: 400;
-    letter-spacing: 0.005em;
+    letter-spacing: 0.003em;
     line-height: 1.5;
-    /* Professional, readable */
-    color: #2a2a2a;
+    /* Professional, readable - enhanced contrast */
+    color: #1a1a1a;
     word-break: break-all;
 }
 
@@ -2155,23 +2158,24 @@ body {
     }
 
     .contact-card {
-        max-width: 480px;
-        padding: 2.75rem 3rem;
-        margin-right: 2rem;
+        max-width: 500px;
+        padding: 3rem 3.25rem;
+        margin-right: 3.5rem;
+        margin-top: -0.75rem;
     }
 
     .card-cta {
-        font-size: 1.375rem;
-        margin-bottom: 1.125rem;
+        font-size: 1.5rem;
+        margin-bottom: 1.375rem;
     }
 
     .card-email {
-        font-size: 1.0625rem;
+        font-size: 1.125rem;
     }
 
     .desk-adjacent-surface {
-        max-width: 600px;
-        height: 100px;
+        max-width: 650px;
+        height: 120px;
     }
 }
 
@@ -2187,24 +2191,25 @@ body {
     }
 
     .contact-card {
-        max-width: 420px;
-        padding: 2.5rem 2.5rem;
-        /* Less asymmetry on mobile for better centering */
-        margin-right: 1rem;
+        max-width: 440px;
+        padding: 2.75rem 2.75rem;
+        /* Reduced asymmetry on mobile for better balance */
+        margin-right: 1.5rem;
+        margin-top: -0.5rem;
     }
 
     .card-cta {
-        font-size: 1.25rem;
-        margin-bottom: 1rem;
+        font-size: 1.375rem;
+        margin-bottom: 1.25rem;
     }
 
     .card-email {
-        font-size: 1rem;
+        font-size: 1.0625rem;
     }
 
     .desk-adjacent-surface {
-        max-width: 500px;
-        height: 90px;
+        max-width: 520px;
+        height: 110px;
     }
 
     .cta-desk-context {
@@ -2219,24 +2224,25 @@ body {
     }
 
     .contact-card {
-        max-width: 340px;
-        padding: 2.25rem 2rem;
-        /* Center on small mobile */
+        max-width: 360px;
+        padding: 2.5rem 2.25rem;
+        /* Center on small mobile for optimal readability */
         margin-right: 0;
+        margin-top: 0;
     }
 
     .card-cta {
-        font-size: 1.125rem;
-        margin-bottom: 0.875rem;
+        font-size: 1.25rem;
+        margin-bottom: 1.125rem;
     }
 
     .card-email {
-        font-size: 0.9375rem;
+        font-size: 1rem;
     }
 
     .desk-adjacent-surface {
-        max-width: 400px;
-        height: 80px;
+        max-width: 420px;
+        height: 90px;
         bottom: 8%;
     }
 }
