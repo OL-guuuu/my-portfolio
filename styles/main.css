@@ -2023,6 +2023,7 @@ body {
 /* ============================================
    CTA SCENE (Scene 7) - Static Foundation
    Premium Contact Card on Desk-Adjacent Surface
+   VISUAL CORRECTION: Enhanced card clarity, reduced dark-band weight
    ============================================ */
 
 .cta-scene {
@@ -2032,21 +2033,21 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Subtle gradient echoing desk world environment */
-    background: linear-gradient(to bottom, #0c0c0c 0%, #0a0a0a 50%, #080808 100%);
+    /* Lighter, calmer gradient - reduced dark-band feeling */
+    background: linear-gradient(to bottom, #0f0f0f 0%, #0e0e0e 50%, #0c0c0c 100%);
     padding: 5rem 2rem;
 }
 
-/* Very Subtle Desk-World Continuity Context */
+/* Very Subtle Desk-World Continuity Context - Reduced Opacity */
 .cta-desk-context {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 20%;
-    /* Very faint desk edge or monitor base suggestion */
-    background: linear-gradient(to bottom, transparent 0%, rgba(26, 26, 26, 0.2) 100%);
-    opacity: 0.3;
+    height: 15%;
+    /* Much more subtle desk hint - reduced visual weight */
+    background: linear-gradient(to bottom, transparent 0%, rgba(22, 22, 22, 0.12) 100%);
+    opacity: 0.2;
     pointer-events: none;
 }
 
@@ -2063,82 +2064,82 @@ body {
     padding: 2rem;
 }
 
-/* Desk-Adjacent Surface - Grounding Element */
+/* Desk-Adjacent Surface - Supporting Grounding Element (Not Primary Focus) */
 .desk-adjacent-surface {
     position: absolute;
-    bottom: 8%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 750px;
-    height: 140px;
-    /* Dark wood/matte surface matching desk-world materials */
-    background: linear-gradient(to bottom, #1d1d1d 0%, #1a1a1a 40%, #181818 70%, #161616 100%);
+    max-width: 680px;
+    height: 110px;
+    /* Lighter, more recessive surface - supports card without overpowering */
+    background: linear-gradient(to bottom, #222222 0%, #1e1e1e 40%, #1b1b1b 70%, #1a1a1a 100%);
     border-radius: 2px;
-    /* Enhanced shadow for stronger physical grounding */
+    /* Softer shadow - grounding without visual dominance */
     box-shadow:
-        0 3px 12px rgba(0, 0, 0, 0.5),
-        0 1px 4px rgba(0, 0, 0, 0.4),
-        0 -1px 0 rgba(255, 255, 255, 0.02) inset;
-    opacity: 0.9;
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        0 1px 3px rgba(0, 0, 0, 0.25),
+        0 -1px 0 rgba(255, 255, 255, 0.015) inset;
+    opacity: 0.65;
     pointer-events: none;
+    z-index: 1;
 }
 
-/* Premium Contact Card - Sole Primary Visual Anchor */
+/* Premium Contact Card - PRIMARY FOCAL OBJECT */
 .contact-card {
     position: relative;
-    z-index: 10;
+    z-index: 20;
     /* Landscape orientation */
     width: 100%;
     max-width: 540px;
-    /* Premium paper card rendering - enhanced contrast for final focal clarity */
-    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    /* Brighter premium paper - clear visual hierarchy leader */
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
     border-radius: 4px;
     /* Generous padding for minimal clean layout */
     padding: 3.25rem 3.75rem;
     /* Intentional asymmetrical composition - editorial offset */
     margin-right: 4.5rem;
     margin-top: -1rem;
-    /* Enhanced shadow for stronger visual presence and physical grounding */
+    /* Stronger, clearer shadow - establishes card as dominant focal object */
     box-shadow:
-        0 6px 24px rgba(0, 0, 0, 0.6),
-        0 3px 12px rgba(0, 0, 0, 0.4),
-        0 1px 3px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(0, 0, 0, 0.05);
+        0 12px 40px rgba(0, 0, 0, 0.75),
+        0 6px 20px rgba(0, 0, 0, 0.55),
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(0, 0, 0, 0.08);
     /* Subtle paper texture suggestion */
     background-image:
-        linear-gradient(135deg, transparent 48%, rgba(255, 255, 255, 0.04) 50%, transparent 52%);
+        linear-gradient(135deg, transparent 48%, rgba(255, 255, 255, 0.03) 50%, transparent 52%);
     background-size: 3px 3px;
 }
 
-/* Card Text Styling */
+/* Card Text Styling - Maximum Clarity and Readability */
 .card-cta,
 .card-email {
     font-family: var(--font-system);
-    color: #0a0a0a;
     margin: 0;
     text-align: left;
 }
 
-/* CTA Line */
+/* CTA Line - Immediately Readable */
 .card-cta {
     font-size: 1.625rem;
     font-weight: 500;
     letter-spacing: -0.015em;
     line-height: 1.25;
     margin-bottom: 1.5rem;
-    /* Calm, confident, clear - enhanced contrast for readability */
-    color: #0a0a0a;
+    /* Maximum contrast on bright card - immediate readability */
+    color: #000000;
 }
 
-/* Email Line */
+/* Email Line - Clearly Readable */
 .card-email {
     font-size: 1.1875rem;
     font-weight: 400;
     letter-spacing: 0.003em;
     line-height: 1.5;
-    /* Professional, readable - enhanced contrast */
-    color: #1a1a1a;
+    /* Strong contrast for clear readability */
+    color: #0a0a0a;
     word-break: break-all;
 }
 
@@ -2174,8 +2175,8 @@ body {
     }
 
     .desk-adjacent-surface {
-        max-width: 650px;
-        height: 120px;
+        max-width: 600px;
+        height: 100px;
     }
 }
 
@@ -2208,12 +2209,12 @@ body {
     }
 
     .desk-adjacent-surface {
-        max-width: 520px;
-        height: 110px;
+        max-width: 480px;
+        height: 90px;
     }
 
     .cta-desk-context {
-        height: 15%;
+        height: 12%;
     }
 }
 
@@ -2241,9 +2242,9 @@ body {
     }
 
     .desk-adjacent-surface {
-        max-width: 420px;
-        height: 90px;
-        bottom: 8%;
+        max-width: 400px;
+        height: 80px;
+        bottom: 10%;
     }
 }
 
