@@ -2024,6 +2024,7 @@ body {
    CTA SCENE (Scene 7) - Static Foundation
    Open Notebook on Desk - Full-Circle Return
    Notebook Direction - Locked Specification
+   REBUILD: Stricter Visual Implementation
    ============================================ */
 
 .cta-scene {
@@ -2033,34 +2034,35 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Desk-world atmospheric background */
-    background: linear-gradient(to bottom, #0c0c0c 0%, #0f0f0f 40%, #0a0a0a 100%);
+    /* Desk-world atmospheric background - darker to push notebook forward */
+    background: linear-gradient(to bottom, #080808 0%, #0a0a0a 40%, #060606 100%);
     padding: 5rem 2rem;
 }
 
-/* Desk Surface Context - Subtle Desk Grounding */
+/* Desk Surface Context - Refined Subtle Grounding */
 .desk-surface-context {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 35%;
-    /* Desk surface tone and texture imply desk world */
+    height: 30%;
+    /* Subtle refined desk surface - not a dark band */
     background: linear-gradient(to bottom,
         transparent 0%,
-        rgba(34, 34, 34, 0.15) 25%,
-        rgba(34, 34, 34, 0.35) 60%,
-        #222222 100%
+        rgba(30, 30, 30, 0.1) 30%,
+        rgba(32, 32, 32, 0.25) 70%,
+        rgba(30, 30, 30, 0.4) 100%
     );
     z-index: 0;
     pointer-events: none;
+    opacity: 0.6;
 }
 
 /* Content Container */
 .cta-content {
     position: relative;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -2072,51 +2074,53 @@ body {
 /* ============================================
    NOTEBOOK - Sole Primary Visual Anchor
    Open Notebook with Two Facing Pages
+   REBUILD: Increased Size and Visual Authority
    ============================================ */
 
 .notebook {
     position: relative;
     width: 100%;
-    max-width: 700px;
-    aspect-ratio: 2.2 / 1;
+    max-width: 850px;
+    aspect-ratio: 2.1 / 1;
     display: flex;
     align-items: stretch;
     /* Natural angle on desk (not perfectly square to camera) */
-    transform: perspective(1200px) rotateY(-3deg) rotateX(2deg);
+    transform: perspective(1400px) rotateY(-2deg) rotateX(1.5deg);
     transform-style: preserve-3d;
 }
 
 /* Notebook Shadow - Grounding on Desk Surface */
 .notebook__shadow {
     position: absolute;
-    bottom: -25px;
+    bottom: -35px;
     left: 50%;
     transform: translateX(-50%);
-    width: 98%;
-    height: 40px;
+    width: 96%;
+    height: 50px;
     background: radial-gradient(ellipse at center,
-        rgba(0, 0, 0, 0.7) 0%,
-        rgba(0, 0, 0, 0.4) 40%,
-        rgba(0, 0, 0, 0.1) 70%,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.5) 40%,
+        rgba(0, 0, 0, 0.15) 70%,
         transparent 100%
     );
     z-index: -1;
 }
 
 /* ============================================
-   NOTEBOOK COVERS - Dark Gray to Black
+   NOTEBOOK COVERS - Dark to Black
+   Premium Leather/Cardboard Material
    ============================================ */
 
 .notebook__cover {
     position: absolute;
     background: linear-gradient(135deg,
-        #1a1a1a 0%,
-        #0f0f0f 50%,
-        #121212 100%
+        #0f0f0f 0%,
+        #0a0a0a 50%,
+        #0d0d0d 100%
     );
     box-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.5),
-        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+        0 4px 12px rgba(0, 0, 0, 0.7),
+        0 1px 3px rgba(255, 255, 255, 0.03) inset;
     z-index: 0;
 }
 
@@ -2124,22 +2128,23 @@ body {
 .notebook__cover--left {
     top: 0;
     left: 0;
-    width: 6%;
+    width: 5%;
     height: 100%;
-    border-radius: 4px 0 0 4px;
+    border-radius: 5px 0 0 5px;
 }
 
 /* Right Cover - Visible at Right Edge */
 .notebook__cover--right {
     top: 0;
     right: 0;
-    width: 6%;
+    width: 5%;
     height: 100%;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 5px 5px 0;
 }
 
 /* ============================================
    NOTEBOOK PAGES - Two Facing Pages
+   REBUILD: Premium Paper Surfaces with Strong Contrast
    ============================================ */
 
 .notebook__pages {
@@ -2150,59 +2155,72 @@ body {
     z-index: 1;
 }
 
-/* Individual Page Styling */
+/* Individual Page Styling - Premium White/Cream Paper */
 .notebook__page {
     flex: 1;
     position: relative;
-    /* Premium paper color - light cream/white */
+    /* Premium bright paper - clear contrast against dark covers */
     background: linear-gradient(135deg,
-        #f8f8f8 0%,
-        #fafafa 50%,
-        #f7f7f7 100%
+        #fdfbf8 0%,
+        #ffffff 30%,
+        #fcfcfc 60%,
+        #fafaf8 100%
     );
-    /* Clean paper texture - not busy */
+    /* Subtle paper texture - not distracting */
     background-image:
         repeating-linear-gradient(
             0deg,
             transparent,
-            transparent 2px,
-            rgba(0, 0, 0, 0.008) 2px,
-            rgba(0, 0, 0, 0.008) 4px
+            transparent 3px,
+            rgba(0, 0, 0, 0.006) 3px,
+            rgba(0, 0, 0, 0.006) 6px
         );
+    /* Strong shadow for depth and separation */
     box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.6),
-        0 4px 12px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(0, 0, 0, 0.1);
+        0 18px 60px rgba(0, 0, 0, 0.75),
+        0 8px 24px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
-/* Left Page - Blank (Clean Paper Texture Only) */
+/* Left Page - Blank (Premium Clean Paper) */
 .notebook__page--left {
-    border-radius: 3px 0 0 3px;
-    /* Subtle page separation line */
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px 0 0 4px;
+    /* Center spine shadow - creates notebook binding */
+    box-shadow:
+        inset -8px 0 16px -8px rgba(0, 0, 0, 0.3),
+        0 18px 60px rgba(0, 0, 0, 0.75),
+        0 8px 24px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
 /* Right Page - Contains Handwritten Text */
 .notebook__page--right {
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 4px 4px 0;
+    /* Center spine shadow from opposite side */
+    box-shadow:
+        inset 8px 0 16px -8px rgba(0, 0, 0, 0.3),
+        0 18px 60px rgba(0, 0, 0, 0.75),
+        0 8px 24px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2.25rem;
-    padding: 3rem 2.5rem;
+    gap: 2.5rem;
+    padding: 3.5rem 3rem;
 }
 
-/* Subtle Page Depth - Slight Elevation from Surface */
+/* Paper Lighting - Strong Top Light */
 .notebook__page::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 30%;
+    height: 40%;
     background: linear-gradient(to bottom,
-        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.6) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
         transparent 100%
     );
     pointer-events: none;
@@ -2211,36 +2229,37 @@ body {
 
 /* ============================================
    HANDWRITTEN TEXT - Two Lines Only
-   Designer's Handwriting Style
+   REBUILD: Premium Handwritten Style with Strong Readability
    ============================================ */
 
 .handwritten-line {
-    font-family: 'Brush Script MT', 'Comic Sans MS', cursive, var(--font-system);
+    font-family: 'Brush Script MT', 'Segoe Script', 'Comic Sans MS', cursive, var(--font-system);
     margin: 0;
     text-align: center;
-    color: #1a1a1a;
+    color: #0a0a0a;
     /* Handwritten character - slightly irregular */
-    letter-spacing: 0.02em;
-    transform: rotate(-0.5deg);
+    letter-spacing: 0.015em;
+    line-height: 1.35;
+    /* Very subtle rotation for organic feel */
+    transform: rotate(-0.3deg);
 }
 
 /* Line 1 - Invitation: "If this feels right, write to me." */
 .handwritten-line--invitation {
-    font-size: clamp(1.5rem, 3.2vw, 2.125rem);
+    font-size: clamp(1.75rem, 3.8vw, 2.5rem);
     font-weight: 400;
-    line-height: 1.4;
-    /* Casual professional tone */
+    /* Elegant handwritten style */
     font-style: italic;
 }
 
 /* Line 2 - Email: "hello@oussamalassoued.com" */
 .handwritten-line--email {
-    font-size: clamp(1.25rem, 2.8vw, 1.875rem);
+    font-size: clamp(1.375rem, 3.2vw, 2.125rem);
     font-weight: 400;
-    line-height: 1.5;
-    /* Slightly less italic for readability */
+    /* More readable - less italic */
     font-style: normal;
     word-break: break-all;
+    letter-spacing: 0.01em;
 }
 
 /* ============================================
@@ -2254,24 +2273,24 @@ body {
     }
 
     .cta-content {
-        max-width: 800px;
+        max-width: 900px;
     }
 
     .notebook {
-        max-width: 600px;
+        max-width: 720px;
     }
 
     .notebook__page--right {
-        gap: 2rem;
-        padding: 2.5rem 2rem;
+        gap: 2.25rem;
+        padding: 3rem 2.5rem;
     }
 
     .handwritten-line--invitation {
-        font-size: clamp(1.375rem, 3vw, 1.875rem);
+        font-size: clamp(1.625rem, 3.5vw, 2.25rem);
     }
 
     .handwritten-line--email {
-        font-size: clamp(1.125rem, 2.5vw, 1.625rem);
+        font-size: clamp(1.25rem, 3vw, 1.875rem);
     }
 }
 
@@ -2287,26 +2306,26 @@ body {
     }
 
     .notebook {
-        max-width: 520px;
+        max-width: 600px;
         /* Reduce perspective angle on mobile */
-        transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
+        transform: perspective(1200px) rotateY(-1.5deg) rotateX(1deg);
     }
 
     .notebook__page--right {
-        gap: 1.75rem;
-        padding: 2.25rem 1.75rem;
+        gap: 2rem;
+        padding: 2.75rem 2.25rem;
     }
 
     .handwritten-line--invitation {
-        font-size: clamp(1.25rem, 3.5vw, 1.625rem);
+        font-size: clamp(1.5rem, 4vw, 2rem);
     }
 
     .handwritten-line--email {
-        font-size: clamp(1rem, 2.8vw, 1.375rem);
+        font-size: clamp(1.125rem, 3.5vw, 1.625rem);
     }
 
     .desk-surface-context {
-        height: 30%;
+        height: 28%;
     }
 }
 
@@ -2317,27 +2336,27 @@ body {
     }
 
     .notebook {
-        max-width: 440px;
+        max-width: 520px;
         /* Minimal perspective on small mobile */
-        transform: perspective(800px) rotateY(-1deg) rotateX(0.5deg);
+        transform: perspective(1000px) rotateY(-1deg) rotateX(0.5deg);
     }
 
     .notebook__page--right {
-        gap: 1.5rem;
-        padding: 2rem 1.5rem;
+        gap: 1.75rem;
+        padding: 2.5rem 2rem;
     }
 
     .handwritten-line--invitation {
-        font-size: clamp(1.125rem, 4vw, 1.5rem);
+        font-size: clamp(1.375rem, 4.5vw, 1.75rem);
     }
 
     .handwritten-line--email {
-        font-size: clamp(0.9375rem, 3.2vw, 1.25rem);
+        font-size: clamp(1rem, 3.8vw, 1.5rem);
     }
 
     .notebook__shadow {
-        bottom: -20px;
-        height: 35px;
+        bottom: -30px;
+        height: 45px;
     }
 
     .desk-surface-context {
