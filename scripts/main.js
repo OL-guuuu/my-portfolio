@@ -403,6 +403,7 @@ function init() {
   console.log('='.repeat(80));
   console.log('Phase 2 Step 1: Scroll Infrastructure Initialized');
   console.log('This is ONLY the detection infrastructure - no visual transitions yet');
+  console.log('NOTE: Infrastructure is dormant until scrollable content is added in Step 2+');
   console.log('='.repeat(80));
 
   // Detect accessibility preferences
@@ -417,6 +418,8 @@ function init() {
 
   // Log initial state
   console.log(`Initial scene: ${state.activeScene} - ${SCENE_CONFIG[state.activeScene].name}`);
+  console.log(`Document height: ${document.documentElement.scrollHeight}px`);
+  console.log(`Viewport height: ${state.viewportHeight}px`);
 
   // Add scroll event listener with passive flag for performance
   window.addEventListener('scroll', handleScroll, { passive: true });
@@ -428,8 +431,7 @@ function init() {
     resizeTimeout = setTimeout(handleResize, 150);
   }, { passive: true });
 
-  console.log('✅ Scroll detection ready');
-  console.log('👉 Scroll the page to see scene detection in action');
+  console.log('✅ Scroll detection ready (dormant until Step 2+ adds scrollable content)');
 }
 
 // Initialize when DOM is ready
