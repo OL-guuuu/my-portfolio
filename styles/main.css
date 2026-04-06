@@ -2022,9 +2022,8 @@ body {
 }
 /* ============================================
    CTA SCENE (Scene 7) - Static Foundation
-   Open Notebook on Desk - Full-Circle Return
-   Notebook Direction - Locked Specification
-   REBUILD 2: Object-First with No Overlays Crossing Notebook
+   Premium Tablet on Minimal Stand - Full-Circle Return
+   Tablet CTA Direction - Locked Specification
    ============================================ */
 
 .cta-scene {
@@ -2034,24 +2033,24 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Clean atmospheric background - light enough to not cross notebook */
+    /* Clean atmospheric background - desk world context */
     background: linear-gradient(to bottom, #1a1a1a 0%, #1e1e1e 50%, #1c1c1c 100%);
     padding: 5rem 2rem;
 }
 
-/* Desk Surface Context - Supporting from Below Only */
+/* Desk Surface Context - Grounding Support */
 .desk-surface-context {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 20%;
-    /* Refined desk material - stays below notebook, never crosses it */
+    height: 25%;
+    /* Desk material - grounds tablet in desk world */
     background: linear-gradient(to bottom,
         transparent 0%,
-        transparent 40%,
-        rgba(34, 34, 34, 0.3) 80%,
-        rgba(32, 32, 32, 0.5) 100%
+        rgba(34, 34, 34, 0.2) 40%,
+        rgba(32, 32, 32, 0.4) 70%,
+        rgba(30, 30, 30, 0.6) 100%
     );
     z-index: 0;
     pointer-events: none;
@@ -2071,192 +2070,287 @@ body {
 }
 
 /* ============================================
-   NOTEBOOK - Sole Primary Visual Anchor
-   Open Notebook with Two Facing Pages
-   REBUILD: Much Larger, Stronger Visual Authority, Premium Object
+   TABLET - Sole Primary Visual Anchor
+   Premium Tablet on Minimal Stand
    ============================================ */
 
-.notebook {
+.tablet {
     position: relative;
-    width: 100%;
-    max-width: 950px;
-    aspect-ratio: 2.2 / 1;
     display: flex;
-    align-items: stretch;
-    /* Very subtle natural angle on desk */
-    transform: perspective(1600px) rotateY(-1.5deg) rotateX(1deg);
-    transform-style: preserve-3d;
-    /* Notebook sits ABOVE all background elements */
+    flex-direction: column;
+    align-items: center;
     z-index: 10;
 }
 
-/* Notebook Shadow - Strong Grounding on Desk Surface */
-.notebook__shadow {
+/* Tablet Shadow - Strong Grounding on Desk Surface */
+.tablet__shadow {
     position: absolute;
-    bottom: -40px;
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
-    width: 98%;
-    height: 60px;
+    width: 420px;
+    height: 45px;
     background: radial-gradient(ellipse at center,
-        rgba(0, 0, 0, 0.85) 0%,
-        rgba(0, 0, 0, 0.6) 35%,
-        rgba(0, 0, 0, 0.25) 65%,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.5) 40%,
+        rgba(0, 0, 0, 0.2) 70%,
         transparent 100%
     );
     z-index: -1;
 }
 
 /* ============================================
-   NOTEBOOK COVERS - Dark to Black
-   Premium Leather/Cardboard Material
-   REBUILD: Stronger Visible Edges
+   TABLET DEVICE - Premium Material Rendering
    ============================================ */
 
-.notebook__cover {
-    position: absolute;
+.tablet__device {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+/* Tablet Bezel/Frame - Dark Premium Metal */
+.tablet__bezel {
+    width: 420px;
+    height: 580px;
     background: linear-gradient(135deg,
-        #050505 0%,
-        #0a0a0a 50%,
-        #080808 100%
+        #1a1a1a 0%,
+        #1f1f1f 30%,
+        #1c1c1c 60%,
+        #181818 100%
     );
+    border-radius: 12px;
+    padding: 14px;
     box-shadow:
-        0 6px 16px rgba(0, 0, 0, 0.8),
-        0 2px 4px rgba(255, 255, 255, 0.04) inset;
-    z-index: 0;
+        0 25px 70px rgba(0, 0, 0, 0.9),
+        0 10px 30px rgba(0, 0, 0, 0.7),
+        0 2px 5px rgba(255, 255, 255, 0.05) inset,
+        0 -2px 4px rgba(0, 0, 0, 0.6) inset;
+    position: relative;
 }
 
-/* Left Cover - Visible at Left Edge */
-.notebook__cover--left {
-    top: 0;
-    left: 0;
-    width: 6%;
-    height: 100%;
-    border-radius: 6px 0 0 6px;
-}
-
-/* Right Cover - Visible at Right Edge */
-.notebook__cover--right {
-    top: 0;
-    right: 0;
-    width: 6%;
-    height: 100%;
-    border-radius: 0 6px 6px 0;
+/* Bezel Inner Depth - Premium Detail */
+.tablet__bezel::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
 }
 
 /* ============================================
-   NOTEBOOK PAGES - Two Facing Pages
-   REBUILD: Brilliant White Paper with Perfect Clarity
+   TABLET SCREEN - Active Display with Content
    ============================================ */
 
-.notebook__pages {
-    position: relative;
+.tablet__screen {
     width: 100%;
     height: 100%;
-    display: flex;
-    z-index: 2;
-    /* Gap creates visible center fold/binding */
-    gap: 6px;
-}
-
-/* Individual Page Styling - Brilliant White Paper */
-.notebook__page {
-    flex: 1;
+    background: linear-gradient(135deg,
+        #2a2a2a 0%,
+        #323232 50%,
+        #2e2e2e 100%
+    );
+    border-radius: 8px;
     position: relative;
-    /* Clean bright white paper - maximum contrast */
-    background: #ffffff;
-    /* Minimal paper texture - keeps it clean */
-    background-image:
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 4px,
-            rgba(0, 0, 0, 0.004) 4px,
-            rgba(0, 0, 0, 0.004) 8px
-        );
-    /* Strong shadow for premium depth */
-    box-shadow:
-        0 20px 70px rgba(0, 0, 0, 0.85),
-        0 10px 30px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
-}
-
-/* Left Page - Blank (Clean White Paper Surface) */
-.notebook__page--left {
-    /* Inner shadow from center fold */
-    box-shadow:
-        inset -10px 0 20px -10px rgba(0, 0, 0, 0.25),
-        0 20px 70px rgba(0, 0, 0, 0.85),
-        0 10px 30px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(0, 0, 0, 0.15);
-}
-
-/* Right Page - Contains Handwritten Text */
-.notebook__page--right {
-    /* Inner shadow from center fold */
-    box-shadow:
-        inset 10px 0 20px -10px rgba(0, 0, 0, 0.25),
-        0 20px 70px rgba(0, 0, 0, 0.85),
-        0 10px 30px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3) inset;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 2.75rem;
-    padding: 4rem 3.5rem;
+    justify-content: center;
+    padding: 3rem 2.5rem;
 }
 
-/* Paper Top Lighting - Subtle Enhancement */
-.notebook__page::before {
+/* Subtle screen top lighting */
+.tablet__screen::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 35%;
+    height: 40%;
     background: linear-gradient(to bottom,
-        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.03) 0%,
         transparent 100%
     );
+    border-radius: 8px 8px 0 0;
     pointer-events: none;
-    border-radius: inherit;
 }
 
 /* ============================================
-   HANDWRITTEN TEXT - Two Lines Only
-   REBUILD: Maximum Readability with Premium Typography
+   SCREEN CONTENT - CTA Elements
+   Four Elements: Heading, Description, Button, Links Row
    ============================================ */
 
-.handwritten-line {
-    font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive, var(--font-system);
-    margin: 0;
-    text-align: center;
-    /* Strong black ink on white paper - maximum readability */
-    color: #000000;
-    letter-spacing: 0.02em;
-    line-height: 1.4;
-    /* Subtle organic rotation */
-    transform: rotate(-0.4deg);
+.tablet__content {
     position: relative;
-    z-index: 5;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
 }
 
-/* Line 1 - Invitation: "If this feels right, write to me." */
-.handwritten-line--invitation {
-    font-size: clamp(2rem, 4.2vw, 2.75rem);
+/* Primary Heading - "Let's work together." */
+.tablet__heading {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #f5f5f5;
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* Supporting Description - "Email me to start the conversation." */
+.tablet__description {
+    font-size: clamp(1rem, 2vw, 1.125rem);
     font-weight: 400;
-    font-style: italic;
+    letter-spacing: 0.01em;
+    color: #b8b8b8;
+    line-height: 1.5;
+    margin: 0;
 }
 
-/* Line 2 - Email: "hello@oussamalassoued.com" */
-.handwritten-line--email {
-    font-size: clamp(1.5rem, 3.6vw, 2.25rem);
+/* Primary CTA Button - "Send Email" */
+.tablet__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    margin-top: 0.5rem;
+    background: linear-gradient(135deg,
+        #f5f5f5 0%,
+        #e8e8e8 50%,
+        #f0f0f0 100%
+    );
+    color: #0a0a0a;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.3),
+        0 1px 2px rgba(255, 255, 255, 0.2) inset;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tablet__button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.6),
+        0 4px 10px rgba(0, 0, 0, 0.4),
+        0 1px 2px rgba(255, 255, 255, 0.2) inset;
+}
+
+.tablet__button:active {
+    transform: translateY(0);
+}
+
+/* Secondary Links Row - "LinkedIn • Resume" */
+.tablet__links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.tablet__link {
+    font-size: 0.875rem;
     font-weight: 500;
-    font-style: normal;
-    letter-spacing: 0.015em;
-    word-break: break-all;
+    letter-spacing: 0.01em;
+    color: #909090;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.tablet__link:hover {
+    color: #c8c8c8;
+    text-decoration: underline;
+}
+
+.tablet__separator {
+    font-size: 0.875rem;
+    color: #505050;
+}
+
+/* ============================================
+   TABLET STAND - Minimal Grounding Element
+   ============================================ */
+
+.tablet__stand {
+    position: relative;
+    width: 180px;
+    height: 50px;
+    margin-top: -6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Stand Neck */
+.tablet__stand::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 28px;
+    background: linear-gradient(to bottom,
+        #1a1a1a 0%,
+        #1d1d1d 50%,
+        #191919 100%
+    );
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(255, 255, 255, 0.02) inset;
+    border-radius: 0 0 3px 3px;
+}
+
+/* Stand Base */
+.tablet__stand-base {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 24px;
+    background: linear-gradient(to bottom,
+        #1d1d1d 0%,
+        #202020 50%,
+        #1a1a1a 100%
+    );
+    border-radius: 8px;
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.7),
+        0 2px 6px rgba(0, 0, 0, 0.5),
+        0 1px 2px rgba(255, 255, 255, 0.02) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.4) inset;
+}
+
+/* Stand Base Grounding Detail */
+.tablet__stand-base::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 6px;
+    background: radial-gradient(ellipse at center,
+        rgba(26, 26, 26, 0.7) 0%,
+        transparent 70%
+    );
+    border-radius: 50%;
 }
 
 /* ============================================
@@ -2269,25 +2363,40 @@ body {
         padding: 4.5rem 2rem;
     }
 
-    .cta-content {
-        max-width: 850px;
+    .tablet__bezel {
+        width: 380px;
+        height: 520px;
     }
 
-    .notebook {
-        max-width: 800px;
+    .tablet__shadow {
+        width: 380px;
+        height: 40px;
     }
 
-    .notebook__page--right {
-        gap: 2.5rem;
-        padding: 3.5rem 3rem;
+    .tablet__content {
+        max-width: 290px;
+        gap: 1.5rem;
     }
 
-    .handwritten-line--invitation {
-        font-size: clamp(1.875rem, 4vw, 2.5rem);
+    .tablet__heading {
+        font-size: clamp(1.625rem, 3.2vw, 2rem);
     }
 
-    .handwritten-line--email {
-        font-size: clamp(1.375rem, 3.4vw, 2rem);
+    .tablet__description {
+        font-size: clamp(0.9375rem, 1.8vw, 1rem);
+    }
+
+    .tablet__button {
+        padding: 0.875rem 2.25rem;
+        font-size: 0.9375rem;
+    }
+
+    .tablet__stand {
+        width: 160px;
+    }
+
+    .tablet__stand-base {
+        width: 160px;
     }
 }
 
@@ -2302,30 +2411,72 @@ body {
         padding: 1.5rem;
     }
 
-    .notebook {
-        max-width: 650px;
-        transform: perspective(1400px) rotateY(-1deg) rotateX(0.8deg);
+    .tablet__bezel {
+        width: 340px;
+        height: 480px;
+        padding: 12px;
     }
 
-    .notebook__pages {
-        gap: 5px;
+    .tablet__bezel::before {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
     }
 
-    .notebook__page--right {
-        gap: 2.25rem;
-        padding: 3.25rem 2.75rem;
+    .tablet__screen {
+        padding: 2.5rem 2rem;
     }
 
-    .handwritten-line--invitation {
-        font-size: clamp(1.75rem, 4.5vw, 2.25rem);
+    .tablet__shadow {
+        width: 340px;
+        height: 38px;
+        bottom: -20px;
     }
 
-    .handwritten-line--email {
-        font-size: clamp(1.25rem, 3.8vw, 1.75rem);
+    .tablet__content {
+        max-width: 280px;
+        gap: 1.5rem;
+    }
+
+    .tablet__heading {
+        font-size: clamp(1.5rem, 3.5vw, 1.875rem);
+    }
+
+    .tablet__description {
+        font-size: clamp(0.875rem, 2vw, 1rem);
+    }
+
+    .tablet__button {
+        padding: 0.875rem 2rem;
+        font-size: 0.9375rem;
+    }
+
+    .tablet__link {
+        font-size: 0.8125rem;
+    }
+
+    .tablet__separator {
+        font-size: 0.8125rem;
+    }
+
+    .tablet__stand {
+        width: 140px;
+        height: 45px;
+    }
+
+    .tablet__stand::before {
+        width: 20px;
+        height: 24px;
+    }
+
+    .tablet__stand-base {
+        width: 140px;
+        height: 20px;
     }
 
     .desk-surface-context {
-        height: 18%;
+        height: 22%;
     }
 }
 
@@ -2335,35 +2486,72 @@ body {
         padding: 3.5rem 1rem;
     }
 
-    .notebook {
-        max-width: 540px;
-        transform: perspective(1200px) rotateY(-0.8deg) rotateX(0.5deg);
+    .tablet__bezel {
+        width: 300px;
+        height: 440px;
+        padding: 10px;
     }
 
-    .notebook__pages {
-        gap: 4px;
+    .tablet__bezel::before {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
     }
 
-    .notebook__page--right {
-        gap: 2rem;
-        padding: 3rem 2.5rem;
+    .tablet__screen {
+        padding: 2.25rem 1.75rem;
     }
 
-    .handwritten-line--invitation {
-        font-size: clamp(1.5rem, 5vw, 2rem);
+    .tablet__shadow {
+        width: 300px;
+        height: 35px;
+        bottom: -18px;
     }
 
-    .handwritten-line--email {
-        font-size: clamp(1.125rem, 4.2vw, 1.625rem);
+    .tablet__content {
+        max-width: 260px;
+        gap: 1.25rem;
     }
 
-    .notebook__shadow {
-        bottom: -35px;
-        height: 55px;
+    .tablet__heading {
+        font-size: clamp(1.375rem, 4vw, 1.75rem);
+    }
+
+    .tablet__description {
+        font-size: clamp(0.8125rem, 2.2vw, 0.9375rem);
+    }
+
+    .tablet__button {
+        padding: 0.75rem 1.75rem;
+        font-size: 0.875rem;
+    }
+
+    .tablet__link {
+        font-size: 0.75rem;
+    }
+
+    .tablet__separator {
+        font-size: 0.75rem;
+    }
+
+    .tablet__stand {
+        width: 120px;
+        height: 42px;
+    }
+
+    .tablet__stand::before {
+        width: 18px;
+        height: 22px;
+    }
+
+    .tablet__stand-base {
+        width: 120px;
+        height: 18px;
     }
 
     .desk-surface-context {
-        height: 16%;
+        height: 20%;
     }
 }
 
@@ -2373,30 +2561,54 @@ body {
 
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-    .notebook {
+    .tablet__button {
+        transition: none;
+    }
+
+    .tablet__button:hover {
         transform: none;
     }
 
-    .handwritten-line {
+    .tablet__button:active {
         transform: none;
+    }
+
+    .tablet__link {
+        transition: none;
     }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .notebook__page {
+    .tablet__bezel {
+        border: 2px solid var(--color-accent-light);
+    }
+
+    .tablet__screen {
+        background: #1a1a1a;
+        border: 2px solid #404040;
+    }
+
+    .tablet__heading {
+        color: #ffffff;
+    }
+
+    .tablet__description {
+        color: #c8c8c8;
+    }
+
+    .tablet__button {
         background: #ffffff;
+        color: #000000;
         border: 2px solid #000000;
     }
 
-    .notebook__cover {
-        background: #000000;
-        border: 2px solid #606060;
+    .tablet__link {
+        color: #a0a0a0;
     }
 
-    .handwritten-line {
-        color: #000000;
-        font-weight: 600;
+    .tablet__link:hover {
+        color: #ffffff;
     }
 
     .desk-surface-context {
