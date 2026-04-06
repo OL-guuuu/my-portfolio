@@ -11,6 +11,21 @@
     box-sizing: border-box;
 }
 
+/* Phase 2 Step 1: Enable Scroll Height for Scene Detection */
+/* Total scroll height: ~1100vh to accommodate all scenes and transitions */
+html {
+    /* This creates scrollable height for the infrastructure to work */
+    /* Actual visual transitions will be implemented in later steps */
+    height: 1100vh;
+}
+
+body {
+    /* Body remains at viewport height */
+    height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
 /* CSS Custom Properties - Monochrome Palette */
 :root {
     /* Background Tones - Expanded Range */
