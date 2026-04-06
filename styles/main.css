@@ -2024,7 +2024,7 @@ body {
    CTA SCENE (Scene 7) - Static Foundation
    Open Notebook on Desk - Full-Circle Return
    Notebook Direction - Locked Specification
-   REBUILD: Stricter Visual Implementation
+   REBUILD 2: Object-First with No Overlays Crossing Notebook
    ============================================ */
 
 .cta-scene {
@@ -2034,28 +2034,27 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Desk-world atmospheric background - darker to push notebook forward */
-    background: linear-gradient(to bottom, #080808 0%, #0a0a0a 40%, #060606 100%);
+    /* Clean atmospheric background - light enough to not cross notebook */
+    background: linear-gradient(to bottom, #1a1a1a 0%, #1e1e1e 50%, #1c1c1c 100%);
     padding: 5rem 2rem;
 }
 
-/* Desk Surface Context - Refined Subtle Grounding */
+/* Desk Surface Context - Supporting from Below Only */
 .desk-surface-context {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 30%;
-    /* Subtle refined desk surface - not a dark band */
+    height: 20%;
+    /* Refined desk material - stays below notebook, never crosses it */
     background: linear-gradient(to bottom,
         transparent 0%,
-        rgba(30, 30, 30, 0.1) 30%,
-        rgba(32, 32, 32, 0.25) 70%,
-        rgba(30, 30, 30, 0.4) 100%
+        transparent 40%,
+        rgba(34, 34, 34, 0.3) 80%,
+        rgba(32, 32, 32, 0.5) 100%
     );
     z-index: 0;
     pointer-events: none;
-    opacity: 0.6;
 }
 
 /* Content Container */
@@ -2074,33 +2073,35 @@ body {
 /* ============================================
    NOTEBOOK - Sole Primary Visual Anchor
    Open Notebook with Two Facing Pages
-   REBUILD: Increased Size and Visual Authority
+   REBUILD: Much Larger, Stronger Visual Authority, Premium Object
    ============================================ */
 
 .notebook {
     position: relative;
     width: 100%;
-    max-width: 850px;
-    aspect-ratio: 2.1 / 1;
+    max-width: 950px;
+    aspect-ratio: 2.2 / 1;
     display: flex;
     align-items: stretch;
-    /* Natural angle on desk (not perfectly square to camera) */
-    transform: perspective(1400px) rotateY(-2deg) rotateX(1.5deg);
+    /* Very subtle natural angle on desk */
+    transform: perspective(1600px) rotateY(-1.5deg) rotateX(1deg);
     transform-style: preserve-3d;
+    /* Notebook sits ABOVE all background elements */
+    z-index: 10;
 }
 
-/* Notebook Shadow - Grounding on Desk Surface */
+/* Notebook Shadow - Strong Grounding on Desk Surface */
 .notebook__shadow {
     position: absolute;
-    bottom: -35px;
+    bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
-    width: 96%;
-    height: 50px;
+    width: 98%;
+    height: 60px;
     background: radial-gradient(ellipse at center,
-        rgba(0, 0, 0, 0.8) 0%,
-        rgba(0, 0, 0, 0.5) 40%,
-        rgba(0, 0, 0, 0.15) 70%,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.6) 35%,
+        rgba(0, 0, 0, 0.25) 65%,
         transparent 100%
     );
     z-index: -1;
@@ -2109,18 +2110,19 @@ body {
 /* ============================================
    NOTEBOOK COVERS - Dark to Black
    Premium Leather/Cardboard Material
+   REBUILD: Stronger Visible Edges
    ============================================ */
 
 .notebook__cover {
     position: absolute;
     background: linear-gradient(135deg,
-        #0f0f0f 0%,
+        #050505 0%,
         #0a0a0a 50%,
-        #0d0d0d 100%
+        #080808 100%
     );
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.7),
-        0 1px 3px rgba(255, 255, 255, 0.03) inset;
+        0 6px 16px rgba(0, 0, 0, 0.8),
+        0 2px 4px rgba(255, 255, 255, 0.04) inset;
     z-index: 0;
 }
 
@@ -2128,23 +2130,23 @@ body {
 .notebook__cover--left {
     top: 0;
     left: 0;
-    width: 5%;
+    width: 6%;
     height: 100%;
-    border-radius: 5px 0 0 5px;
+    border-radius: 6px 0 0 6px;
 }
 
 /* Right Cover - Visible at Right Edge */
 .notebook__cover--right {
     top: 0;
     right: 0;
-    width: 5%;
+    width: 6%;
     height: 100%;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 6px 6px 0;
 }
 
 /* ============================================
    NOTEBOOK PAGES - Two Facing Pages
-   REBUILD: Premium Paper Surfaces with Strong Contrast
+   REBUILD: Brilliant White Paper with Perfect Clarity
    ============================================ */
 
 .notebook__pages {
@@ -2152,75 +2154,70 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    z-index: 1;
+    z-index: 2;
+    /* Gap creates visible center fold/binding */
+    gap: 6px;
 }
 
-/* Individual Page Styling - Premium White/Cream Paper */
+/* Individual Page Styling - Brilliant White Paper */
 .notebook__page {
     flex: 1;
     position: relative;
-    /* Premium bright paper - clear contrast against dark covers */
-    background: linear-gradient(135deg,
-        #fdfbf8 0%,
-        #ffffff 30%,
-        #fcfcfc 60%,
-        #fafaf8 100%
-    );
-    /* Subtle paper texture - not distracting */
+    /* Clean bright white paper - maximum contrast */
+    background: #ffffff;
+    /* Minimal paper texture - keeps it clean */
     background-image:
         repeating-linear-gradient(
             0deg,
             transparent,
-            transparent 3px,
-            rgba(0, 0, 0, 0.006) 3px,
-            rgba(0, 0, 0, 0.006) 6px
+            transparent 4px,
+            rgba(0, 0, 0, 0.004) 4px,
+            rgba(0, 0, 0, 0.004) 8px
         );
-    /* Strong shadow for depth and separation */
+    /* Strong shadow for premium depth */
     box-shadow:
-        0 18px 60px rgba(0, 0, 0, 0.75),
-        0 8px 24px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(0, 0, 0, 0.12);
+        0 20px 70px rgba(0, 0, 0, 0.85),
+        0 10px 30px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
 }
 
-/* Left Page - Blank (Premium Clean Paper) */
+/* Left Page - Blank (Clean White Paper Surface) */
 .notebook__page--left {
-    border-radius: 4px 0 0 4px;
-    /* Center spine shadow - creates notebook binding */
+    /* Inner shadow from center fold */
     box-shadow:
-        inset -8px 0 16px -8px rgba(0, 0, 0, 0.3),
-        0 18px 60px rgba(0, 0, 0, 0.75),
-        0 8px 24px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(0, 0, 0, 0.12);
+        inset -10px 0 20px -10px rgba(0, 0, 0, 0.25),
+        0 20px 70px rgba(0, 0, 0, 0.85),
+        0 10px 30px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 /* Right Page - Contains Handwritten Text */
 .notebook__page--right {
-    border-radius: 0 4px 4px 0;
-    /* Center spine shadow from opposite side */
+    /* Inner shadow from center fold */
     box-shadow:
-        inset 8px 0 16px -8px rgba(0, 0, 0, 0.3),
-        0 18px 60px rgba(0, 0, 0, 0.75),
-        0 8px 24px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(0, 0, 0, 0.12);
+        inset 10px 0 20px -10px rgba(0, 0, 0, 0.25),
+        0 20px 70px rgba(0, 0, 0, 0.85),
+        0 10px 30px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2.5rem;
-    padding: 3.5rem 3rem;
+    gap: 2.75rem;
+    padding: 4rem 3.5rem;
 }
 
-/* Paper Lighting - Strong Top Light */
+/* Paper Top Lighting - Subtle Enhancement */
 .notebook__page::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 40%;
+    height: 35%;
     background: linear-gradient(to bottom,
-        rgba(255, 255, 255, 0.6) 0%,
-        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.4) 0%,
         transparent 100%
     );
     pointer-events: none;
@@ -2229,37 +2226,37 @@ body {
 
 /* ============================================
    HANDWRITTEN TEXT - Two Lines Only
-   REBUILD: Premium Handwritten Style with Strong Readability
+   REBUILD: Maximum Readability with Premium Typography
    ============================================ */
 
 .handwritten-line {
-    font-family: 'Brush Script MT', 'Segoe Script', 'Comic Sans MS', cursive, var(--font-system);
+    font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive, var(--font-system);
     margin: 0;
     text-align: center;
-    color: #0a0a0a;
-    /* Handwritten character - slightly irregular */
-    letter-spacing: 0.015em;
-    line-height: 1.35;
-    /* Very subtle rotation for organic feel */
-    transform: rotate(-0.3deg);
+    /* Strong black ink on white paper - maximum readability */
+    color: #000000;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    /* Subtle organic rotation */
+    transform: rotate(-0.4deg);
+    position: relative;
+    z-index: 5;
 }
 
 /* Line 1 - Invitation: "If this feels right, write to me." */
 .handwritten-line--invitation {
-    font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+    font-size: clamp(2rem, 4.2vw, 2.75rem);
     font-weight: 400;
-    /* Elegant handwritten style */
     font-style: italic;
 }
 
 /* Line 2 - Email: "hello@oussamalassoued.com" */
 .handwritten-line--email {
-    font-size: clamp(1.375rem, 3.2vw, 2.125rem);
-    font-weight: 400;
-    /* More readable - less italic */
+    font-size: clamp(1.5rem, 3.6vw, 2.25rem);
+    font-weight: 500;
     font-style: normal;
+    letter-spacing: 0.015em;
     word-break: break-all;
-    letter-spacing: 0.01em;
 }
 
 /* ============================================
@@ -2273,24 +2270,24 @@ body {
     }
 
     .cta-content {
-        max-width: 900px;
+        max-width: 850px;
     }
 
     .notebook {
-        max-width: 720px;
+        max-width: 800px;
     }
 
     .notebook__page--right {
-        gap: 2.25rem;
-        padding: 3rem 2.5rem;
+        gap: 2.5rem;
+        padding: 3.5rem 3rem;
     }
 
     .handwritten-line--invitation {
-        font-size: clamp(1.625rem, 3.5vw, 2.25rem);
+        font-size: clamp(1.875rem, 4vw, 2.5rem);
     }
 
     .handwritten-line--email {
-        font-size: clamp(1.25rem, 3vw, 1.875rem);
+        font-size: clamp(1.375rem, 3.4vw, 2rem);
     }
 }
 
@@ -2306,26 +2303,29 @@ body {
     }
 
     .notebook {
-        max-width: 600px;
-        /* Reduce perspective angle on mobile */
-        transform: perspective(1200px) rotateY(-1.5deg) rotateX(1deg);
+        max-width: 650px;
+        transform: perspective(1400px) rotateY(-1deg) rotateX(0.8deg);
+    }
+
+    .notebook__pages {
+        gap: 5px;
     }
 
     .notebook__page--right {
-        gap: 2rem;
-        padding: 2.75rem 2.25rem;
+        gap: 2.25rem;
+        padding: 3.25rem 2.75rem;
     }
 
     .handwritten-line--invitation {
-        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-size: clamp(1.75rem, 4.5vw, 2.25rem);
     }
 
     .handwritten-line--email {
-        font-size: clamp(1.125rem, 3.5vw, 1.625rem);
+        font-size: clamp(1.25rem, 3.8vw, 1.75rem);
     }
 
     .desk-surface-context {
-        height: 28%;
+        height: 18%;
     }
 }
 
@@ -2336,31 +2336,34 @@ body {
     }
 
     .notebook {
-        max-width: 520px;
-        /* Minimal perspective on small mobile */
-        transform: perspective(1000px) rotateY(-1deg) rotateX(0.5deg);
+        max-width: 540px;
+        transform: perspective(1200px) rotateY(-0.8deg) rotateX(0.5deg);
+    }
+
+    .notebook__pages {
+        gap: 4px;
     }
 
     .notebook__page--right {
-        gap: 1.75rem;
-        padding: 2.5rem 2rem;
+        gap: 2rem;
+        padding: 3rem 2.5rem;
     }
 
     .handwritten-line--invitation {
-        font-size: clamp(1.375rem, 4.5vw, 1.75rem);
+        font-size: clamp(1.5rem, 5vw, 2rem);
     }
 
     .handwritten-line--email {
-        font-size: clamp(1rem, 3.8vw, 1.5rem);
+        font-size: clamp(1.125rem, 4.2vw, 1.625rem);
     }
 
     .notebook__shadow {
-        bottom: -30px;
-        height: 45px;
+        bottom: -35px;
+        height: 55px;
     }
 
     .desk-surface-context {
-        height: 25%;
+        height: 16%;
     }
 }
 
@@ -2388,14 +2391,15 @@ body {
 
     .notebook__cover {
         background: #000000;
-        border: 1px solid #404040;
+        border: 2px solid #606060;
     }
 
     .handwritten-line {
         color: #000000;
+        font-weight: 600;
     }
 
     .desk-surface-context {
-        border-top: 1px solid #404040;
+        border-top: 1px solid #505050;
     }
 }
