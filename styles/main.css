@@ -63,76 +63,16 @@ body {
 }
 
 /* ============================================
-   PHASE 2 STEP 2: SCENE HOLD ZONES
-   Stable rest positions for scroll-driven scenes
-   ============================================ */
-
-/* Scene Wrapper - Fixed Viewport Positioning */
-.opening-desk-scene,
-.identity-hero-scene,
-.about-me-scene,
-.projects-scene,
-.recommendations-scene,
-.cta-scene {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease-out;
-}
-
-/* Active Scene - Fully Visible and Interactive */
-.opening-desk-scene.scene--active,
-.identity-hero-scene.scene--active,
-.about-me-scene.scene--active,
-.projects-scene.scene--active,
-.recommendations-scene.scene--active,
-.cta-scene.scene--active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Scene Transitioning States */
-.opening-desk-scene.scene--entering,
-.identity-hero-scene.scene--entering,
-.about-me-scene.scene--entering,
-.projects-scene.scene--entering,
-.recommendations-scene.scene--entering,
-.cta-scene.scene--entering {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.opening-desk-scene.scene--leaving,
-.identity-hero-scene.scene--leaving,
-.about-me-scene.scene--leaving,
-.projects-scene.scene--leaving,
-.recommendations-scene.scene--leaving,
-.cta-scene.scene--leaving {
-    opacity: 1;
-    pointer-events: none;
-}
-
-/* Scroll Container - Creates scrollable height for all scenes */
-body::before {
-    content: '';
-    display: block;
-    height: 1100vh; /* Accommodates all scenes + transitions */
-    pointer-events: none;
-}
-
-/* ============================================
    OPENING DESK SCENE - MAIN CONTAINER
    ============================================ */
 
 .opening-desk-scene {
-    /* Position/size managed by scene hold zone system above */
+    min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     background: linear-gradient(to bottom, #0c0c0c 0%, var(--color-bg-deep) 50%, #050505 100%);
 }
 
