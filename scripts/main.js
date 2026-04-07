@@ -483,6 +483,49 @@ function updateDrawerPortalEntry(scrollVh) {
 }
 
 // =============================================================================
+// DRAWER EXIT (Step 10)
+// =============================================================================
+
+/**
+ * Camera exit from drawer interior back to room view
+ * Reverses the portal entry, pulling back to cabinet view
+ */
+function updateDrawerExit(scrollVh) {
+  const scene5 = SCENES[3]; // Projects Scene
+  if (!scene5.drawerExitStart) return;
+
+  const projectsScene = scene5.element;
+  if (!projectsScene) return;
+
+  // Calculate exit progress
+  if (scrollVh >= scene5.drawerExitStart && scrollVh <= scene5.drawerExitEnd) {
+    const progress = (scrollVh - scene5.drawerExitStart) /
+                    (scene5.drawerExitEnd - scene5.drawerExitStart);
+    const exitProgress = clamp(progress, 0, 1);
+
+    // Camera pulls back from drawer interior
+    const easedProgress = easeInOutCubic(exitProgress);
+    const scale = lerp(1.8, 1, easedProgress); // Reverse zoom out
+    const translateY = lerp(-20, 0, easedProgress); // Move back down
+
+    projectsScene.style.transform = `translateY(${translateY}%) scale(${scale})`;
+    projectsScene.style.transition = state.prefersReducedMotion ? 'none' : 'transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1)';
+
+    if (progress >= 1) {
+      state.isInDrawerPortal = false;
+    }
+  } else if (scrollVh < scene5.drawerExitStart) {
+    // Still inside drawer portal
+    projectsScene.style.transform = 'translateY(-20%) scale(1.8)';
+    state.isInDrawerPortal = true;
+  } else if (scrollVh >= scene5.drawerExitEnd) {
+    // Fully exited, back to normal room view
+    projectsScene.style.transform = 'none';
+    state.isInDrawerPortal = false;
+  }
+}
+
+// =============================================================================
 // PROJECT WINDOW SYSTEM
 // =============================================================================
 
@@ -639,6 +682,9 @@ function updateScenes() {
 
   // Update drawer portal entry
   updateDrawerPortalEntry(state.scrollInVh);
+
+  // Update drawer exit (Step 10)
+  updateDrawerExit(state.scrollInVh);
 
   // Update project window
   updateProjectWindow(state.scrollInVh);
