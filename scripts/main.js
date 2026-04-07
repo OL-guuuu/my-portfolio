@@ -226,120 +226,135 @@ function updateActiveScene() {
 }
 
 // =============================================================================
-// SCENE 2 → SCENE 3 TRANSITION IMPLEMENTATION
+// LOCAL TRANSITION STAGE: Scene 2 → Scene 3
+// Scroll-driven camera movement within dedicated transition wrapper
 // =============================================================================
 
 /**
- * Apply Scene 2 → Scene 3 transition
- * Camera moves toward center monitor, enters monitor space,
- * applies subtle cinematic alignment shift, settles into Identity Hero Scene
+ * Initialize the local Scene 2 → Scene 3 transition
  */
-function applyScene2ToScene3Transition(progress) {
-  // Get scene elements
-  const scene2 = document.querySelector('.opening-desk-scene');
-  const scene3 = document.querySelector('.identity-hero-scene');
+function initializeScene2To3Transition() {
+  const transitionStage = document.querySelector('.transition-stage-scene2-to-scene3');
+  if (!transitionStage) return;
+
+  const scene2 = transitionStage.querySelector('.opening-desk-scene');
+  const scene3 = transitionStage.querySelector('.identity-hero-scene');
 
   if (!scene2 || !scene3) return;
 
+  // Track scroll within the transition stage
+  function handleTransitionScroll() {
+    // Get scroll position relative to transition stage
+    const stageRect = transitionStage.getBoundingClientRect();
+    const stageTop = stageRect.top;
+    const stageHeight = transitionStage.offsetHeight;
+    const viewportHeight = window.innerHeight;
+
+    // Calculate progress: how far through the transition stage have we scrolled?
+    // progress = 0 when stage top is at viewport top (just entered)
+    // progress = 1 when stage is fully scrolled through
+    let scrollProgress = -stageTop / (stageHeight - viewportHeight);
+    scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+
+    // Apply the transition based on scroll progress
+    applyLocalTransition(scene2, scene3, scrollProgress);
+  }
+
+  // Listen for scroll events
+  window.addEventListener('scroll', handleTransitionScroll, { passive: true });
+
+  // Initialize on load
+  handleTransitionScroll();
+
+  console.log('✅ Local Scene 2 → Scene 3 transition initialized');
+}
+
+/**
+ * Apply the local transition effect
+ * This creates visible camera movement as user scrolls
+ */
+function applyLocalTransition(scene2, scene3, progress) {
   // Respect reduced motion preference
   if (state.prefersReducedMotion) {
-    // Simple opacity crossfade only
+    // Simple crossfade only
     if (progress < 0.5) {
       scene2.style.opacity = String(1 - (progress * 2));
       scene3.style.opacity = '0';
-      scene2.setAttribute('data-transition-state', 'transitioning');
-      scene3.setAttribute('data-transition-state', 'not-entered');
     } else {
       scene2.style.opacity = '0';
       scene3.style.opacity = String((progress - 0.5) * 2);
-      scene2.setAttribute('data-transition-state', 'exited');
-      scene3.setAttribute('data-transition-state', 'transitioning');
     }
     return;
   }
 
-  // Progress breakpoints for the transition phases
-  const ZOOM_START = 0;
-  const ZOOM_END = 0.65;
-  const ALIGN_START = 0.65;
-  const ALIGN_END = 0.75;
-  const SETTLE_START = 0.75;
-  const SETTLE_END = 1.0;
+  // Phase breakpoints for the transition
+  const ZOOM_END = 0.65;      // Camera zoom toward monitor
+  const ALIGN_END = 0.75;     // Cinematic alignment shift
+  const SETTLE_END = 1.0;     // Final settle
 
-  // Phase 1: Camera moves toward center monitor (0 - 0.65)
-  // The desk scene scales up and moves, center monitor becomes dominant
+  // Phase 1: Camera zooms toward center monitor (0 - 0.65)
   if (progress <= ZOOM_END) {
     const zoomProgress = progress / ZOOM_END;
-
-    // Smooth easing for camera movement
     const eased = easeInOutCubic(zoomProgress);
 
-    // Scale up to focus on center monitor
-    const scale = lerp(1, 1.8, eased);
+    // Camera movement: scale up and slightly reposition
+    // This makes the center monitor become dominant through framing
+    const scale = lerp(1, 2.2, eased);
+    const translateY = lerp(0, -8, eased);
 
-    // Move camera slightly up to center the monitor
-    const translateY = lerp(0, -10, eased);
-
-    // Fade out scene 2 gradually as we zoom in
-    const opacity = lerp(1, 0.3, eased);
-
+    // Side monitors naturally lose importance as we zoom
     scene2.style.transform = `scale(${scale}) translateY(${translateY}%)`;
-    scene2.style.opacity = String(opacity);
-    scene2.setAttribute('data-transition-state', 'transitioning');
+    scene2.style.opacity = String(lerp(1, 0.2, eased));
 
-    // Scene 3 is not visible yet
+    // Scene 3 not visible yet
     scene3.style.opacity = '0';
-    scene3.style.transform = 'scale(0.85) translateY(5%)';
-    scene3.setAttribute('data-transition-state', 'not-entered');
+    scene3.style.transform = 'scale(0.8)';
   }
 
   // Phase 2: Subtle cinematic alignment shift (0.65 - 0.75)
-  // Quick, subtle reframing before fully entering Scene 3
+  // A brief reframing moment before fully entering Scene 3
   else if (progress <= ALIGN_END) {
-    const alignProgress = (progress - ALIGN_START) / (ALIGN_END - ALIGN_START);
+    const alignProgress = (progress - ZOOM_END) / (ALIGN_END - ZOOM_END);
     const eased = easeInOutCubic(alignProgress);
 
     // Scene 2 fades out completely
-    scene2.style.transform = 'scale(1.8) translateY(-10%)';
-    scene2.style.opacity = String(lerp(0.3, 0, eased));
-    scene2.setAttribute('data-transition-state', 'transitioning');
+    scene2.style.transform = 'scale(2.2) translateY(-8%)';
+    scene2.style.opacity = String(lerp(0.2, 0, eased));
 
-    // Scene 3 begins to appear with subtle shift
-    // This is the "cinematic alignment" - a small reframing movement
-    const alignShift = Math.sin(alignProgress * Math.PI) * 2; // Subtle 2% shift
-    const scale = lerp(0.85, 0.92, eased);
-    const opacity = lerp(0, 0.5, eased);
+    // Scene 3 begins appearing with subtle alignment shift
+    // This creates the "cinematic reframing" effect
+    const alignShift = Math.sin(alignProgress * Math.PI) * 3; // Gentle 3% vertical shift
+    const rotateShift = Math.sin(alignProgress * Math.PI) * 0.5; // Tiny 0.5deg rotation
 
-    scene3.style.transform = `scale(${scale}) translateY(${5 - alignShift}%)`;
-    scene3.style.opacity = String(opacity);
-    scene3.setAttribute('data-transition-state', 'transitioning');
+    scene3.style.transform = `scale(${lerp(0.8, 0.95, eased)}) translateY(${alignShift}%) rotate(${rotateShift}deg)`;
+    scene3.style.opacity = String(lerp(0, 0.6, eased));
   }
 
   // Phase 3: Settle into Scene 3 (0.75 - 1.0)
-  // Final ease into the Identity Hero Scene
   else {
-    const settleProgress = (progress - SETTLE_START) / (SETTLE_END - SETTLE_START);
+    const settleProgress = (progress - ALIGN_END) / (SETTLE_END - ALIGN_END);
     const eased = easeInOutCubic(settleProgress);
 
-    // Scene 2 is fully exited
-    scene2.style.transform = 'scale(1.8) translateY(-10%)';
+    // Scene 2 fully exited
     scene2.style.opacity = '0';
-    scene2.setAttribute('data-transition-state', 'exited');
+    scene2.style.transform = 'scale(2.2) translateY(-8%)';
 
-    // Scene 3 settles into final position
-    const scale = lerp(0.92, 1, eased);
-    const translateY = lerp(3, 0, eased);
-    const opacity = lerp(0.5, 1, eased);
-
-    scene3.style.transform = `scale(${scale}) translateY(${translateY}%)`;
-    scene3.style.opacity = String(opacity);
-
-    if (progress >= 0.98) {
-      scene3.setAttribute('data-transition-state', 'active');
-    } else {
-      scene3.setAttribute('data-transition-state', 'transitioning');
-    }
+    // Scene 3 settles to final readable state
+    scene3.style.transform = `scale(${lerp(0.95, 1, eased)}) translateY(0) rotate(0deg)`;
+    scene3.style.opacity = String(lerp(0.6, 1, eased));
   }
+}
+
+// =============================================================================
+// SCENE 2 → SCENE 3 TRANSITION IMPLEMENTATION
+// =============================================================================
+
+/**
+ * Reset scenes to their default state (when in hold zones)
+ * DEPRECATED: Not used in local transition approach
+ */
+function resetSceneTransitions() {
+  // No longer needed - scenes managed by local transition stage
 }
 
 /**
@@ -350,26 +365,6 @@ function easeInOutCubic(t) {
   return t < 0.5
     ? 4 * t * t * t
     : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-/**
- * Reset scenes to their default state (when in hold zones)
- */
-function resetSceneTransitions() {
-  const scene2 = document.querySelector('.opening-desk-scene');
-  const scene3 = document.querySelector('.identity-hero-scene');
-
-  if (!scene2 || !scene3) return;
-
-  // Reset Scene 2 to default state
-  scene2.style.transform = '';
-  scene2.style.opacity = '';
-  scene2.removeAttribute('data-transition-state');
-
-  // Reset Scene 3 to default state
-  scene3.style.transform = '';
-  scene3.style.opacity = '';
-  scene3.removeAttribute('data-transition-state');
 }
 
 // =============================================================================
@@ -384,10 +379,8 @@ function onEnterHoldZone(scene) {
   // Log for now - future implementation will add visual effects
   console.log(`[HOLD] Entered hold zone: ${SCENE_CONFIG[scene].name}`);
 
-  // Reset Scene 2 → Scene 3 transition states when entering hold zones
-  if (scene === 'scene2' || scene === 'scene3') {
-    resetSceneTransitions();
-  }
+  // Note: Scene 2 → Scene 3 now use local transition stage
+  // No global scene management needed
 
   // Future: Apply CSS classes for hold zone state
   // Future: Ensure content is stable and readable
@@ -402,10 +395,8 @@ function onEnterTransition(fromScene, toScene, progress) {
   // Log for now - future implementation will add camera movements
   console.log(`[TRANSITION] ${SCENE_CONFIG[fromScene].name} → ${toScene ? SCENE_CONFIG[toScene].name : 'END'} (${Math.round(progress * 100)}%)`);
 
-  // ONLY Scene 2 → Scene 3 transition is implemented
-  if (fromScene === 'scene2' && toScene === 'scene3') {
-    applyScene2ToScene3Transition(progress);
-  }
+  // Note: Scene 2 → Scene 3 transition now handled by local transition stage
+  // This hook is for future transitions (Scene 3→4, 4→5, etc.)
 
   // Future: Other transitions will be implemented here
 }
@@ -421,10 +412,8 @@ function onTransitionProgress(fromScene, toScene, progress) {
     console.log(`[PROGRESS] Transition ${Math.round(progress * 100)}%`);
   }
 
-  // ONLY Scene 2 → Scene 3 transition is implemented
-  if (fromScene === 'scene2' && toScene === 'scene3') {
-    applyScene2ToScene3Transition(progress);
-  }
+  // Note: Scene 2 → Scene 3 transition now handled by local transition stage
+  // This hook is for future transitions
 
   // Future: Other transitions will be implemented here
 }
@@ -559,9 +548,8 @@ function detectReducedMotionPreference() {
  */
 function init() {
   console.log('='.repeat(80));
-  console.log('Phase 2 Step 1: Scroll Infrastructure Initialized');
-  console.log('This is ONLY the detection infrastructure - no visual transitions yet');
-  console.log('NOTE: Infrastructure is dormant until scrollable content is added in Step 2+');
+  console.log('Phase 2: Scene 2 → Scene 3 Local Transition');
+  console.log('Scroll-driven camera movement within dedicated transition stage');
   console.log('='.repeat(80));
 
   // Detect accessibility preferences
@@ -570,12 +558,14 @@ function init() {
   // Set initial viewport height
   state.viewportHeight = window.innerHeight;
 
-  // Set initial scroll position
+  // Initialize the local Scene 2 → Scene 3 transition
+  initializeScene2To3Transition();
+
+  // Set initial scroll position (for legacy infrastructure)
   updateScrollPosition();
   updateActiveScene();
 
   // Log initial state
-  console.log(`Initial scene: ${state.activeScene} - ${SCENE_CONFIG[state.activeScene].name}`);
   console.log(`Document height: ${document.documentElement.scrollHeight}px`);
   console.log(`Viewport height: ${state.viewportHeight}px`);
 
@@ -589,7 +579,7 @@ function init() {
     resizeTimeout = setTimeout(handleResize, 150);
   }, { passive: true });
 
-  console.log('✅ Scroll detection ready (dormant until Step 2+ adds scrollable content)');
+  console.log('✅ Scroll infrastructure ready');
 }
 
 // Initialize when DOM is ready

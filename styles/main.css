@@ -2560,71 +2560,69 @@ body {
 }
 
 /* ============================================
-   SCENE 2 → SCENE 3 TRANSITION
-   Camera Movement from Desk to Monitor Hero
+   LOCAL TRANSITION STAGE: Scene 2 → Scene 3
+   Dedicated wrapper for visible camera movement
    ============================================ */
 
-/* Scene 2: Opening Desk Scene - Transition Container */
-.opening-desk-scene {
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+/* Transition Stage Container - Extended height for scroll-driven camera movement */
+.transition-stage-scene2-to-scene3 {
+    position: relative;
+    width: 100%;
+    /* Extended height: creates scroll space for the transition */
+    /* 100vh = initial view, 200vh = transition scroll space */
+    height: 300vh;
+    background: var(--color-bg-deep);
+}
+
+/* Sticky Viewport - Remains fixed while user scrolls through transition */
+.transition-viewport {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    /* Ensures transform-based camera movement stays within viewport */
+}
+
+/* Scene 2: Opening Desk Scene - Layered inside viewport */
+.transition-stage-scene2-to-scene3 .opening-desk-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Will be transformed by JS for camera zoom effect */
     transform-origin: center center;
+    transition: none; /* JS drives transitions for precise control */
 }
 
-/* Scene 2 Transition States */
-.opening-desk-scene[data-transition-state="transitioning"] {
-    /* Applied during transition - transforms set by JS */
-}
-
-.opening-desk-scene[data-transition-state="exited"] {
-    /* Fully transitioned to Scene 3 */
-    transform: scale(1.8) translateY(-10%);
-    opacity: 0.3;
-}
-
-/* Scene 3: Identity Hero Scene - Transition Container */
-.identity-hero-scene {
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.6s ease-in-out;
-    transform-origin: center center;
-}
-
-/* Scene 3 Initial State - Not Yet Entered */
-.identity-hero-scene[data-transition-state="not-entered"] {
+/* Scene 3: Identity Hero Scene - Layered inside viewport, initially hidden */
+.transition-stage-scene2-to-scene3 .identity-hero-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Starts invisible, fades in during transition */
     opacity: 0;
-    transform: scale(0.85) translateY(5%);
+    transform-origin: center center;
+    transition: none; /* JS drives transitions for precise control */
 }
 
-/* Scene 3 Transitioning State */
-.identity-hero-scene[data-transition-state="transitioning"] {
-    /* Applied during transition - transforms set by JS */
-}
-
-/* Scene 3 Active State - Fully Entered */
-.identity-hero-scene[data-transition-state="active"] {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-}
-
-/* Reduced Motion Support for Transitions */
+/* Reduced Motion Support - Simplified transition */
 @media (prefers-reduced-motion: reduce) {
-    .opening-desk-scene,
-    .identity-hero-scene {
-        transition: opacity 0.3s ease;
-        transform: none !important;
+    .transition-stage-scene2-to-scene3 {
+        /* Reduce scroll height for faster transition */
+        height: 200vh;
     }
 
-    .opening-desk-scene[data-transition-state="exited"] {
-        opacity: 0;
-        transform: none !important;
+    .transition-viewport {
+        /* Allow scene changes without transforms */
     }
 
-    .identity-hero-scene[data-transition-state="not-entered"] {
-        opacity: 0;
-        transform: none !important;
-    }
-
-    .identity-hero-scene[data-transition-state="active"] {
-        opacity: 1;
+    .transition-stage-scene2-to-scene3 .opening-desk-scene,
+    .transition-stage-scene2-to-scene3 .identity-hero-scene {
         transform: none !important;
     }
 }

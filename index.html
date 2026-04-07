@@ -7,87 +7,97 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <!-- Opening Desk Scene (Scene 2) - Static Foundation -->
-    <main class="opening-desk-scene" role="main">
-        <div class="workspace">
-            <!-- Desk Surface -->
-            <div class="desk">
-                <!-- 3 Monitors (Left, Center Portal, Right) -->
-                <div class="monitors">
-                    <!-- Left Monitor (Secondary) -->
-                    <div class="monitor monitor--left">
-                        <div class="monitor__bezel">
-                            <div class="monitor__screen"></div>
+    <!-- ========================================
+         LOCAL TRANSITION STAGE: Scene 2 → Scene 3
+         Dedicated wrapper for visible camera movement
+         ======================================== -->
+    <div class="transition-stage-scene2-to-scene3">
+        <!-- Sticky Viewport - Camera follows scroll within this stage -->
+        <div class="transition-viewport">
+            <!-- Scene 2: Opening Desk Scene -->
+            <main class="opening-desk-scene" role="main">
+                <div class="workspace">
+                    <!-- Desk Surface -->
+                    <div class="desk">
+                        <!-- 3 Monitors (Left, Center Portal, Right) -->
+                        <div class="monitors">
+                            <!-- Left Monitor (Secondary) -->
+                            <div class="monitor monitor--left">
+                                <div class="monitor__bezel">
+                                    <div class="monitor__screen"></div>
+                                </div>
+                                <div class="monitor__body"></div>
+                                <div class="monitor__stand"></div>
+                            </div>
+
+                            <!-- Center Monitor (Portal - Primary Focal Point) -->
+                            <div class="monitor monitor--center monitor--portal">
+                                <div class="monitor__bezel">
+                                    <div class="monitor__screen"></div>
+                                </div>
+                                <div class="monitor__body"></div>
+                                <div class="monitor__stand"></div>
+                            </div>
+
+                            <!-- Right Monitor (Secondary) -->
+                            <div class="monitor monitor--right">
+                                <div class="monitor__bezel">
+                                    <div class="monitor__screen"></div>
+                                </div>
+                                <div class="monitor__body"></div>
+                                <div class="monitor__stand"></div>
+                            </div>
                         </div>
-                        <div class="monitor__body"></div>
-                        <div class="monitor__stand"></div>
+
+                        <!-- Desk Items (Minimal) -->
+                        <div class="desk-items">
+                            <div class="keyboard"></div>
+                            <div class="mouse"></div>
+                        </div>
                     </div>
 
-                    <!-- Center Monitor (Portal - Primary Focal Point) -->
-                    <div class="monitor monitor--center monitor--portal">
-                        <div class="monitor__bezel">
-                            <div class="monitor__screen"></div>
-                        </div>
-                        <div class="monitor__body"></div>
-                        <div class="monitor__stand"></div>
-                    </div>
-
-                    <!-- Right Monitor (Secondary) -->
-                    <div class="monitor monitor--right">
-                        <div class="monitor__bezel">
-                            <div class="monitor__screen"></div>
-                        </div>
-                        <div class="monitor__body"></div>
-                        <div class="monitor__stand"></div>
+                    <!-- Subtle Room Context -->
+                    <div class="room-context" aria-hidden="true">
+                        <div class="wall"></div>
                     </div>
                 </div>
+            </main>
 
-                <!-- Desk Items (Minimal) -->
-                <div class="desk-items">
-                    <div class="keyboard"></div>
-                    <div class="mouse"></div>
+            <!-- Scene 3: Identity Hero Scene -->
+            <section class="identity-hero-scene" role="region" aria-labelledby="identity-headline">
+                <!-- Monitor Bezel Framing -->
+                <div class="monitor-bezel-frame" aria-hidden="true"></div>
+
+                <!-- Identity Content Container -->
+                <div class="identity-content">
+                    <!-- Upper Identity Cluster -->
+                    <div class="identity-cluster">
+                        <!-- Personal Logo -->
+                        <div class="personal-logo" aria-label="Oussama Lassoued brand logo">
+                            <img src="https://github.com/user-attachments/assets/323947a0-8060-4eae-90be-482cd68b190a" alt="Oussama Lassoued Logo" width="80" height="80">
+                        </div>
+
+                        <!-- Personal Name -->
+                        <h2 class="personal-name">Oussama Lassoued</h2>
+
+                        <!-- Role -->
+                        <p class="role">UX/UI &amp; Product Designer</p>
+                    </div>
+
+                    <!-- Primary Headline -->
+                    <h1 id="identity-headline" class="primary-headline">
+                        Understanding your users,<br>designing your success.
+                    </h1>
+
+                    <!-- Supporting Line -->
+                    <p class="supporting-line">
+                        Powered by AI-driven insight, product thinking, and user-centered design.
+                    </p>
                 </div>
-            </div>
-
-            <!-- Subtle Room Context -->
-            <div class="room-context" aria-hidden="true">
-                <div class="wall"></div>
-            </div>
+            </section>
         </div>
-    </main>
-
-    <!-- Identity Hero Scene (Scene 3) - Static Foundation -->
-    <section class="identity-hero-scene" role="region" aria-labelledby="identity-headline">
-        <!-- Monitor Bezel Framing -->
-        <div class="monitor-bezel-frame" aria-hidden="true"></div>
-
-        <!-- Identity Content Container -->
-        <div class="identity-content">
-            <!-- Upper Identity Cluster -->
-            <div class="identity-cluster">
-                <!-- Personal Logo -->
-                <div class="personal-logo" aria-label="Oussama Lassoued brand logo">
-                    <img src="https://github.com/user-attachments/assets/323947a0-8060-4eae-90be-482cd68b190a" alt="Oussama Lassoued Logo" width="80" height="80">
-                </div>
-
-                <!-- Personal Name -->
-                <h2 class="personal-name">Oussama Lassoued</h2>
-
-                <!-- Role -->
-                <p class="role">UX/UI &amp; Product Designer</p>
-            </div>
-
-            <!-- Primary Headline -->
-            <h1 id="identity-headline" class="primary-headline">
-                Understanding your users,<br>designing your success.
-            </h1>
-
-            <!-- Supporting Line -->
-            <p class="supporting-line">
-                Powered by AI-driven insight, product thinking, and user-centered design.
-            </p>
-        </div>
-    </section>
+    </div>
+    <!-- End of local transition stage -->
 
     <!-- About Me Scene (Scene 4) - Static Foundation -->
     <section class="about-me-scene" role="region" aria-labelledby="about-me-label">
