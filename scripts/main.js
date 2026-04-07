@@ -226,6 +226,153 @@ function updateActiveScene() {
 }
 
 // =============================================================================
+// SCENE 2 → SCENE 3 TRANSITION IMPLEMENTATION
+// =============================================================================
+
+/**
+ * Apply Scene 2 → Scene 3 transition
+ * Camera moves toward center monitor, enters monitor space,
+ * applies subtle cinematic alignment shift, settles into Identity Hero Scene
+ */
+function applyScene2ToScene3Transition(progress) {
+  // Get scene elements
+  const scene2 = document.querySelector('.opening-desk-scene');
+  const scene3 = document.querySelector('.identity-hero-scene');
+
+  if (!scene2 || !scene3) return;
+
+  // Respect reduced motion preference
+  if (state.prefersReducedMotion) {
+    // Simple opacity crossfade only
+    if (progress < 0.5) {
+      scene2.style.opacity = String(1 - (progress * 2));
+      scene3.style.opacity = '0';
+      scene2.setAttribute('data-transition-state', 'transitioning');
+      scene3.setAttribute('data-transition-state', 'not-entered');
+    } else {
+      scene2.style.opacity = '0';
+      scene3.style.opacity = String((progress - 0.5) * 2);
+      scene2.setAttribute('data-transition-state', 'exited');
+      scene3.setAttribute('data-transition-state', 'transitioning');
+    }
+    return;
+  }
+
+  // Progress breakpoints for the transition phases
+  const ZOOM_START = 0;
+  const ZOOM_END = 0.65;
+  const ALIGN_START = 0.65;
+  const ALIGN_END = 0.75;
+  const SETTLE_START = 0.75;
+  const SETTLE_END = 1.0;
+
+  // Phase 1: Camera moves toward center monitor (0 - 0.65)
+  // The desk scene scales up and moves, center monitor becomes dominant
+  if (progress <= ZOOM_END) {
+    const zoomProgress = progress / ZOOM_END;
+
+    // Smooth easing for camera movement
+    const eased = easeInOutCubic(zoomProgress);
+
+    // Scale up to focus on center monitor
+    const scale = lerp(1, 1.8, eased);
+
+    // Move camera slightly up to center the monitor
+    const translateY = lerp(0, -10, eased);
+
+    // Fade out scene 2 gradually as we zoom in
+    const opacity = lerp(1, 0.3, eased);
+
+    scene2.style.transform = `scale(${scale}) translateY(${translateY}%)`;
+    scene2.style.opacity = String(opacity);
+    scene2.setAttribute('data-transition-state', 'transitioning');
+
+    // Scene 3 is not visible yet
+    scene3.style.opacity = '0';
+    scene3.style.transform = 'scale(0.85) translateY(5%)';
+    scene3.setAttribute('data-transition-state', 'not-entered');
+  }
+
+  // Phase 2: Subtle cinematic alignment shift (0.65 - 0.75)
+  // Quick, subtle reframing before fully entering Scene 3
+  else if (progress <= ALIGN_END) {
+    const alignProgress = (progress - ALIGN_START) / (ALIGN_END - ALIGN_START);
+    const eased = easeInOutCubic(alignProgress);
+
+    // Scene 2 fades out completely
+    scene2.style.transform = 'scale(1.8) translateY(-10%)';
+    scene2.style.opacity = String(lerp(0.3, 0, eased));
+    scene2.setAttribute('data-transition-state', 'transitioning');
+
+    // Scene 3 begins to appear with subtle shift
+    // This is the "cinematic alignment" - a small reframing movement
+    const alignShift = Math.sin(alignProgress * Math.PI) * 2; // Subtle 2% shift
+    const scale = lerp(0.85, 0.92, eased);
+    const opacity = lerp(0, 0.5, eased);
+
+    scene3.style.transform = `scale(${scale}) translateY(${5 - alignShift}%)`;
+    scene3.style.opacity = String(opacity);
+    scene3.setAttribute('data-transition-state', 'transitioning');
+  }
+
+  // Phase 3: Settle into Scene 3 (0.75 - 1.0)
+  // Final ease into the Identity Hero Scene
+  else {
+    const settleProgress = (progress - SETTLE_START) / (SETTLE_END - SETTLE_START);
+    const eased = easeInOutCubic(settleProgress);
+
+    // Scene 2 is fully exited
+    scene2.style.transform = 'scale(1.8) translateY(-10%)';
+    scene2.style.opacity = '0';
+    scene2.setAttribute('data-transition-state', 'exited');
+
+    // Scene 3 settles into final position
+    const scale = lerp(0.92, 1, eased);
+    const translateY = lerp(3, 0, eased);
+    const opacity = lerp(0.5, 1, eased);
+
+    scene3.style.transform = `scale(${scale}) translateY(${translateY}%)`;
+    scene3.style.opacity = String(opacity);
+
+    if (progress >= 0.98) {
+      scene3.setAttribute('data-transition-state', 'active');
+    } else {
+      scene3.setAttribute('data-transition-state', 'transitioning');
+    }
+  }
+}
+
+/**
+ * Easing function: cubic ease-in-out
+ * Provides smooth acceleration and deceleration
+ */
+function easeInOutCubic(t) {
+  return t < 0.5
+    ? 4 * t * t * t
+    : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+/**
+ * Reset scenes to their default state (when in hold zones)
+ */
+function resetSceneTransitions() {
+  const scene2 = document.querySelector('.opening-desk-scene');
+  const scene3 = document.querySelector('.identity-hero-scene');
+
+  if (!scene2 || !scene3) return;
+
+  // Reset Scene 2 to default state
+  scene2.style.transform = '';
+  scene2.style.opacity = '';
+  scene2.removeAttribute('data-transition-state');
+
+  // Reset Scene 3 to default state
+  scene3.style.transform = '';
+  scene3.style.opacity = '';
+  scene3.removeAttribute('data-transition-state');
+}
+
+// =============================================================================
 // TRANSITION HOOKS (FOR FUTURE IMPLEMENTATION)
 // =============================================================================
 
@@ -236,6 +383,11 @@ function updateActiveScene() {
 function onEnterHoldZone(scene) {
   // Log for now - future implementation will add visual effects
   console.log(`[HOLD] Entered hold zone: ${SCENE_CONFIG[scene].name}`);
+
+  // Reset Scene 2 → Scene 3 transition states when entering hold zones
+  if (scene === 'scene2' || scene === 'scene3') {
+    resetSceneTransitions();
+  }
 
   // Future: Apply CSS classes for hold zone state
   // Future: Ensure content is stable and readable
@@ -250,9 +402,12 @@ function onEnterTransition(fromScene, toScene, progress) {
   // Log for now - future implementation will add camera movements
   console.log(`[TRANSITION] ${SCENE_CONFIG[fromScene].name} → ${toScene ? SCENE_CONFIG[toScene].name : 'END'} (${Math.round(progress * 100)}%)`);
 
-  // Future: Apply CSS transforms for camera movement
-  // Future: Fade in/out elements as needed
-  // Future: Respect prefers-reduced-motion preference
+  // ONLY Scene 2 → Scene 3 transition is implemented
+  if (fromScene === 'scene2' && toScene === 'scene3') {
+    applyScene2ToScene3Transition(progress);
+  }
+
+  // Future: Other transitions will be implemented here
 }
 
 /**
@@ -266,9 +421,12 @@ function onTransitionProgress(fromScene, toScene, progress) {
     console.log(`[PROGRESS] Transition ${Math.round(progress * 100)}%`);
   }
 
-  // Future: Update CSS transforms based on progress
-  // Future: Interpolate camera position
-  // Future: Update element opacities
+  // ONLY Scene 2 → Scene 3 transition is implemented
+  if (fromScene === 'scene2' && toScene === 'scene3') {
+    applyScene2ToScene3Transition(progress);
+  }
+
+  // Future: Other transitions will be implemented here
 }
 
 /**

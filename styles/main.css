@@ -2560,6 +2560,76 @@ body {
 }
 
 /* ============================================
+   SCENE 2 → SCENE 3 TRANSITION
+   Camera Movement from Desk to Monitor Hero
+   ============================================ */
+
+/* Scene 2: Opening Desk Scene - Transition Container */
+.opening-desk-scene {
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
+}
+
+/* Scene 2 Transition States */
+.opening-desk-scene[data-transition-state="transitioning"] {
+    /* Applied during transition - transforms set by JS */
+}
+
+.opening-desk-scene[data-transition-state="exited"] {
+    /* Fully transitioned to Scene 3 */
+    transform: scale(1.8) translateY(-10%);
+    opacity: 0.3;
+}
+
+/* Scene 3: Identity Hero Scene - Transition Container */
+.identity-hero-scene {
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.6s ease-in-out;
+    transform-origin: center center;
+}
+
+/* Scene 3 Initial State - Not Yet Entered */
+.identity-hero-scene[data-transition-state="not-entered"] {
+    opacity: 0;
+    transform: scale(0.85) translateY(5%);
+}
+
+/* Scene 3 Transitioning State */
+.identity-hero-scene[data-transition-state="transitioning"] {
+    /* Applied during transition - transforms set by JS */
+}
+
+/* Scene 3 Active State - Fully Entered */
+.identity-hero-scene[data-transition-state="active"] {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Reduced Motion Support for Transitions */
+@media (prefers-reduced-motion: reduce) {
+    .opening-desk-scene,
+    .identity-hero-scene {
+        transition: opacity 0.3s ease;
+        transform: none !important;
+    }
+
+    .opening-desk-scene[data-transition-state="exited"] {
+        opacity: 0;
+        transform: none !important;
+    }
+
+    .identity-hero-scene[data-transition-state="not-entered"] {
+        opacity: 0;
+        transform: none !important;
+    }
+
+    .identity-hero-scene[data-transition-state="active"] {
+        opacity: 1;
+        transform: none !important;
+    }
+}
+
+/* ============================================
    ACCESSIBILITY - CTA Scene
    ============================================ */
 
