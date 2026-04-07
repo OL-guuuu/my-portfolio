@@ -1,16 +1,22 @@
 /**
- * Phase 2 Step 1: Scroll Infrastructure Foundation
+ * Phase 2: Full Transition & Animation Layer Implementation
  *
- * This file implements ONLY the scroll detection and scene mapping infrastructure.
- * NO visual transitions are implemented yet.
+ * This implements the complete scroll-driven camera transition system
+ * for the cinematic portfolio experience through one designer's workspace.
  *
- * Scope:
- * - Scroll position detection
- * - Active scene detection (scenes 2-7)
- * - Transition progress calculation
- * - Reversible scroll logic
- * - prefers-reduced-motion support
- * - Clean hooks for future transition implementations
+ * Five Transitions:
+ * 1. Scene 2 → Scene 3: Dolly into center monitor
+ * 2. Scene 3 → Scene 4: Pull back and pan left to wall portrait
+ * 3. Scene 4 → Scene 5: Pan right to archive cabinet
+ * 4. Scene 5 → Scene 6: Continue pan right to message board
+ * 5. Scene 6 → Scene 7: Pan back to desk, settle on CTA
+ *
+ * Core principles:
+ * - User scroll drives progression
+ * - Calm, premium, restrained, editorial, cinematic
+ * - One continuous spatial journey through one room
+ * - All transitions reversible
+ * - Respects prefers-reduced-motion
  */
 
 // =============================================================================
@@ -18,187 +24,351 @@
 // =============================================================================
 
 /**
- * Scene scroll ranges (in viewport heights)
- * Based on PHASE2_TRANSITION_LAYER_PLAN.md specification
+ * Scene scroll configuration (in viewport heights)
+ * Based on PHASE2_TRANSITION_LAYER_PLAN.md
  */
-const SCENE_CONFIG = {
-  scene2: {
+const SCENES = [
+  {
+    id: 'scene2',
     name: 'Opening Desk Scene',
+    element: null, // Will be set in init
     holdStart: 0,
     holdEnd: 80,
     transitionEnd: 180
   },
-  scene3: {
+  {
+    id: 'scene3',
     name: 'Identity Hero Scene',
+    element: null,
     holdStart: 180,
     holdEnd: 280,
     transitionEnd: 380
   },
-  scene4: {
+  {
+    id: 'scene4',
     name: 'About Me Scene',
+    element: null,
     holdStart: 380,
     holdEnd: 480,
     transitionEnd: 580
   },
-  scene5: {
+  {
+    id: 'scene5',
     name: 'Projects Scene',
+    element: null,
     holdStart: 580,
     holdEnd: 680,
     transitionEnd: 780
   },
-  scene6: {
+  {
+    id: 'scene6',
     name: 'Recommendations Scene',
+    element: null,
     holdStart: 780,
     holdEnd: 880,
     transitionEnd: 980
   },
-  scene7: {
+  {
+    id: 'scene7',
     name: 'CTA Scene',
+    element: null,
     holdStart: 980,
-    holdEnd: Infinity, // Final scene - no further transitions
+    holdEnd: Infinity,
     transitionEnd: Infinity
   }
-};
+];
+
+// Total document height in viewport heights
+const TOTAL_JOURNEY_VH = 1100;
 
 // =============================================================================
-// STATE MANAGEMENT
+// STATE
 // =============================================================================
 
-/**
- * Application state
- */
 const state = {
   currentScrollY: 0,
   previousScrollY: 0,
-  scrollDirection: 'down', // 'up' or 'down'
+  scrollDirection: 'down',
   viewportHeight: window.innerHeight,
-  scrollInVh: 0, // Scroll position in viewport heights
-  activeScene: 'scene2',
-  previousScene: 'scene2',
+  scrollInVh: 0,
+  activeSceneIndex: 0,
+  previousSceneIndex: 0,
   isInTransition: false,
-  transitionProgress: 0, // 0-1 for current transition
-  prefersReducedMotion: false
+  transitionProgress: 0,
+  prefersReducedMotion: false,
+  isInitialized: false
 };
 
 // =============================================================================
-// UTILITY FUNCTIONS
+// UTILITIES
 // =============================================================================
 
-/**
- * Convert pixels to viewport heights
- */
 function pxToVh(px) {
   return (px / state.viewportHeight) * 100;
 }
 
-/**
- * Convert viewport heights to pixels
- */
 function vhToPx(vh) {
   return (vh / 100) * state.viewportHeight;
 }
 
-/**
- * Clamp a value between min and max
- */
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-/**
- * Linear interpolation
- */
 function lerp(start, end, progress) {
   return start + (end - start) * progress;
 }
 
-/**
- * Calculate progress between two values (0-1)
- */
-function calculateProgress(value, start, end) {
-  if (end === start) return 0;
-  return clamp((value - start) / (end - start), 0, 1);
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
 // =============================================================================
 // SCENE DETECTION
 // =============================================================================
 
-/**
- * Determine which scene is currently active based on scroll position
- */
-function detectActiveScene(scrollVh) {
-  // Check each scene's hold zone
-  for (const [sceneKey, config] of Object.entries(SCENE_CONFIG)) {
-    if (scrollVh >= config.holdStart && scrollVh < config.holdEnd) {
+function getCurrentSceneAndProgress(scrollVh) {
+  for (let i = 0; i < SCENES.length; i++) {
+    const scene = SCENES[i];
+
+    // In hold zone
+    if (scrollVh >= scene.holdStart && scrollVh < scene.holdEnd) {
       return {
-        scene: sceneKey,
+        sceneIndex: i,
         inHoldZone: true,
         inTransition: false,
-        transitionProgress: 0
+        transitionProgress: 0,
+        fromScene: i,
+        toScene: i
       };
     }
-  }
 
-  // If not in a hold zone, we're in a transition
-  for (const [sceneKey, config] of Object.entries(SCENE_CONFIG)) {
-    if (scrollVh >= config.holdEnd && scrollVh < config.transitionEnd) {
-      const progress = calculateProgress(scrollVh, config.holdEnd, config.transitionEnd);
+    // In transition zone
+    if (scrollVh >= scene.holdEnd && scrollVh < scene.transitionEnd) {
+      const progress = (scrollVh - scene.holdEnd) / (scene.transitionEnd - scene.holdEnd);
       return {
-        scene: sceneKey,
+        sceneIndex: i,
         inHoldZone: false,
         inTransition: true,
-        transitionProgress: progress
+        transitionProgress: clamp(progress, 0, 1),
+        fromScene: i,
+        toScene: i + 1 < SCENES.length ? i + 1 : i
       };
     }
   }
 
-  // Default to last scene if beyond all ranges
+  // Default to last scene
   return {
-    scene: 'scene7',
+    sceneIndex: SCENES.length - 1,
     inHoldZone: true,
     inTransition: false,
-    transitionProgress: 0
+    transitionProgress: 0,
+    fromScene: SCENES.length - 1,
+    toScene: SCENES.length - 1
   };
-}
-
-/**
- * Get the next scene after the current one
- */
-function getNextScene(currentScene) {
-  const sceneNumbers = {
-    scene2: 'scene3',
-    scene3: 'scene4',
-    scene4: 'scene5',
-    scene5: 'scene6',
-    scene6: 'scene7',
-    scene7: null // No scene after scene7
-  };
-  return sceneNumbers[currentScene];
-}
-
-/**
- * Get the previous scene before the current one
- */
-function getPreviousScene(currentScene) {
-  const sceneNumbers = {
-    scene2: null, // No scene before scene2
-    scene3: 'scene2',
-    scene4: 'scene3',
-    scene5: 'scene4',
-    scene6: 'scene5',
-    scene7: 'scene6'
-  };
-  return sceneNumbers[currentScene];
 }
 
 // =============================================================================
-// SCROLL DETECTION
+// TRANSITION IMPLEMENTATIONS
 // =============================================================================
 
 /**
- * Update scroll position and direction
+ * Transition 1: Scene 2 → Scene 3 (Desk to Identity Hero)
+ * Forward dolly into center monitor
  */
+function applyTransition1(scene2, scene3, progress) {
+  const easedProgress = easeInOutCubic(progress);
+
+  // Scene 2: Scales up and fades as camera moves forward into monitor
+  const scale2 = lerp(1, 1.5, easedProgress);
+  const opacity2 = lerp(1, 0, easedProgress);
+  scene2.style.transform = `scale(${scale2})`;
+  scene2.style.opacity = opacity2;
+
+  // Scene 3: Fades in and scales from slight zoom as we enter monitor world
+  const scale3 = lerp(0.95, 1, easedProgress);
+  const opacity3 = lerp(0, 1, easedProgress);
+  scene3.style.transform = `scale(${scale3})`;
+  scene3.style.opacity = opacity3;
+}
+
+/**
+ * Transition 2: Scene 3 → Scene 4 (Identity Hero to About Me)
+ * Pull back from monitor, then pan left to wall portrait
+ */
+function applyTransition2(scene3, scene4, progress) {
+  const easedProgress = easeInOutCubic(progress);
+
+  // Scene 3: Pull back (slight scale down) and pan right as camera turns left
+  const translateX3 = lerp(0, 30, easedProgress); // Pan right (camera turns left)
+  const scale3 = lerp(1, 0.9, easedProgress);
+  const opacity3 = lerp(1, 0, easedProgress);
+  scene3.style.transform = `translateX(${translateX3}%) scale(${scale3})`;
+  scene3.style.opacity = opacity3;
+
+  // Scene 4: Pan in from left as camera settles on portrait
+  const translateX4 = lerp(-30, 0, easedProgress);
+  const opacity4 = lerp(0, 1, easedProgress);
+  scene4.style.transform = `translateX(${translateX4}%)`;
+  scene4.style.opacity = opacity4;
+}
+
+/**
+ * Transition 3: Scene 4 → Scene 5 (About Me to Projects)
+ * Lateral pan right across room to archive cabinet
+ */
+function applyTransition3(scene4, scene5, progress) {
+  const easedProgress = easeInOutCubic(progress);
+
+  // Scene 4: Pan left as camera moves right
+  const translateX4 = lerp(0, -40, easedProgress);
+  const opacity4 = lerp(1, 0, easedProgress);
+  scene4.style.transform = `translateX(${translateX4}%)`;
+  scene4.style.opacity = opacity4;
+
+  // Scene 5: Pan in from right
+  const translateX5 = lerp(40, 0, easedProgress);
+  const opacity5 = lerp(0, 1, easedProgress);
+  scene5.style.transform = `translateX(${translateX5}%)`;
+  scene5.style.opacity = opacity5;
+}
+
+/**
+ * Transition 4: Scene 5 → Scene 6 (Projects to Recommendations)
+ * Continue pan right from cabinet to message board
+ */
+function applyTransition4(scene5, scene6, progress) {
+  const easedProgress = easeInOutCubic(progress);
+
+  // Scene 5: Continue panning left
+  const translateX5 = lerp(0, -40, easedProgress);
+  const opacity5 = lerp(1, 0, easedProgress);
+  scene5.style.transform = `translateX(${translateX5}%)`;
+  scene5.style.opacity = opacity5;
+
+  // Scene 6: Pan in from right
+  const translateX6 = lerp(40, 0, easedProgress);
+  const opacity6 = lerp(0, 1, easedProgress);
+  scene6.style.transform = `translateX(${translateX6}%)`;
+  scene6.style.opacity = opacity6;
+}
+
+/**
+ * Transition 5: Scene 6 → Scene 7 (Recommendations to CTA)
+ * Pan back toward desk, settle on final CTA
+ */
+function applyTransition5(scene6, scene7, progress) {
+  const easedProgress = easeInOutCubic(progress);
+
+  // Scene 6: Pan left and fade as camera returns to desk area
+  const translateX6 = lerp(0, -30, easedProgress);
+  const opacity6 = lerp(1, 0, easedProgress);
+  scene6.style.transform = `translateX(${translateX6}%)`;
+  scene6.style.opacity = opacity6;
+
+  // Scene 7: Gentle zoom and fade in as final CTA settles
+  const scale7 = lerp(0.95, 1, easedProgress);
+  const opacity7 = lerp(0, 1, easedProgress);
+  scene7.style.transform = `scale(${scale7})`;
+  scene7.style.opacity = opacity7;
+}
+
+/**
+ * Apply appropriate transition based on which scenes are transitioning
+ */
+function applyTransition(fromIndex, toIndex, progress) {
+  if (fromIndex >= SCENES.length || toIndex >= SCENES.length) return;
+
+  const fromScene = SCENES[fromIndex].element;
+  const toScene = SCENES[toIndex].element;
+
+  if (!fromScene || !toScene) return;
+
+  // Apply transition based on scene pair
+  if (fromIndex === 0 && toIndex === 1) {
+    applyTransition1(fromScene, toScene, progress);
+  } else if (fromIndex === 1 && toIndex === 2) {
+    applyTransition2(fromScene, toScene, progress);
+  } else if (fromIndex === 2 && toIndex === 3) {
+    applyTransition3(fromScene, toScene, progress);
+  } else if (fromIndex === 3 && toIndex === 4) {
+    applyTransition4(fromScene, toScene, progress);
+  } else if (fromIndex === 4 && toIndex === 5) {
+    applyTransition5(fromScene, toScene, progress);
+  }
+}
+
+/**
+ * Reset scene to hold state (no transforms, full opacity)
+ */
+function resetSceneToHold(sceneElement) {
+  if (!sceneElement) return;
+  sceneElement.style.transform = 'none';
+  sceneElement.style.opacity = '1';
+  sceneElement.classList.add('scene--hold');
+  sceneElement.classList.remove('scene--hidden', 'scene--transitioning');
+}
+
+/**
+ * Hide scene completely
+ */
+function hideScene(sceneElement) {
+  if (!sceneElement) return;
+  sceneElement.style.opacity = '0';
+  sceneElement.classList.add('scene--hidden');
+  sceneElement.classList.remove('scene--hold', 'scene--transitioning');
+}
+
+// =============================================================================
+// SCENE UPDATES
+// =============================================================================
+
+function updateScenes() {
+  const detection = getCurrentSceneAndProgress(state.scrollInVh);
+
+  state.activeSceneIndex = detection.sceneIndex;
+  state.isInTransition = detection.inTransition;
+  state.transitionProgress = detection.transitionProgress;
+
+  // Update all scenes
+  SCENES.forEach((scene, index) => {
+    if (!scene.element) return;
+
+    if (detection.inHoldZone) {
+      // In hold zone - show active scene, hide others
+      if (index === detection.sceneIndex) {
+        resetSceneToHold(scene.element);
+      } else {
+        hideScene(scene.element);
+      }
+    } else {
+      // In transition - apply transition between scenes
+      if (index === detection.fromScene || index === detection.toScene) {
+        scene.element.classList.add('scene--transitioning');
+        scene.element.classList.remove('scene--hidden', 'scene--hold');
+
+        // Apply the actual transition
+        if (state.scrollDirection === 'down') {
+          applyTransition(detection.fromScene, detection.toScene, detection.transitionProgress);
+        } else {
+          // Reverse transition when scrolling up
+          applyTransition(detection.fromScene, detection.toScene, 1 - detection.transitionProgress);
+        }
+      } else if (index < detection.fromScene) {
+        // Scenes before transition - hide
+        hideScene(scene.element);
+      } else if (index > detection.toScene) {
+        // Scenes after transition - hide
+        hideScene(scene.element);
+      }
+    }
+  });
+}
+
+// =============================================================================
+// SCROLL HANDLING
+// =============================================================================
+
 function updateScrollPosition() {
   state.previousScrollY = state.currentScrollY;
   state.currentScrollY = window.scrollY;
@@ -210,228 +380,145 @@ function updateScrollPosition() {
   } else if (state.currentScrollY < state.previousScrollY) {
     state.scrollDirection = 'up';
   }
-  // If equal, keep previous direction
 }
 
-/**
- * Update active scene based on scroll position
- */
-function updateActiveScene() {
-  const detection = detectActiveScene(state.scrollInVh);
-
-  state.previousScene = state.activeScene;
-  state.activeScene = detection.scene;
-  state.isInTransition = detection.inTransition;
-  state.transitionProgress = detection.transitionProgress;
-}
-
-// =============================================================================
-// TRANSITION HOOKS (FOR FUTURE IMPLEMENTATION)
-// =============================================================================
-
-/**
- * Hook: Called when entering a scene's hold zone
- * Future implementation will add visual effects here
- */
-function onEnterHoldZone(scene) {
-  // Log for now - future implementation will add visual effects
-  console.log(`[HOLD] Entered hold zone: ${SCENE_CONFIG[scene].name}`);
-
-  // Future: Apply CSS classes for hold zone state
-  // Future: Ensure content is stable and readable
-  // Future: Stop any transition animations
-}
-
-/**
- * Hook: Called when entering a transition between scenes
- * Future implementation will add camera movements here
- */
-function onEnterTransition(fromScene, toScene, progress) {
-  // Log for now - future implementation will add camera movements
-  console.log(`[TRANSITION] ${SCENE_CONFIG[fromScene].name} → ${toScene ? SCENE_CONFIG[toScene].name : 'END'} (${Math.round(progress * 100)}%)`);
-
-  // Future: Apply CSS transforms for camera movement
-  // Future: Fade in/out elements as needed
-  // Future: Respect prefers-reduced-motion preference
-}
-
-/**
- * Hook: Called on every scroll update during transition
- * Future implementation will update camera position here
- */
-function onTransitionProgress(fromScene, toScene, progress) {
-  // Log progress for now
-  if (Math.round(progress * 10) !== Math.round(state.transitionProgress * 10)) {
-    // Only log when progress changes by 10% to reduce noise
-    console.log(`[PROGRESS] Transition ${Math.round(progress * 100)}%`);
-  }
-
-  // Future: Update CSS transforms based on progress
-  // Future: Interpolate camera position
-  // Future: Update element opacities
-}
-
-/**
- * Hook: Called when scene changes
- * Future implementation will handle scene switching here
- */
-function onSceneChange(previousScene, currentScene) {
-  console.log(`[SCENE CHANGE] ${SCENE_CONFIG[previousScene].name} → ${SCENE_CONFIG[currentScene].name}`);
-
-  // Future: Update active scene classes
-  // Future: Trigger scene-specific animations
-  // Future: Update navigation state if implemented
-}
-
-// =============================================================================
-// MAIN SCROLL HANDLER
-// =============================================================================
-
-/**
- * Main scroll event handler
- * Orchestrates all scroll-related updates
- */
 function handleScroll() {
-  // Update scroll position and direction
   updateScrollPosition();
-
-  // Update active scene
-  const previousScene = state.activeScene;
-  const wasInTransition = state.isInTransition;
-  updateActiveScene();
-
-  // Detect scene changes
-  if (previousScene !== state.activeScene) {
-    onSceneChange(previousScene, state.activeScene);
-  }
-
-  // Handle hold zones vs transitions
-  if (state.isInTransition) {
-    const targetScene = state.scrollDirection === 'down'
-      ? getNextScene(state.activeScene)
-      : state.activeScene;
-
-    if (!wasInTransition) {
-      // Just entered a transition
-      onEnterTransition(state.activeScene, targetScene, state.transitionProgress);
-    } else {
-      // Update transition progress
-      onTransitionProgress(state.activeScene, targetScene, state.transitionProgress);
-    }
-  } else {
-    if (wasInTransition) {
-      // Just entered a hold zone
-      onEnterHoldZone(state.activeScene);
-    }
-  }
-
-  // Log current state (for debugging Step 1)
-  logState();
+  updateScenes();
 }
 
-/**
- * Log current state for debugging
- * This will be removed in future steps
- */
-let lastLoggedScene = null;
-let lastLoggedProgress = -1;
-
-function logState() {
-  // Only log when something meaningful changes
-  const currentProgress = Math.round(state.transitionProgress * 10);
-
-  if (state.activeScene !== lastLoggedScene || currentProgress !== lastLoggedProgress) {
-    console.group('📊 Scroll State');
-    console.log(`Scroll: ${Math.round(state.scrollInVh)}vh (${Math.round(state.currentScrollY)}px)`);
-    console.log(`Direction: ${state.scrollDirection}`);
-    console.log(`Scene: ${state.activeScene} - ${SCENE_CONFIG[state.activeScene].name}`);
-    console.log(`In Hold Zone: ${!state.isInTransition}`);
-    if (state.isInTransition) {
-      console.log(`Transition Progress: ${Math.round(state.transitionProgress * 100)}%`);
-    }
-    console.log(`Reduced Motion: ${state.prefersReducedMotion}`);
-    console.groupEnd();
-
-    lastLoggedScene = state.activeScene;
-    lastLoggedProgress = currentProgress;
+// Use requestAnimationFrame for smoother performance
+let ticking = false;
+function onScroll() {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      handleScroll();
+      ticking = false;
+    });
+    ticking = true;
   }
 }
 
 // =============================================================================
-// RESIZE HANDLER
+// RESIZE HANDLING
 // =============================================================================
 
-/**
- * Handle viewport resize
- * Recalculates viewport height and scroll position in vh
- */
 function handleResize() {
   state.viewportHeight = window.innerHeight;
   state.scrollInVh = pxToVh(state.currentScrollY);
 
-  console.log(`[RESIZE] Viewport: ${state.viewportHeight}px`);
+  // Re-apply transforms based on current scroll position
+  updateScenes();
+}
+
+let resizeTimeout;
+function onResize() {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(handleResize, 150);
 }
 
 // =============================================================================
-// REDUCED MOTION DETECTION
+// REDUCED MOTION SUPPORT
 // =============================================================================
 
-/**
- * Detect prefers-reduced-motion preference
- */
 function detectReducedMotionPreference() {
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   state.prefersReducedMotion = mediaQuery.matches;
 
-  console.log(`[ACCESSIBILITY] prefers-reduced-motion: ${state.prefersReducedMotion}`);
+  // If reduced motion is preferred, disable transitions
+  if (state.prefersReducedMotion) {
+    document.body.classList.add('reduced-motion');
+    // In reduced motion mode, instantly snap between scenes
+    console.log('[ACCESSIBILITY] Reduced motion mode active');
+  }
 
-  // Listen for changes to preference
   mediaQuery.addEventListener('change', (e) => {
     state.prefersReducedMotion = e.matches;
-    console.log(`[ACCESSIBILITY] prefers-reduced-motion changed to: ${state.prefersReducedMotion}`);
+    if (e.matches) {
+      document.body.classList.add('reduced-motion');
+    } else {
+      document.body.classList.remove('reduced-motion');
+    }
   });
+}
+
+// =============================================================================
+// DOCUMENT HEIGHT SETUP
+// =============================================================================
+
+function setupDocumentHeight() {
+  // Create a spacer element to ensure document can scroll through full journey
+  const spacer = document.createElement('div');
+  spacer.id = 'scroll-journey-spacer';
+  spacer.style.height = `${TOTAL_JOURNEY_VH}vh`;
+  spacer.style.pointerEvents = 'none';
+  spacer.style.position = 'absolute';
+  spacer.style.top = '0';
+  spacer.style.left = '0';
+  spacer.style.width = '1px';
+  spacer.style.zIndex = '-1000';
+  spacer.setAttribute('aria-hidden', 'true');
+
+  document.body.appendChild(spacer);
+
+  console.log(`[SETUP] Document height set to ${TOTAL_JOURNEY_VH}vh for full journey`);
 }
 
 // =============================================================================
 // INITIALIZATION
 // =============================================================================
 
-/**
- * Initialize scroll infrastructure
- */
 function init() {
   console.log('='.repeat(80));
-  console.log('Phase 2 Step 1: Scroll Infrastructure Initialized');
-  console.log('This is ONLY the detection infrastructure - no visual transitions yet');
-  console.log('NOTE: Infrastructure is dormant until scrollable content is added in Step 2+');
+  console.log('Phase 2: Full Transition & Animation Layer');
+  console.log('Implementing scroll-driven cinematic camera transitions');
   console.log('='.repeat(80));
+
+  // Get scene elements
+  SCENES[0].element = document.querySelector('.opening-desk-scene');
+  SCENES[1].element = document.querySelector('.identity-hero-scene');
+  SCENES[2].element = document.querySelector('.about-me-scene');
+  SCENES[3].element = document.querySelector('.projects-scene');
+  SCENES[4].element = document.querySelector('.recommendations-scene');
+  SCENES[5].element = document.querySelector('.cta-scene');
+
+  // Verify all scenes found
+  const missingScenes = SCENES.filter(s => !s.element);
+  if (missingScenes.length > 0) {
+    console.error('[ERROR] Missing scene elements:', missingScenes.map(s => s.id));
+    return;
+  }
 
   // Detect accessibility preferences
   detectReducedMotionPreference();
+
+  // Setup document height for scrollable journey
+  setupDocumentHeight();
 
   // Set initial viewport height
   state.viewportHeight = window.innerHeight;
 
   // Set initial scroll position
   updateScrollPosition();
-  updateActiveScene();
 
-  // Log initial state
-  console.log(`Initial scene: ${state.activeScene} - ${SCENE_CONFIG[state.activeScene].name}`);
-  console.log(`Document height: ${document.documentElement.scrollHeight}px`);
-  console.log(`Viewport height: ${state.viewportHeight}px`);
+  // Initialize scene states
+  updateScenes();
 
-  // Add scroll event listener with passive flag for performance
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  // Add scroll event listener
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Add resize event listener (debounced)
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(handleResize, 150);
-  }, { passive: true });
+  // Add resize event listener
+  window.addEventListener('resize', onResize, { passive: true });
 
-  console.log('✅ Scroll detection ready (dormant until Step 2+ adds scrollable content)');
+  state.isInitialized = true;
+
+  console.log('✅ Phase 2 transition system initialized');
+  console.log(`   - Document height: ${TOTAL_JOURNEY_VH}vh`);
+  console.log(`   - Viewport height: ${state.viewportHeight}px`);
+  console.log(`   - Reduced motion: ${state.prefersReducedMotion}`);
+  console.log(`   - All ${SCENES.length} scenes ready`);
+  console.log('   - Scroll to begin journey through workspace');
+  console.log('='.repeat(80));
 }
 
 // Initialize when DOM is ready
@@ -441,20 +528,10 @@ if (document.readyState === 'loading') {
   init();
 }
 
-// =============================================================================
-// EXPORT FOR FUTURE USE
-// =============================================================================
-
-// Export state and functions for future transition implementations
-window.ScrollInfrastructure = {
+// Export for debugging
+window.PortfolioTransitions = {
   state,
-  SCENE_CONFIG,
-  detectActiveScene,
-  getNextScene,
-  getPreviousScene,
-  calculateProgress,
-  pxToVh,
-  vhToPx,
-  clamp,
-  lerp
+  SCENES,
+  updateScenes,
+  getCurrentSceneAndProgress
 };

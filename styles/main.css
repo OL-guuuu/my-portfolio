@@ -2619,3 +2619,63 @@ body {
         border-top: 1px solid #505050;
     }
 }
+
+/* ============================================
+   PHASE 2: TRANSITION & SCROLL LAYER
+   Cinematic Camera Movement Through One Workspace
+   ============================================ */
+
+/* Set document height for full journey - approximately 1000vh */
+body {
+    /* Will be set dynamically by JavaScript to ensure scrollable journey */
+    min-height: 100vh;
+}
+
+/* All scenes use position sticky for localized control during transitions */
+.opening-desk-scene,
+.identity-hero-scene,
+.about-me-scene,
+.projects-scene,
+.recommendations-scene,
+.cta-scene {
+    position: sticky;
+    top: 0;
+    will-change: transform, opacity;
+}
+
+/* Transition states controlled by JavaScript classes */
+.scene--hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.scene--transitioning {
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.scene--hold {
+    opacity: 1;
+    transform: none;
+}
+
+/* Premium easing for camera movements */
+:root {
+    --ease-camera: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Reduced motion support - instant transitions */
+@media (prefers-reduced-motion: reduce) {
+    .scene--transitioning {
+        transition: none !important;
+    }
+
+    .opening-desk-scene,
+    .identity-hero-scene,
+    .about-me-scene,
+    .projects-scene,
+    .recommendations-scene,
+    .cta-scene {
+        transition: none !important;
+    }
+}
