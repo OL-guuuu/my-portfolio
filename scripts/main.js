@@ -1,16 +1,23 @@
 /**
- * Phase 2 Step 1: Scroll Infrastructure Foundation
+ * Phase 2 Step 2: Scene Hold Zones & Stable Scene State
  *
- * This file implements ONLY the scroll detection and scene mapping infrastructure.
- * NO visual transitions are implemented yet.
+ * This file implements scroll detection infrastructure AND stable scene hold zones.
  *
- * Scope:
+ * Step 1 (Complete):
  * - Scroll position detection
  * - Active scene detection (scenes 2-7)
  * - Transition progress calculation
  * - Reversible scroll logic
  * - prefers-reduced-motion support
- * - Clean hooks for future transition implementations
+ *
+ * Step 2 (Current):
+ * - Stable hold/rest zones for each scene
+ * - Scene state handling (active, entering, leaving)
+ * - CSS class application for scene visibility
+ * - Scene activation boundaries
+ * - Readable rest positions at hold zones
+ *
+ * NO visual transition choreography yet - only scene visibility management.
  */
 
 // =============================================================================
@@ -193,6 +200,87 @@ function getPreviousScene(currentScene) {
 }
 
 // =============================================================================
+// PHASE 2 STEP 2: SCENE STATE MANAGEMENT
+// =============================================================================
+
+/**
+ * Map scene IDs to their DOM elements
+ */
+const SCENE_ELEMENTS = {
+  scene2: null,
+  scene3: null,
+  scene4: null,
+  scene5: null,
+  scene6: null,
+  scene7: null
+};
+
+/**
+ * Initialize scene element references
+ */
+function initializeSceneElements() {
+  SCENE_ELEMENTS.scene2 = document.querySelector('.opening-desk-scene');
+  SCENE_ELEMENTS.scene3 = document.querySelector('.identity-hero-scene');
+  SCENE_ELEMENTS.scene4 = document.querySelector('.about-me-scene');
+  SCENE_ELEMENTS.scene5 = document.querySelector('.projects-scene');
+  SCENE_ELEMENTS.scene6 = document.querySelector('.recommendations-scene');
+  SCENE_ELEMENTS.scene7 = document.querySelector('.cta-scene');
+}
+
+/**
+ * Apply scene state classes to DOM elements
+ */
+function updateSceneClasses() {
+  const currentScene = state.activeScene;
+
+  // Remove all state classes from all scenes
+  Object.keys(SCENE_ELEMENTS).forEach(sceneKey => {
+    const element = SCENE_ELEMENTS[sceneKey];
+    if (element) {
+      element.classList.remove('scene--active', 'scene--entering', 'scene--leaving');
+    }
+  });
+
+  // Apply current scene state
+  const currentElement = SCENE_ELEMENTS[currentScene];
+  if (!currentElement) return;
+
+  if (state.isInTransition) {
+    // During transition, show both current and next scene
+    const nextScene = state.scrollDirection === 'down'
+      ? getNextScene(currentScene)
+      : currentScene;
+
+    const prevScene = state.scrollDirection === 'up'
+      ? getPreviousScene(currentScene)
+      : currentScene;
+
+    // Leaving scene
+    if (state.scrollDirection === 'down') {
+      currentElement.classList.add('scene--leaving');
+    } else {
+      const prevElement = SCENE_ELEMENTS[prevScene];
+      if (prevElement) {
+        prevElement.classList.add('scene--leaving');
+      }
+    }
+
+    // Entering scene
+    if (state.scrollDirection === 'down' && nextScene) {
+      const nextElement = SCENE_ELEMENTS[nextScene];
+      if (nextElement) {
+        nextElement.classList.add('scene--entering');
+      }
+    } else if (state.scrollDirection === 'up') {
+      currentElement.classList.add('scene--entering');
+    }
+  } else {
+    // In hold zone - only show current scene as active
+    currentElement.classList.add('scene--active');
+  }
+}
+
+// =============================================================================
 // SCROLL DETECTION
 // =============================================================================
 
@@ -300,6 +388,9 @@ function handleScroll() {
   const wasInTransition = state.isInTransition;
   updateActiveScene();
 
+  // Update scene state classes in DOM (Step 2)
+  updateSceneClasses();
+
   // Detect scene changes
   if (previousScene !== state.activeScene) {
     onSceneChange(previousScene, state.activeScene);
@@ -401,10 +492,12 @@ function detectReducedMotionPreference() {
  */
 function init() {
   console.log('='.repeat(80));
-  console.log('Phase 2 Step 1: Scroll Infrastructure Initialized');
-  console.log('This is ONLY the detection infrastructure - no visual transitions yet');
-  console.log('NOTE: Infrastructure is dormant until scrollable content is added in Step 2+');
+  console.log('Phase 2 Step 2: Scene Hold Zones Initialized');
+  console.log('Stable scene state handling with active/entering/leaving states');
   console.log('='.repeat(80));
+
+  // Initialize scene element references (Step 2)
+  initializeSceneElements();
 
   // Detect accessibility preferences
   detectReducedMotionPreference();
@@ -415,6 +508,9 @@ function init() {
   // Set initial scroll position
   updateScrollPosition();
   updateActiveScene();
+
+  // Initialize scene classes (Step 2)
+  updateSceneClasses();
 
   // Log initial state
   console.log(`Initial scene: ${state.activeScene} - ${SCENE_CONFIG[state.activeScene].name}`);
@@ -431,7 +527,7 @@ function init() {
     resizeTimeout = setTimeout(handleResize, 150);
   }, { passive: true });
 
-  console.log('✅ Scroll detection ready (dormant until Step 2+ adds scrollable content)');
+  console.log('✅ Scene hold zones active - scroll to see scene transitions');
 }
 
 // Initialize when DOM is ready
