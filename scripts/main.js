@@ -9,6 +9,7 @@ const SCENE_CONFIG = {
 
 const SCENE_KEYS = ['scene2', 'scene3', 'scene4', 'scene5', 'scene6', 'scene7'];
 const TRANSITION_KEYS = ['scene2', 'scene3', 'scene4', 'scene5', 'scene6'];
+const SCENE7_SETTLE_DISTANCE_VH = 28; // Slightly longer final settle for calmer CTA arrival
 
 const state = {
   currentScrollY: 0,
@@ -98,6 +99,7 @@ function getSettleValue(sceneKey, settleDistanceVh = 24) {
   if (state.prefersReducedMotion) return 0;
   if (state.activeScene !== sceneKey || state.isInTransition) return 0;
   const config = SCENE_CONFIG[sceneKey];
+  // Intentional decay curve: returns high value at hold-zone entry, easing to 0 as scene settles.
   return calculateProgress(settleDistanceVh - (state.scrollInVh - config.holdStart), 0, settleDistanceVh);
 }
 
@@ -155,7 +157,7 @@ function applyTransitionVariables() {
     '--s4-settle': getSettleValue('scene4').toFixed(4),
     '--s5-settle': getSettleValue('scene5').toFixed(4),
     '--s6-settle': getSettleValue('scene6').toFixed(4),
-    '--s7-settle': getSettleValue('scene7', 28).toFixed(4)
+    '--s7-settle': getSettleValue('scene7', SCENE7_SETTLE_DISTANCE_VH).toFixed(4)
   };
 
   Object.entries(vars).forEach(([name, value]) => {
