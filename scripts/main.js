@@ -80,6 +80,8 @@ const state = {
   prefersReducedMotion: false
 };
 
+const rootElement = document.documentElement;
+
 // =============================================================================
 // UTILITY FUNCTIONS
 // =============================================================================
@@ -190,6 +192,42 @@ function getPreviousScene(currentScene) {
     scene7: 'scene6'
   };
   return sceneNumbers[currentScene];
+}
+
+/**
+ * Compute a transition progress value for a given scene's transition span.
+ * Returns 0 when before the transition start, 1 when after it completes.
+ */
+function computeTransitionValue(sceneKey) {
+  const config = SCENE_CONFIG[sceneKey];
+  const { holdEnd, transitionEnd } = config;
+
+  if (state.scrollInVh <= holdEnd) return 0;
+  if (state.scrollInVh >= transitionEnd) return 1;
+
+  return calculateProgress(state.scrollInVh, holdEnd, transitionEnd);
+}
+
+/**
+ * Update CSS custom properties for each transition and motion preferences.
+ */
+function updateTransitionVariables() {
+  const transitions = [
+    { key: 't23', scene: 'scene2' },
+    { key: 't34', scene: 'scene3' },
+    { key: 't45', scene: 'scene4' },
+    { key: 't56', scene: 'scene5' },
+    { key: 't67', scene: 'scene6' }
+  ];
+
+  transitions.forEach(({ key, scene }) => {
+    const value = computeTransitionValue(scene);
+    rootElement.style.setProperty(`--${key}`, value);
+  });
+
+  rootElement.style.setProperty('--motion-reduce', state.prefersReducedMotion ? 1 : 0);
+  rootElement.style.setProperty('--motion-strength', state.prefersReducedMotion ? 0.35 : 1);
+  rootElement.dataset.activeScene = state.activeScene;
 }
 
 // =============================================================================
@@ -325,6 +363,9 @@ function handleScroll() {
     }
   }
 
+  // Update CSS variables for transitions
+  updateTransitionVariables();
+
   // Log current state (for debugging Step 1)
   logState();
 }
@@ -370,6 +411,7 @@ function handleResize() {
   state.scrollInVh = pxToVh(state.currentScrollY);
 
   console.log(`[RESIZE] Viewport: ${state.viewportHeight}px`);
+  updateTransitionVariables();
 }
 
 // =============================================================================
@@ -384,11 +426,13 @@ function detectReducedMotionPreference() {
   state.prefersReducedMotion = mediaQuery.matches;
 
   console.log(`[ACCESSIBILITY] prefers-reduced-motion: ${state.prefersReducedMotion}`);
+  updateTransitionVariables();
 
   // Listen for changes to preference
   mediaQuery.addEventListener('change', (e) => {
     state.prefersReducedMotion = e.matches;
     console.log(`[ACCESSIBILITY] prefers-reduced-motion changed to: ${state.prefersReducedMotion}`);
+    updateTransitionVariables();
   });
 }
 
@@ -415,6 +459,7 @@ function init() {
   // Set initial scroll position
   updateScrollPosition();
   updateActiveScene();
+  updateTransitionVariables();
 
   // Log initial state
   console.log(`Initial scene: ${state.activeScene} - ${SCENE_CONFIG[state.activeScene].name}`);

@@ -8,290 +8,302 @@
 </head>
 <body>
     <!-- Opening Desk Scene (Scene 2) - Static Foundation -->
-    <main class="opening-desk-scene" role="main">
-        <div class="workspace">
-            <!-- Desk Surface -->
-            <div class="desk">
-                <!-- 3 Monitors (Left, Center Portal, Right) -->
-                <div class="monitors">
-                    <!-- Left Monitor (Secondary) -->
-                    <div class="monitor monitor--left">
-                        <div class="monitor__bezel">
-                            <div class="monitor__screen"></div>
+    <main class="opening-desk-scene scene-block" data-scene="scene2" role="main">
+        <div class="scene-frame">
+            <div class="workspace">
+                <!-- Desk Surface -->
+                <div class="desk">
+                    <!-- 3 Monitors (Left, Center Portal, Right) -->
+                    <div class="monitors">
+                        <!-- Left Monitor (Secondary) -->
+                        <div class="monitor monitor--left">
+                            <div class="monitor__bezel">
+                                <div class="monitor__screen"></div>
+                            </div>
+                            <div class="monitor__body"></div>
+                            <div class="monitor__stand"></div>
                         </div>
-                        <div class="monitor__body"></div>
-                        <div class="monitor__stand"></div>
+
+                        <!-- Center Monitor (Portal - Primary Focal Point) -->
+                        <div class="monitor monitor--center monitor--portal">
+                            <div class="monitor__bezel">
+                                <div class="monitor__screen"></div>
+                            </div>
+                            <div class="monitor__body"></div>
+                            <div class="monitor__stand"></div>
+                        </div>
+
+                        <!-- Right Monitor (Secondary) -->
+                        <div class="monitor monitor--right">
+                            <div class="monitor__bezel">
+                                <div class="monitor__screen"></div>
+                            </div>
+                            <div class="monitor__body"></div>
+                            <div class="monitor__stand"></div>
+                        </div>
                     </div>
 
-                    <!-- Center Monitor (Portal - Primary Focal Point) -->
-                    <div class="monitor monitor--center monitor--portal">
-                        <div class="monitor__bezel">
-                            <div class="monitor__screen"></div>
-                        </div>
-                        <div class="monitor__body"></div>
-                        <div class="monitor__stand"></div>
-                    </div>
-
-                    <!-- Right Monitor (Secondary) -->
-                    <div class="monitor monitor--right">
-                        <div class="monitor__bezel">
-                            <div class="monitor__screen"></div>
-                        </div>
-                        <div class="monitor__body"></div>
-                        <div class="monitor__stand"></div>
+                    <!-- Desk Items (Minimal) -->
+                    <div class="desk-items">
+                        <div class="keyboard"></div>
+                        <div class="mouse"></div>
                     </div>
                 </div>
 
-                <!-- Desk Items (Minimal) -->
-                <div class="desk-items">
-                    <div class="keyboard"></div>
-                    <div class="mouse"></div>
+                <!-- Subtle Room Context -->
+                <div class="room-context" aria-hidden="true">
+                    <div class="wall"></div>
                 </div>
-            </div>
-
-            <!-- Subtle Room Context -->
-            <div class="room-context" aria-hidden="true">
-                <div class="wall"></div>
             </div>
         </div>
     </main>
 
     <!-- Identity Hero Scene (Scene 3) - Static Foundation -->
-    <section class="identity-hero-scene" role="region" aria-labelledby="identity-headline">
-        <!-- Monitor Bezel Framing -->
-        <div class="monitor-bezel-frame" aria-hidden="true"></div>
+    <section class="identity-hero-scene scene-block" data-scene="scene3" role="region" aria-labelledby="identity-headline">
+        <div class="scene-frame">
+            <!-- Monitor Bezel Framing -->
+            <div class="monitor-bezel-frame" aria-hidden="true"></div>
 
-        <!-- Identity Content Container -->
-        <div class="identity-content">
-            <!-- Upper Identity Cluster -->
-            <div class="identity-cluster">
-                <!-- Personal Logo -->
-                <div class="personal-logo" aria-label="Oussama Lassoued brand logo">
-                    <img src="https://github.com/user-attachments/assets/323947a0-8060-4eae-90be-482cd68b190a" alt="Oussama Lassoued Logo" width="80" height="80">
+            <!-- Identity Content Container -->
+            <div class="identity-content">
+                <!-- Upper Identity Cluster -->
+                <div class="identity-cluster">
+                    <!-- Personal Logo -->
+                    <div class="personal-logo" aria-label="Oussama Lassoued brand logo">
+                        <img src="https://github.com/user-attachments/assets/323947a0-8060-4eae-90be-482cd68b190a" alt="Oussama Lassoued Logo" width="80" height="80">
+                    </div>
+
+                    <!-- Personal Name -->
+                    <h2 class="personal-name">Oussama Lassoued</h2>
+
+                    <!-- Role -->
+                    <p class="role">UX/UI &amp; Product Designer</p>
                 </div>
 
-                <!-- Personal Name -->
-                <h2 class="personal-name">Oussama Lassoued</h2>
+                <!-- Primary Headline -->
+                <h1 id="identity-headline" class="primary-headline">
+                    Understanding your users,<br>designing your success.
+                </h1>
 
-                <!-- Role -->
-                <p class="role">UX/UI &amp; Product Designer</p>
+                <!-- Supporting Line -->
+                <p class="supporting-line">
+                    Powered by AI-driven insight, product thinking, and user-centered design.
+                </p>
             </div>
-
-            <!-- Primary Headline -->
-            <h1 id="identity-headline" class="primary-headline">
-                Understanding your users,<br>designing your success.
-            </h1>
-
-            <!-- Supporting Line -->
-            <p class="supporting-line">
-                Powered by AI-driven insight, product thinking, and user-centered design.
-            </p>
         </div>
     </section>
 
     <!-- About Me Scene (Scene 4) - Static Foundation -->
-    <section class="about-me-scene" role="region" aria-labelledby="about-me-label">
-        <!-- Wall Context -->
-        <div class="wall-context" aria-hidden="true"></div>
+    <section class="about-me-scene scene-block" data-scene="scene4" role="region" aria-labelledby="about-me-label">
+        <div class="scene-frame">
+            <!-- Wall Context -->
+            <div class="wall-context" aria-hidden="true"></div>
 
-        <!-- Very Faint Desk/Monitor Continuity at Lower Periphery -->
-        <div class="desk-continuity-hint" aria-hidden="true"></div>
+            <!-- Very Faint Desk/Monitor Continuity at Lower Periphery -->
+            <div class="desk-continuity-hint" aria-hidden="true"></div>
 
-        <!-- Content Container -->
-        <div class="about-me-content">
-            <!-- Left: Framed Monochrome Portrait -->
-            <div class="portrait-frame">
-                <img src="https://via.placeholder.com/400x500/2a2a2a/808080?text=Portrait" alt="Professional portrait" class="portrait-photo">
-            </div>
+            <!-- Content Container -->
+            <div class="about-me-content">
+                <!-- Left: Framed Monochrome Portrait -->
+                <div class="portrait-frame">
+                    <img src="https://via.placeholder.com/400x500/2a2a2a/808080?text=Portrait" alt="Professional portrait" class="portrait-photo">
+                </div>
 
-            <!-- Right: Text Block -->
-            <div class="about-text-block">
-                <!-- Small Understated Label -->
-                <p class="about-label" id="about-me-label">About Me</p>
+                <!-- Right: Text Block -->
+                <div class="about-text-block">
+                    <!-- Small Understated Label -->
+                    <p class="about-label" id="about-me-label">About Me</p>
 
-                <!-- Two Short Paragraphs -->
-                <div class="about-paragraphs">
-                    <p>A UX/UI and Product Designer who bridges the gap between user needs and business goals. With a foundation in AI-driven insight and user-centered design, I craft digital experiences that solve real problems.</p>
+                    <!-- Two Short Paragraphs -->
+                    <div class="about-paragraphs">
+                        <p>A UX/UI and Product Designer who bridges the gap between user needs and business goals. With a foundation in AI-driven insight and user-centered design, I craft digital experiences that solve real problems.</p>
 
-                    <p>My approach combines strategic thinking with hands-on design execution, ensuring every interface decision is backed by research and validated through testing. I believe in designing systems that scale.</p>
+                        <p>My approach combines strategic thinking with hands-on design execution, ensuring every interface decision is backed by research and validated through testing. I believe in designing systems that scale.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Scene (Scene 5) - Static Foundation -->
-    <section class="projects-scene" role="region" aria-labelledby="projects-section-label">
-        <!-- Wall Context (Right Side) -->
-        <div class="projects-wall-context" aria-hidden="true"></div>
+    <section class="projects-scene scene-block" data-scene="scene5" role="region" aria-labelledby="projects-section-label">
+        <div class="scene-frame">
+            <!-- Wall Context (Right Side) -->
+            <div class="projects-wall-context" aria-hidden="true"></div>
 
-        <!-- Floor Grounding -->
-        <div class="projects-floor-context" aria-hidden="true"></div>
+            <!-- Floor Grounding -->
+            <div class="projects-floor-context" aria-hidden="true"></div>
 
-        <!-- Content Container -->
-        <div class="projects-content">
-            <!-- Archive Cabinet - Sole Primary Visual Anchor -->
-            <div class="archive-cabinet">
-                <!-- Drawer 1 - Empty (Restraint) -->
-                <div class="cabinet-drawer cabinet-drawer--empty" aria-hidden="true">
-                    <div class="drawer-front"></div>
-                    <div class="drawer-handle"></div>
-                </div>
-
-                <!-- Drawer 2 - Project 1 -->
-                <div class="cabinet-drawer">
-                    <div class="drawer-front">
-                        <div class="drawer-label">
-                            <span class="drawer-label__title">AI-Driven Analytics Platform</span>
-                            <span class="drawer-label__descriptor">Enterprise SaaS redesign</span>
-                        </div>
+            <!-- Content Container -->
+            <div class="projects-content">
+                <!-- Archive Cabinet - Sole Primary Visual Anchor -->
+                <div class="archive-cabinet">
+                    <!-- Drawer 1 - Empty (Restraint) -->
+                    <div class="cabinet-drawer cabinet-drawer--empty" aria-hidden="true">
+                        <div class="drawer-front"></div>
+                        <div class="drawer-handle"></div>
                     </div>
-                    <div class="drawer-handle"></div>
+
+                    <!-- Drawer 2 - Project 1 -->
+                    <div class="cabinet-drawer">
+                        <div class="drawer-front">
+                            <div class="drawer-label">
+                                <span class="drawer-label__title">AI-Driven Analytics Platform</span>
+                                <span class="drawer-label__descriptor">Enterprise SaaS redesign</span>
+                            </div>
+                        </div>
+                        <div class="drawer-handle"></div>
+                    </div>
+
+                    <!-- Drawer 3 - Project 2 -->
+                    <div class="cabinet-drawer">
+                        <div class="drawer-front">
+                            <div class="drawer-label">
+                                <span class="drawer-label__title">Mobile Banking Experience</span>
+                                <span class="drawer-label__descriptor">iOS and Android app</span>
+                            </div>
+                        </div>
+                        <div class="drawer-handle"></div>
+                    </div>
+
+                    <!-- Drawer 4 - Project 3 -->
+                    <div class="cabinet-drawer">
+                        <div class="drawer-front">
+                            <div class="drawer-label">
+                                <span class="drawer-label__title">Healthcare Patient Portal</span>
+                                <span class="drawer-label__descriptor">User research to launch</span>
+                            </div>
+                        </div>
+                        <div class="drawer-handle"></div>
+                    </div>
                 </div>
 
-                <!-- Drawer 3 - Project 2 -->
-                <div class="cabinet-drawer">
-                    <div class="drawer-front">
-                        <div class="drawer-label">
-                            <span class="drawer-label__title">Mobile Banking Experience</span>
-                            <span class="drawer-label__descriptor">iOS and Android app</span>
-                        </div>
-                    </div>
-                    <div class="drawer-handle"></div>
-                </div>
-
-                <!-- Drawer 4 - Project 3 -->
-                <div class="cabinet-drawer">
-                    <div class="drawer-front">
-                        <div class="drawer-label">
-                            <span class="drawer-label__title">Healthcare Patient Portal</span>
-                            <span class="drawer-label__descriptor">User research to launch</span>
-                        </div>
-                    </div>
-                    <div class="drawer-handle"></div>
-                </div>
+                <!-- Hidden Label for Accessibility -->
+                <h2 id="projects-section-label" class="visually-hidden">Selected Projects</h2>
             </div>
-
-            <!-- Hidden Label for Accessibility -->
-            <h2 id="projects-section-label" class="visually-hidden">Selected Projects</h2>
         </div>
     </section>
 
     <!-- Recommendations Scene (Scene 6) - Static Foundation -->
-    <section class="recommendations-scene" role="region" aria-labelledby="recommendations-section-label">
-        <!-- Wall Context (Right Wall) -->
-        <div class="recommendations-wall-context" aria-hidden="true"></div>
+    <section class="recommendations-scene scene-block" data-scene="scene6" role="region" aria-labelledby="recommendations-section-label">
+        <div class="scene-frame">
+            <!-- Wall Context (Right Wall) -->
+            <div class="recommendations-wall-context" aria-hidden="true"></div>
 
-        <!-- Floor Grounding -->
-        <div class="recommendations-floor-context" aria-hidden="true"></div>
+            <!-- Floor Grounding -->
+            <div class="recommendations-floor-context" aria-hidden="true"></div>
 
-        <!-- Content Container -->
-        <div class="recommendations-content">
-            <!-- Pinned Message Board - Sole Primary Visual Anchor -->
-            <div class="message-board">
-                <!-- Board Surface -->
-                <div class="board-surface">
-                    <!-- Recommendation Note 1 -->
-                    <div class="recommendation-note recommendation-note--1">
-                        <div class="note-pin" aria-hidden="true"></div>
-                        <blockquote class="note-quote">
-                            Oussama's user research insights transformed our product strategy. His ability to translate complex data into actionable design decisions is exceptional.
-                        </blockquote>
-                        <cite class="note-attribution">Sarah Chen, Product Director</cite>
-                    </div>
+            <!-- Content Container -->
+            <div class="recommendations-content">
+                <!-- Pinned Message Board - Sole Primary Visual Anchor -->
+                <div class="message-board">
+                    <!-- Board Surface -->
+                    <div class="board-surface">
+                        <!-- Recommendation Note 1 -->
+                        <div class="recommendation-note recommendation-note--1">
+                            <div class="note-pin" aria-hidden="true"></div>
+                            <blockquote class="note-quote">
+                                Oussama's user research insights transformed our product strategy. His ability to translate complex data into actionable design decisions is exceptional.
+                            </blockquote>
+                            <cite class="note-attribution">Sarah Chen, Product Director</cite>
+                        </div>
 
-                    <!-- Recommendation Note 2 -->
-                    <div class="recommendation-note recommendation-note--2">
-                        <div class="note-pin" aria-hidden="true"></div>
-                        <blockquote class="note-quote">
-                            Rarely have I worked with a designer who combines technical depth with such strong empathy for end users. Oussama delivered beyond expectations.
-                        </blockquote>
-                        <cite class="note-attribution">Michael Torres, Engineering Lead</cite>
-                    </div>
+                        <!-- Recommendation Note 2 -->
+                        <div class="recommendation-note recommendation-note--2">
+                            <div class="note-pin" aria-hidden="true"></div>
+                            <blockquote class="note-quote">
+                                Rarely have I worked with a designer who combines technical depth with such strong empathy for end users. Oussama delivered beyond expectations.
+                            </blockquote>
+                            <cite class="note-attribution">Michael Torres, Engineering Lead</cite>
+                        </div>
 
-                    <!-- Recommendation Note 3 -->
-                    <div class="recommendation-note recommendation-note--3">
-                        <div class="note-pin" aria-hidden="true"></div>
-                        <blockquote class="note-quote">
-                            His AI-augmented design process helped us launch three months ahead of schedule while maintaining exceptional quality standards.
-                        </blockquote>
-                        <cite class="note-attribution">David Kim, CEO</cite>
-                    </div>
+                        <!-- Recommendation Note 3 -->
+                        <div class="recommendation-note recommendation-note--3">
+                            <div class="note-pin" aria-hidden="true"></div>
+                            <blockquote class="note-quote">
+                                His AI-augmented design process helped us launch three months ahead of schedule while maintaining exceptional quality standards.
+                            </blockquote>
+                            <cite class="note-attribution">David Kim, CEO</cite>
+                        </div>
 
-                    <!-- Recommendation Note 4 -->
-                    <div class="recommendation-note recommendation-note--4">
-                        <div class="note-pin" aria-hidden="true"></div>
-                        <blockquote class="note-quote">
-                            Oussama bridged the gap between business goals and user needs with remarkable clarity. His designs are both beautiful and strategic.
-                        </blockquote>
-                        <cite class="note-attribution">Jennifer Martinez, UX Manager</cite>
-                    </div>
+                        <!-- Recommendation Note 4 -->
+                        <div class="recommendation-note recommendation-note--4">
+                            <div class="note-pin" aria-hidden="true"></div>
+                            <blockquote class="note-quote">
+                                Oussama bridged the gap between business goals and user needs with remarkable clarity. His designs are both beautiful and strategic.
+                            </blockquote>
+                            <cite class="note-attribution">Jennifer Martinez, UX Manager</cite>
+                        </div>
 
-                    <!-- Recommendation Note 5 -->
-                    <div class="recommendation-note recommendation-note--5">
-                        <div class="note-pin" aria-hidden="true"></div>
-                        <blockquote class="note-quote">
-                            A true product thinker who understands the entire journey from research to implementation. Collaborative, thoughtful, and delivers results.
-                        </blockquote>
-                        <cite class="note-attribution">Alex Wong, Product Manager</cite>
+                        <!-- Recommendation Note 5 -->
+                        <div class="recommendation-note recommendation-note--5">
+                            <div class="note-pin" aria-hidden="true"></div>
+                            <blockquote class="note-quote">
+                                A true product thinker who understands the entire journey from research to implementation. Collaborative, thoughtful, and delivers results.
+                            </blockquote>
+                            <cite class="note-attribution">Alex Wong, Product Manager</cite>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Hidden Label for Accessibility -->
-            <h2 id="recommendations-section-label" class="visually-hidden">Recommendations</h2>
+                <!-- Hidden Label for Accessibility -->
+                <h2 id="recommendations-section-label" class="visually-hidden">Recommendations</h2>
+            </div>
         </div>
     </section>
 
     <!-- CTA Scene (Scene 7) - Static Foundation - Tablet CTA Direction -->
-    <section class="cta-scene" role="region" aria-labelledby="cta-heading">
-        <!-- Desk Surface Context -->
-        <div class="desk-surface-context" aria-hidden="true"></div>
+    <section class="cta-scene scene-block" data-scene="scene7" role="region" aria-labelledby="cta-heading">
+        <div class="scene-frame">
+            <!-- Desk Surface Context -->
+            <div class="desk-surface-context" aria-hidden="true"></div>
 
-        <!-- Content Container -->
-        <div class="cta-content">
-            <!-- Premium Tablet - Sole Primary Visual Anchor -->
-            <article class="tablet">
-                <!-- CTA Heading (Visually Hidden for Screen Readers) -->
-                <h2 id="cta-heading" class="visually-hidden">Let's Work Together</h2>
+            <!-- Content Container -->
+            <div class="cta-content">
+                <!-- Premium Tablet - Sole Primary Visual Anchor -->
+                <article class="tablet">
+                    <!-- CTA Heading (Visually Hidden for Screen Readers) -->
+                    <h2 id="cta-heading" class="visually-hidden">Let's Work Together</h2>
 
-                <!-- Tablet Device -->
-                <div class="tablet__device">
-                    <!-- Tablet Bezel/Frame -->
-                    <div class="tablet__bezel">
-                        <!-- Tablet Screen with CTA Content -->
-                        <div class="tablet__screen">
-                            <!-- Screen Content Container -->
-                            <div class="tablet__content">
-                                <!-- Primary Heading -->
-                                <h3 class="tablet__heading">Let's work together.</h3>
+                    <!-- Tablet Device -->
+                    <div class="tablet__device">
+                        <!-- Tablet Bezel/Frame -->
+                        <div class="tablet__bezel">
+                            <!-- Tablet Screen with CTA Content -->
+                            <div class="tablet__screen">
+                                <!-- Screen Content Container -->
+                                <div class="tablet__content">
+                                    <!-- Primary Heading -->
+                                    <h3 class="tablet__heading">Let's work together.</h3>
 
-                                <!-- Supporting Description -->
-                                <p class="tablet__description">Email me to start the conversation.</p>
+                                    <!-- Supporting Description -->
+                                    <p class="tablet__description">Email me to start the conversation.</p>
 
-                                <!-- Primary CTA Button -->
-                                <a href="mailto:hello@oussamalassoued.com" class="tablet__button" aria-label="Send email to hello@oussamalassoued.com">
-                                    Send Email
-                                </a>
+                                    <!-- Primary CTA Button -->
+                                    <a href="mailto:hello@oussamalassoued.com" class="tablet__button" aria-label="Send email to hello@oussamalassoued.com">
+                                        Send Email
+                                    </a>
 
-                                <!-- Secondary Links Row -->
-                                <div class="tablet__links">
-                                    <a href="https://www.linkedin.com/in/oussamalassoued" class="tablet__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                                    <span class="tablet__separator" aria-hidden="true">•</span>
-                                    <a href="/resume.pdf" class="tablet__link" target="_blank" rel="noopener noreferrer">Resume</a>
+                                    <!-- Secondary Links Row -->
+                                    <div class="tablet__links">
+                                        <a href="https://www.linkedin.com/in/oussamalassoued" class="tablet__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                        <span class="tablet__separator" aria-hidden="true">•</span>
+                                        <a href="/resume.pdf" class="tablet__link" target="_blank" rel="noopener noreferrer">Resume</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Tablet Stand -->
+                        <div class="tablet__stand">
+                            <div class="tablet__stand-base"></div>
+                        </div>
                     </div>
 
-                    <!-- Tablet Stand -->
-                    <div class="tablet__stand">
-                        <div class="tablet__stand-base"></div>
-                    </div>
-                </div>
-
-                <!-- Tablet Shadow (Grounding on Desk) -->
-                <div class="tablet__shadow" aria-hidden="true"></div>
-            </article>
+                    <!-- Tablet Shadow (Grounding on Desk) -->
+                    <div class="tablet__shadow" aria-hidden="true"></div>
+                </article>
+            </div>
         </div>
     </section>
 </body>
