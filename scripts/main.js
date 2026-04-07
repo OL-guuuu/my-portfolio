@@ -33,6 +33,11 @@ const sceneElements = {
 };
 
 const rootStyle = document.documentElement.style;
+const lastApplied = {
+  bodyDataset: {},
+  sceneDataset: {},
+  cssVars: {}
+};
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -44,7 +49,8 @@ function calculateProgress(value, start, end) {
 }
 
 function pxToVh(px) {
-  return (px / state.viewportHeight) * 100;
+  const viewportHeight = state.viewportHeight || window.innerHeight || 1;
+  return (px / viewportHeight) * 100;
 }
 
 function detectActiveScene(scrollVh) {
@@ -84,6 +90,7 @@ function updateScrollState() {
 function getTransitionValue(sceneKey) {
   if (state.prefersReducedMotion) return 0;
   const config = SCENE_CONFIG[sceneKey];
+  if (!config) return 0;
   return calculateProgress(state.scrollInVh, config.holdEnd, config.transitionEnd);
 }
 
@@ -95,16 +102,39 @@ function getSettleValue(sceneKey, settleDistanceVh = 24) {
 }
 
 function applySceneMetadata() {
-  document.body.dataset.activeScene = state.activeScene;
-  document.body.dataset.scrollDirection = state.scrollDirection;
-  document.body.dataset.sceneState = state.isInTransition ? 'transition' : 'hold';
-  document.body.dataset.transitionFrom = state.isInTransition ? state.activeScene : 'none';
+  const sceneState = state.isInTransition ? 'transition' : 'hold';
+  const bodyUpdates = {
+    activeScene: state.activeScene,
+    scrollDirection: state.scrollDirection,
+    sceneState,
+    transitionFrom: state.isInTransition ? state.activeScene : 'none'
+  };
+
+  Object.entries(bodyUpdates).forEach(([key, value]) => {
+    if (lastApplied.bodyDataset[key] === value) return;
+    document.body.dataset[key] = value;
+    lastApplied.bodyDataset[key] = value;
+  });
 
   SCENE_KEYS.forEach((sceneKey) => {
     const element = sceneElements[sceneKey];
     if (!element) return;
-    element.dataset.sceneState = sceneKey === state.activeScene ? document.body.dataset.sceneState : 'inactive';
-    element.dataset.sceneActive = sceneKey === state.activeScene ? 'true' : 'false';
+
+    const nextSceneState = sceneKey === state.activeScene ? sceneState : 'inactive';
+    const nextSceneActive = sceneKey === state.activeScene ? 'true' : 'false';
+    const sceneStore = lastApplied.sceneDataset[sceneKey] || {};
+
+    if (sceneStore.sceneState !== nextSceneState) {
+      element.dataset.sceneState = nextSceneState;
+      sceneStore.sceneState = nextSceneState;
+    }
+
+    if (sceneStore.sceneActive !== nextSceneActive) {
+      element.dataset.sceneActive = nextSceneActive;
+      sceneStore.sceneActive = nextSceneActive;
+    }
+
+    lastApplied.sceneDataset[sceneKey] = sceneStore;
   });
 }
 
@@ -115,22 +145,32 @@ function applyTransitionVariables() {
   const t4 = getTransitionValue('scene5');
   const t5 = getTransitionValue('scene6');
 
-  rootStyle.setProperty('--t1', t1.toFixed(4));
-  rootStyle.setProperty('--t2', t2.toFixed(4));
-  rootStyle.setProperty('--t3', t3.toFixed(4));
-  rootStyle.setProperty('--t4', t4.toFixed(4));
-  rootStyle.setProperty('--t5', t5.toFixed(4));
+  const vars = {
+    '--t1': t1.toFixed(4),
+    '--t2': t2.toFixed(4),
+    '--t3': t3.toFixed(4),
+    '--t4': t4.toFixed(4),
+    '--t5': t5.toFixed(4),
+    '--s3-settle': getSettleValue('scene3').toFixed(4),
+    '--s4-settle': getSettleValue('scene4').toFixed(4),
+    '--s5-settle': getSettleValue('scene5').toFixed(4),
+    '--s6-settle': getSettleValue('scene6').toFixed(4),
+    '--s7-settle': getSettleValue('scene7', 28).toFixed(4)
+  };
 
-  rootStyle.setProperty('--s3-settle', getSettleValue('scene3').toFixed(4));
-  rootStyle.setProperty('--s4-settle', getSettleValue('scene4').toFixed(4));
-  rootStyle.setProperty('--s5-settle', getSettleValue('scene5').toFixed(4));
-  rootStyle.setProperty('--s6-settle', getSettleValue('scene6').toFixed(4));
-  rootStyle.setProperty('--s7-settle', getSettleValue('scene7', 28).toFixed(4));
+  Object.entries(vars).forEach(([name, value]) => {
+    if (lastApplied.cssVars[name] === value) return;
+    rootStyle.setProperty(name, value);
+    lastApplied.cssVars[name] = value;
+  });
 
   TRANSITION_KEYS.forEach((sceneKey, index) => {
     const progress = getTransitionValue(sceneKey);
     const threshold = progress > 0.02 && progress < 0.98 ? 'true' : 'false';
-    document.body.dataset[`transition${index + 1}Active`] = threshold;
+    const key = `transition${index + 1}Active`;
+    if (lastApplied.bodyDataset[key] === threshold) return;
+    document.body.dataset[key] = threshold;
+    lastApplied.bodyDataset[key] = threshold;
   });
 }
 
@@ -159,8 +199,6 @@ function initReducedMotionListener() {
 
   if (typeof mediaQuery.addEventListener === 'function') {
     mediaQuery.addEventListener('change', (event) => updateReducedMotionState(event.matches));
-  } else if (typeof mediaQuery.addListener === 'function') {
-    mediaQuery.addListener((event) => updateReducedMotionState(event.matches));
   }
 }
 

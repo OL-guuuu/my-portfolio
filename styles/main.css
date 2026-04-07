@@ -2837,20 +2837,6 @@ body.phase2-transitions-enabled[data-active-scene="scene7"][data-scene-state="ho
     outline-offset: 3px;
 }
 
-/* Reduced motion fallback */
-body.phase2-transitions-enabled.reduced-motion {
-    --t1: 0;
-    --t2: 0;
-    --t3: 0;
-    --t4: 0;
-    --t5: 0;
-    --s3-settle: 0;
-    --s4-settle: 0;
-    --s5-settle: 0;
-    --s6-settle: 0;
-    --s7-settle: 0;
-}
-
 body.phase2-transitions-enabled.reduced-motion .opening-desk-scene,
 body.phase2-transitions-enabled.reduced-motion .identity-hero-scene,
 body.phase2-transitions-enabled.reduced-motion .about-me-scene,
