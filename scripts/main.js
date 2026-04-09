@@ -249,24 +249,180 @@ function applyTransition1(scene2, scene3, progress) {
 }
 
 /**
- * Transition 2: Scene 3 → Scene 4 (Identity Hero to About Me)
- * Pull back from monitor, then pan left to wall portrait
+ * Transition 2: Scene 3 → Scene 4 (Monitor Exit - Reverse Portal + Portrait Arrival)
+ *
+ * This transition has TWO parts:
+ * Part A: Monitor Exit (Reverse Portal) - vh 280-345
+ * Part B: Portrait Arrival (Reorientation) - vh 345-380
+ *
+ * PART A implements REVERSE PORTAL logic (exact inverse of monitor entry)
  */
 function applyTransition2(scene3, scene4, progress) {
   const easedProgress = easeInOutCubic(progress);
 
-  // Scene 3: Pull back (slight scale down) and pan right as camera turns left
-  const translateX3 = lerp(0, 30, easedProgress); // Pan right (camera turns left)
-  const scale3 = lerp(1, 0.9, easedProgress);
-  const opacity3 = lerp(1, 0, easedProgress);
-  scene3.style.transform = `translateX(${translateX3}%) scale(${scale3})`;
-  scene3.style.opacity = opacity3;
+  // Get monitor elements (needed for reverse portal)
+  const scene2 = SCENES[0].element;
+  const centerMonitor = document.querySelector('.monitor--center');
+  const sideMonitors = document.querySelectorAll('.monitor--left, .monitor--right');
+  const deskItems = document.querySelector('.desk-items');
+  const roomContext = document.querySelector('.room-context');
 
-  // Scene 4: Pan in from left as camera settles on portrait
-  const translateX4 = lerp(-30, 0, easedProgress);
-  const opacity4 = lerp(0, 1, easedProgress);
-  scene4.style.transform = `translateX(${translateX4}%)`;
-  scene4.style.opacity = opacity4;
+  // Convert progress (0-1 for full transition) to sub-phases
+  // Phase boundaries within the 100vh transition (280-380):
+  // 0.0-0.65 = Monitor Exit Reverse Portal (280-345 = 65vh)
+  // 0.65-1.0 = Portrait Arrival Reorientation (345-380 = 35vh)
+
+  if (progress < 0.65) {
+    // === PART A: MONITOR EXIT REVERSE PORTAL ===
+    // Map progress 0-0.65 to 0-1 for portal exit
+    const portalProgress = progress / 0.65;
+
+    // Further subdivide portal exit into phases:
+    // 0.0-0.23 = Threshold Crossing (15vh out of 65vh)
+    // 0.23-1.0 = Pull-back (50vh out of 65vh)
+
+    if (portalProgress < 0.23) {
+      // === THRESHOLD CROSSING PHASE (REVERSE) ===
+      // This is THE KEY PORTAL MOMENT - room re-emerges from complete occlusion
+      const thresholdProgress = portalProgress / 0.23;
+      const thresholdEased = easeInOutCubic(thresholdProgress);
+
+      // Monitor bezel edges pull away from viewport edges
+      // Scale: 8 → 2.5 (reverse of entry 2.5 → 8)
+      const scale = lerp(8, 2.5, thresholdEased);
+      if (centerMonitor) {
+        centerMonitor.style.transform = `scale(${scale})`;
+        centerMonitor.style.zIndex = '100';
+      }
+
+      // Scene 3 (monitor interior) fades OUT as we cross threshold
+      const interiorOpacity = lerp(1, 0, thresholdEased);
+      scene3.style.opacity = interiorOpacity;
+      scene3.style.pointerEvents = interiorOpacity > 0.5 ? 'auto' : 'none';
+
+      // Clip-path bezel mask releases (3% → 0%)
+      const bezelMaskInset = lerp(3, 0, thresholdEased);
+      scene3.style.clipPath = `inset(${bezelMaskInset}% ${bezelMaskInset}% ${bezelMaskInset}% ${bezelMaskInset}% round 8px)`;
+
+      // Scene 2 (room) re-emerges from complete invisibility
+      // This is the OCCLUSION REVERSAL - room was opacity 0, now fades in
+      const roomOpacity = lerp(0, 1, thresholdEased);
+      if (scene2) {
+        scene2.style.opacity = roomOpacity;
+        scene2.style.pointerEvents = roomOpacity > 0.5 ? 'auto' : 'none';
+      }
+
+      // Side monitors still invisible during threshold
+      if (sideMonitors) {
+        sideMonitors.forEach(monitor => {
+          monitor.style.opacity = '0';
+        });
+      }
+
+      // Desk items still invisible during threshold
+      if (deskItems) {
+        deskItems.style.opacity = '0';
+      }
+
+      // Room context begins to re-appear
+      if (roomContext) {
+        const contextOpacity = lerp(0, 0.3, thresholdEased);
+        roomContext.style.opacity = contextOpacity;
+      }
+
+      // Scene 4 completely invisible during portal exit
+      scene4.style.opacity = '0';
+      scene4.style.pointerEvents = 'none';
+
+    } else {
+      // === PULL-BACK PHASE ===
+      // Camera continues pulling back from monitor, room fully restored
+      const pullbackProgress = (portalProgress - 0.23) / 0.77;
+      const pullbackEased = easeInOutCubic(pullbackProgress);
+
+      // Monitor continues scaling down to normal size (2.5 → 1)
+      const scale = lerp(2.5, 1, pullbackEased);
+      if (centerMonitor) {
+        centerMonitor.style.transform = `scale(${scale})`;
+      }
+
+      // Scene 3 completely invisible (portal fully exited)
+      scene3.style.opacity = '0';
+      scene3.style.pointerEvents = 'none';
+      scene3.style.clipPath = 'none';
+
+      // Scene 2 fully visible
+      if (scene2) {
+        scene2.style.opacity = '1';
+        scene2.style.pointerEvents = 'auto';
+      }
+
+      // Side monitors re-enter frame from edges
+      if (sideMonitors) {
+        const sideOpacity = lerp(0, 1, pullbackEased);
+        const leftX = lerp(-100, 0, pullbackEased);
+        const rightX = lerp(100, 0, pullbackEased);
+
+        const leftMonitor = document.querySelector('.monitor--left');
+        const rightMonitor = document.querySelector('.monitor--right');
+
+        if (leftMonitor) {
+          leftMonitor.style.opacity = sideOpacity;
+          leftMonitor.style.transform = `perspective(1000px) rotateY(8deg) translateX(${leftX}%)`;
+        }
+
+        if (rightMonitor) {
+          rightMonitor.style.opacity = sideOpacity;
+          rightMonitor.style.transform = `perspective(1000px) rotateY(-8deg) translateX(${rightX}%)`;
+        }
+      }
+
+      // Desk items fade back in
+      if (deskItems) {
+        deskItems.style.opacity = lerp(0, 1, pullbackEased);
+      }
+
+      // Room context fully restored
+      if (roomContext) {
+        roomContext.style.opacity = lerp(0.3, 1, pullbackEased);
+      }
+
+      // Scene 4 completely invisible during pull-back
+      scene4.style.opacity = '0';
+      scene4.style.pointerEvents = 'none';
+    }
+
+  } else {
+    // === PART B: PORTRAIT ARRIVAL (REORIENTATION) ===
+    // Map progress 0.65-1.0 to 0-1 for portrait arrival
+    const portraitProgress = (progress - 0.65) / 0.35;
+    const portraitEased = easeInOutCubic(portraitProgress);
+
+    // Portal exit complete - ensure clean state
+    scene3.style.opacity = '0';
+    scene3.style.pointerEvents = 'none';
+    scene3.style.clipPath = 'none';
+
+    if (centerMonitor) {
+      centerMonitor.style.transform = 'none';
+    }
+
+    // Scene 2 begins to pan left as camera turns left toward portrait
+    // This is REORIENTATION, not portal - room stays visible
+    if (scene2) {
+      const translateX2 = lerp(0, -30, portraitEased);
+      const opacity2 = lerp(1, 0, portraitEased);
+      scene2.style.transform = `translateX(${translateX2}%)`;
+      scene2.style.opacity = opacity2;
+    }
+
+    // Scene 4 (portrait) pans in from left as camera settles
+    const translateX4 = lerp(-30, 0, portraitEased);
+    const opacity4 = lerp(0, 1, portraitEased);
+    scene4.style.transform = `translateX(${translateX4}%)`;
+    scene4.style.opacity = opacity4;
+    scene4.style.pointerEvents = opacity4 > 0.5 ? 'auto' : 'none';
+  }
 }
 
 /**
@@ -644,11 +800,58 @@ function navigateToProject(direction) {
 
 /**
  * Reset scene to hold state (no transforms, full opacity)
+ * Special handling for Scene 3 (monitor interior) to maintain portal state
  */
 function resetSceneToHold(sceneElement) {
   if (!sceneElement) return;
-  sceneElement.style.transform = 'none';
-  sceneElement.style.opacity = '1';
+
+  // Special handling for Scene 3 (Identity Hero - Monitor Interior)
+  if (sceneElement.classList.contains('identity-hero-scene')) {
+    // Scene 3 hold state: Inside monitor portal
+    sceneElement.style.transform = 'none';
+    sceneElement.style.opacity = '1';
+    sceneElement.style.clipPath = 'inset(3% 3% 3% 3% round 8px)'; // Bezel mask maintained
+    sceneElement.style.pointerEvents = 'auto';
+
+    // Ensure room (Scene 2) is completely invisible during Scene 3 hold
+    const scene2 = SCENES[0].element;
+    if (scene2) {
+      scene2.style.opacity = '0';
+      scene2.style.pointerEvents = 'none';
+    }
+
+    // Ensure monitor is at portal scale
+    const centerMonitor = document.querySelector('.monitor--center');
+    if (centerMonitor) {
+      centerMonitor.style.transform = 'scale(8)';
+      centerMonitor.style.zIndex = '100';
+    }
+
+    // Ensure side monitors invisible
+    const sideMonitors = document.querySelectorAll('.monitor--left, .monitor--right');
+    sideMonitors.forEach(monitor => {
+      monitor.style.opacity = '0';
+    });
+
+    // Ensure desk items invisible
+    const deskItems = document.querySelector('.desk-items');
+    if (deskItems) {
+      deskItems.style.opacity = '0';
+    }
+
+    // Ensure room context invisible
+    const roomContext = document.querySelector('.room-context');
+    if (roomContext) {
+      roomContext.style.opacity = '0';
+    }
+  } else {
+    // Normal scenes: clean hold state
+    sceneElement.style.transform = 'none';
+    sceneElement.style.opacity = '1';
+    sceneElement.style.clipPath = 'none';
+    sceneElement.style.pointerEvents = 'auto';
+  }
+
   sceneElement.classList.add('scene--hold');
   sceneElement.classList.remove('scene--hidden', 'scene--transitioning');
 }
